@@ -408,6 +408,11 @@ if(mapEl){
     s+=`<g class="pin" data-reg="${p[0]}"><circle class="h" cx="${x}" cy="${y}" r="3"/><circle class="c" cx="${x}" cy="${y}" r="${p[4]?3:2}"/><text x="${left?x-6:x+6}" y="${y+2.5}" text-anchor="${left?'end':'start'}">${p[5]==='N'?'':p[1]}</text></g>`});
   mapEl.innerHTML=s;
   ['egypt','ksa','intl'].forEach(k=>{const el=$(`[data-tags="${k}"]`);if(el)el.innerHTML=pins.filter(p=>p[0]===k&&p[5]!=='N').map(p=>`<span>${p[1]}</span>`).join('')});
+  /* nudge overlapping labels apart (e.g. the Greater Cairo cluster) */
+  try{const T=$$('.pin text',mapEl).filter(t=>t.textContent).map(t=>({t,b:t.getBBox(),dy:0})).sort((a,b)=>a.b.y-b.b.y);
+    for(let i=0;i<T.length;i++){const a=T[i];for(let j=0;j<i;j++){const c=T[j];const ay=a.b.y+a.dy,cy=c.b.y+c.dy;
+      if(a.b.x<c.b.x+c.b.width&&c.b.x<a.b.x+a.b.width&&ay<cy+c.b.height&&cy<ay+a.b.height){a.dy=cy+c.b.height+.6-a.b.y;j=-1}}
+      if(a.dy)a.t.setAttribute('y',(+a.t.getAttribute('y')+a.dy).toFixed(1))}}catch(e){}
   /* fit each view to its pins *including labels*, so nothing is cut at the edges */
   const fit=(sel,d)=>{try{let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;$$(sel,mapEl).forEach(g=>{const b=g.getBBox();if(!b.width)return;x0=Math.min(x0,b.x);y0=Math.min(y0,b.y);x1=Math.max(x1,b.x+b.width);y1=Math.max(y1,b.y+b.height)});if(x1<x0)return d;const px=(x1-x0)*.08+14,py=(y1-y0)*.08+14;return[x0-px,y0-py,x1-x0+2*px,y1-y0+2*py]}catch(e){return d}};
   const views=[fit('.pin[data-reg="egypt"]',[0,140,364,280]),fit('.pin[data-reg="ksa"]',[270,130,520,500]),fit('.pin',[180,0,744,616])];
