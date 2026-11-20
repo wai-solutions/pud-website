@@ -33,6 +33,8 @@ SEO = {
 }
 CRUMB_NAMES = {'projects.html':'Projects','60-years.html':'60 Years','people.html':'People','sustainability.html':'Sustainability','news.html':'News','about.html':'About','contact.html':'Contact'}
 SITEMAP = []
+import time as _t
+VER = str(int(_t.time()))
 try:
     subprocess.run(['node', os.path.join(OUT, 'tools', 'export_data.js')], check=True, capture_output=True)
 except Exception as ex:
@@ -139,7 +141,7 @@ def page(fn, title, body, solid=True, desc=None, img=None, ld=None, noindex=Fals
 {meta}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/pud.css">
+<link rel="stylesheet" href="assets/pud.css?v={VER}">
 </head>
 <body>
 {chrome(fn, solid)}
@@ -147,8 +149,8 @@ def page(fn, title, body, solid=True, desc=None, img=None, ld=None, noindex=Fals
 {body}
 </main>
 {FOOT}
-<script src="assets/projects.js"></script>
-<script src="assets/pud.js"></script>
+<script src="assets/projects.js?v={VER}"></script>
+<script src="assets/pud.js?v={VER}"></script>
 </body>
 </html>'''
     open(os.path.join(OUT, fn), 'w').write(html)
