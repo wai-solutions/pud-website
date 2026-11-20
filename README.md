@@ -111,8 +111,9 @@ Without this step, Google and Bing can take weeks to discover the site.
 ## Enquiries (floating chat + contact form)
 
 - A floating chat button (bottom-right, every page) and the Contact page form send enquiries by email through **FormSubmit** (https://formsubmit.co), with no server needed.
-- Recipients: `inas.bakeer@wai-s.com` (main) and `m.sawaf@risepersonal.com` (CC). To change them, edit `MAIL_TO` and `MAIL_CC` at the top of the "ENQUIRIES" block in `assets/pud.js`.
-- **One-time activation:** the very first submission triggers a confirmation email from FormSubmit to `MAIL_TO`. Click **Activate** in that email. Messages are delivered only after activation. Repeat this whenever `MAIL_TO` changes or the site moves to a new domain.
+- Recipients: `inas.bakeer@wai-s.com` (main, through its FormSubmit alias `0da4bada9ef65bbe295f6ada2514de50` so the address isn't exposed in the code) and `m.sawaf@risepersonal.com` (CC). To change them, edit `MAIL_TO` and `MAIL_CC` at the top of the "ENQUIRIES" block in `assets/pud.js`.
+- **One-time activation:** the very first submission triggers a confirmation email from FormSubmit to `MAIL_TO`. Click **Activate** in that email. Messages are delivered only after activation. Repeat this whenever `MAIL_TO` changes or the site moves to a new domain (e.g. pudconsultants.com). FormSubmit activates per website domain.
+- **Keep enquiries out of spam:** in each receiving mailbox, mark one FormSubmit email as **Not spam**, and add a filter for `submissions@formsubmit.co` set to *Never send to Spam*. For best deliverability on the final domain, consider a sender on the company's own domain (e.g. a small serverless function with Resend/SendGrid using SPF/DKIM on pudconsultants.com).
 - After sending, visitors see: *"Thank you for contacting us. Our team will respond and get back to you within 48 hours."*
 - Spam protection: a hidden honeypot field. FormSubmit's reCAPTCHA can be enabled by removing the `_captcha=false` line.
 

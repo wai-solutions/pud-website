@@ -438,7 +438,7 @@ if(nl){const cats=['All',...new Set(NEWS.map(n=>n.c))];const nf=$('#newsF');let 
 
 /* form */
 /* =============== ENQUIRIES (contact form + floating chat) =============== */
-const MAIL_TO='inas.bakeer@wai-s.com',MAIL_CC='m.sawaf@risepersonal.com';
+const MAIL_TO='0da4bada9ef65bbe295f6ada2514de50' /* FormSubmit alias of inas.bakeer@wai-s.com (keeps the address out of public code) */,MAIL_CC='m.sawaf@risepersonal.com';
 const THANKS='Thank you for contacting us. Our team will respond and get back to you within 48 hours.';
 const sendEnquiry=async(d,source)=>{
   const fd=new FormData();
