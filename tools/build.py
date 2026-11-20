@@ -48,6 +48,9 @@ def jsonld(obj):
 def head_meta(fn, title, desc, img, extra_ld=None, noindex=False, crumbs=None, ogtype='website'):
     url = BASE + ('' if fn == 'index.html' else fn)
     imgurl = BASE + 'img/' + img
+    # main pages share the square PUD logo as their link thumbnail; project/article pages keep their own photo
+    shareimg = imgurl if ogtype == 'article' else BASE + 'img/pud-icon-1200.png'
+    sharesz = '' if ogtype == 'article' else '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="1200">\n<meta property="og:image:alt" content="PUD Consultants logo">'
     g = [ORG, {"@type": "WebSite", "@id": BASE + "#site", "url": BASE, "name": "PUD Consultants", "publisher": {"@id": BASE + "#org"}, "inLanguage": "en"},
          {"@type": "WebPage", "@id": url + "#page", "url": url, "name": title, "description": desc, "isPartOf": {"@id": BASE + "#site"}, "about": {"@id": BASE + "#org"}, "primaryImageOfPage": imgurl, "inLanguage": "en"}]
     if crumbs:
@@ -60,9 +63,9 @@ def head_meta(fn, title, desc, img, extra_ld=None, noindex=False, crumbs=None, o
          '<meta name="theme-color" content="#EE4223">', '<meta name="author" content="PUD Consultants">',
          f'<meta property="og:type" content="{ogtype}">', '<meta property="og:site_name" content="PUD Consultants">',
          f'<meta property="og:title" content="{e(title)}">', f'<meta property="og:description" content="{e(desc)}">',
-         f'<meta property="og:url" content="{url}">', f'<meta property="og:image" content="{imgurl}">', '<meta property="og:locale" content="en_US">',
-         '<meta name="twitter:card" content="summary_large_image">', f'<meta name="twitter:title" content="{e(title)}">',
-         f'<meta name="twitter:description" content="{e(desc)}">', f'<meta name="twitter:image" content="{imgurl}">',
+         f'<meta property="og:url" content="{url}">', f'<meta property="og:image" content="{shareimg}">', sharesz, '<meta property="og:locale" content="en_US">',
+         ('<meta name="twitter:card" content="summary_large_image">' if ogtype == 'article' else '<meta name="twitter:card" content="summary">'), f'<meta name="twitter:title" content="{e(title)}">',
+         f'<meta name="twitter:description" content="{e(desc)}">', f'<meta name="twitter:image" content="{shareimg}">',
          '<link rel="alternate" type="text/plain" title="LLM summary" href="llms.txt">',
          jsonld({"@context": "https://schema.org", "@graph": g})]
     if not noindex: SITEMAP.append(url)
@@ -678,7 +681,7 @@ page('contact.html', 'Contact PUD Consultants: Cairo, Riyadh, Dubai', landing('C
 REG = {'egypt': 'Egypt', 'ksa': 'Saudi Arabia', 'intl': 'International'}
 E = _h.escape
 def pimgname(p):
-    return f"{p['s']}.jpg" if p.get('i') == '1' and os.path.exists(os.path.join(OUT, 'img', p['s'] + '.jpg')) else 'cairo-media-city.jpg'
+    return f"{p['s']}.jpg" if os.path.exists(os.path.join(OUT, 'img', p['s'] + '.jpg')) else 'cairo-media-city.jpg'
 for p in DATA['projects']:
     nm, img = p['n'], pimgname(p)
     desc = (p.get('d') or f"{nm}, {p.get('l','')}: a PUD Consultants project.").strip()
