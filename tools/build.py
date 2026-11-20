@@ -5,7 +5,7 @@ BASE = 'https://wai-solutions.github.io/pud-website/'
 ORG = {
   "@type": ["Organization", "ProfessionalService"], "@id": BASE + "#org",
   "name": "PUD Consultants", "alternateName": ["Planning & Urban Development Consultants", "Planning Urban Development (PUD)"],
-  "url": BASE, "logo": BASE + "img/pud-logo-v.png", "image": BASE + "img/cairo-media-city.jpg",
+  "url": BASE, "logo": BASE + "img/pud-icon-512.png", "image": BASE + "img/cairo-media-city.jpg",
   "foundingDate": "1966", "founder": {"@type": "Person", "name": "Prof. Abdallah Abdel Aziz Attia"},
   "description": "Multidisciplinary planning and design consultancy founded in Cairo in 1966, shaping sustainable cities, tourism destinations, heritage areas and sacred landscapes across Egypt, Saudi Arabia, the UAE and beyond.",
   "slogan": "60 Years of Shaping Sustainable Cities",
@@ -136,7 +136,10 @@ def page(fn, title, body, solid=True, desc=None, img=None, ld=None, noindex=Fals
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" href="img/pud-logo-v.png">
+<link rel="icon" type="image/png" sizes="48x48" href="img/favicon-48.png">
+<link rel="icon" type="image/png" sizes="512x512" href="img/pud-icon-512.png">
+<link rel="apple-touch-icon" sizes="180x180" href="img/apple-touch-icon.png">
+<link rel="manifest" href="site.webmanifest">
 <title>{title}</title>
 {meta}
 <meta name="pud-build" content="{VER}">
@@ -787,5 +790,7 @@ llms = f"""# PUD Consultants
 {proj_lines}
 """
 open(os.path.join(OUT, 'llms.txt'), 'w').write(llms)
+open(os.path.join(OUT, 'site.webmanifest'), 'w').write(json.dumps({"name": "PUD Consultants", "short_name": "PUD", "start_url": "./", "display": "browser", "background_color": "#ffffff", "theme_color": "#EE4223",
+    "icons": [{"src": "img/apple-touch-icon.png", "sizes": "180x180", "type": "image/png"}, {"src": "img/pud-icon-512.png", "sizes": "512x512", "type": "image/png"}]}, indent=1))
 
 print('ok')

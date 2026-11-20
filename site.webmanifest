@@ -1,0 +1,20 @@
+{
+ "name": "PUD Consultants",
+ "short_name": "PUD",
+ "start_url": "./",
+ "display": "browser",
+ "background_color": "#ffffff",
+ "theme_color": "#EE4223",
+ "icons": [
+  {
+   "src": "img/apple-touch-icon.png",
+   "sizes": "180x180",
+   "type": "image/png"
+  },
+  {
+   "src": "img/pud-icon-512.png",
+   "sizes": "512x512",
+   "type": "image/png"
+  }
+ ]
+}
