@@ -397,9 +397,9 @@ if(mapEl){
   const pins=[['egypt','Giza Pyramids Plateau',31.13,29.98,1],['egypt','Cairo Media City',30.95,29.85],['egypt','New Administrative Capital',31.75,30.02,1],['egypt','Royal Oasis · Sheikh Zayed',30.98,30.1],['egypt','Sumou Blvd · Mostakbal City',31.6,30.15],['egypt','Alamein Riviera',28.95,30.83,1],['egypt','Marassi',28.75,30.92],['egypt','Ras El Hekma',27.9,31.15,1],['egypt','Marsa Matrouh',27.24,31.35,1],['egypt','Sokhna Heights',32.35,29.6],['egypt','Samatour · Gulf of Suez',32.7,29.15],['egypt','Hilton Dahab',34.51,28.5,1],['egypt','Port Ghalib',34.86,25.53,1],['egypt','Gargoub',33.55,26.6],['egypt','Castle Zaman',33.8,27.26],['egypt','Tut Amoun · Aswan',32.88,24.0,1],['egypt','Assiut',31.18,27.18],['egypt','Sohag',31.7,26.56],['egypt','Tanta',31.0,30.79],
    ['ksa','Riyadh · Diriyah · Taj Al Riyadh',46.7,24.7,1],['ksa','Jeddah',39.2,21.5,1,'L'],['ksa','Makkah · Al Mashaaer',39.95,21.7,1],['ksa','Madinah Hotels',39.6,24.47,1],['ksa','AlUla',37.92,26.62],['ksa','Khaybar Heritage',39.3,25.7,1],['ksa','Jazan Economic City',42.55,16.9,1],['ksa','NEOM',35.2,28.0,1],['ksa','Al Khafji · Gulf Coast',48.49,28.44,1],['ksa','Najran',44.13,17.49],['ksa','Taif',40.42,21.27,0,'N'],['ksa','Yanbu · YUWDDA',38.06,24.09],['ksa','Red Sea Project',36.6,25.6],
    ['intl','Kuwait',47.98,29.37,1],['intl','Al-Aqeelah Oasis · Damascus',36.3,33.5,1],['intl','Marina Latakia',35.78,35.52,1],['intl','Homs',36.72,34.73],['intl','New Najaf City',44.33,32.0,1],['intl','FAO Port · Basrah',48.5,29.97],['intl','Dubai',55.27,25.2,1],['intl','Tehran Laleh Hotel',51.39,35.69,1],['intl','Gaza & West Bank',34.45,31.5]];
-  let s=`<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 6 L6 0" stroke="#d9e2e7" stroke-width=".6"/></pattern></defs><rect x="-200" y="-200" width="1400" height="1100" fill="#F7F5F2"/>`;
-  for(let x=0;x<=924;x+=28)s+=`<line x1="${x}" y1="0" x2="${x}" y2="616" stroke="#EEEAE4" stroke-width=".4"/>`;
-  for(let y=0;y<=616;y+=28)s+=`<line x1="0" y1="${y}" x2="924" y2="${y}" stroke="#EEEAE4" stroke-width=".4"/>`;
+  let s=`<defs><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse"><path d="M0 6 L6 0" stroke="#d9e2e7" stroke-width=".6"/></pattern></defs><rect x="-600" y="-600" width="2200" height="1900" fill="#F7F5F2"/>`;
+  for(let x=-588;x<=1512;x+=28)s+=`<line x1="${x}" y1="-588" x2="${x}" y2="1288" stroke="#EEEAE4" stroke-width=".4"/>`;
+  for(let y=-588;y<=1288;y+=28)s+=`<line x1="-588" y1="${y}" x2="1512" y2="${y}" stroke="#EEEAE4" stroke-width=".4"/>`;
   Object.values(W).forEach(w=>{s+=`<path d="${poly(w)}" fill="#E8EDF0"/><path d="${poly(w)}" fill="url(#hatch)" stroke="#bccad2" stroke-width=".6"/>`});
   s+=`<path d="${nile.map((p,i)=>(i?'L':'M')+PJ(p[0],p[1]).join(' ')).join(' ')}" fill="none" stroke="#9fb6c2" stroke-width="1.4"/>`;
   const lab=(t,lon,lat,z=9)=>{const[x,y]=PJ(lon,lat);return `<text x="${x}" y="${y}" font-family="Roboto" font-size="${z}" letter-spacing="2" fill="#a59c90" text-anchor="middle">${t}</text>`};
@@ -408,7 +408,11 @@ if(mapEl){
     s+=`<g class="pin" data-reg="${p[0]}"><circle class="h" cx="${x}" cy="${y}" r="3"/><circle class="c" cx="${x}" cy="${y}" r="${p[4]?3:2}"/><text x="${left?x-6:x+6}" y="${y+2.5}" text-anchor="${left?'end':'start'}">${p[5]==='N'?'':p[1]}</text></g>`});
   mapEl.innerHTML=s;
   ['egypt','ksa','intl'].forEach(k=>{const el=$(`[data-tags="${k}"]`);if(el)el.innerHTML=pins.filter(p=>p[0]===k&&p[5]!=='N').map(p=>`<span>${p[1]}</span>`).join('')});
-  const views=[[0,140,364,280],[270,130,520,500],[180,0,744,616]];curView=views[0].slice();targetView=views[0].slice();let cs=-1;
+  /* fit each view to its pins *including labels*, so nothing is cut at the edges */
+  const fit=(sel,d)=>{try{let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;$$(sel,mapEl).forEach(g=>{const b=g.getBBox();if(!b.width)return;x0=Math.min(x0,b.x);y0=Math.min(y0,b.y);x1=Math.max(x1,b.x+b.width);y1=Math.max(y1,b.y+b.height)});if(x1<x0)return d;const px=(x1-x0)*.08+14,py=(y1-y0)*.08+14;return[x0-px,y0-py,x1-x0+2*px,y1-y0+2*py]}catch(e){return d}};
+  const views=[fit('.pin[data-reg="egypt"]',[0,140,364,280]),fit('.pin[data-reg="ksa"]',[270,130,520,500]),fit('.pin',[180,0,744,616])];
+  /* size the steps box to the tallest step so its tags are never clipped */
+  const stepsBox=$('.steps');const sizeSteps=()=>{if(!stepsBox)return;let m=0;$$('.step',stepsBox).forEach(x=>m=Math.max(m,x.scrollHeight));if(m)stepsBox.style.minHeight=m+'px'};sizeSteps();addEventListener('resize',sizeSteps);curView=views[0].slice();targetView=views[0].slice();let cs=-1;
   setStep=n=>{if(n===cs)return;cs=n;$$('.step').forEach(x=>x.classList.toggle('on',+x.dataset.step===n));$$('.j-tabs .chip').forEach(b=>b.classList.toggle('on',+b.dataset.go===n));
     const reg=['egypt','ksa','intl'][n];$$('.pin').forEach(p=>{const on=p.dataset.reg===reg;p.classList.toggle('on',on);p.classList.toggle('dim',!on&&n!==2)});$('#far')&&$('#far').classList.toggle('on',n===2);targetView=views[n].slice()};
   setStep(0);

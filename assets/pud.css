@@ -253,7 +253,7 @@ button{font:inherit;color:inherit}
 .step.on{opacity:1;transform:none;pointer-events:auto}
 .step h3{font-size:clamp(30px,3vw,48px);margin:8px 0 16px}
 .step p{color:var(--ink2)}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;max-height:116px;overflow:hidden}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:14px}
 .tags span{font-size:12px;border:1px solid var(--rule);border-radius:20px;padding:4px 10px;color:var(--mid)}
 .j-map{position:relative;margin-top:var(--hh)}
 .j-map svg{position:absolute;inset:0;width:100%;height:100%}
@@ -826,3 +826,9 @@ body.lite-on .lg-track{animation:none}body.lite-on .lg-row{overflow-x:auto}
 .pc-again{margin-top:18px;background:none;border:0;color:var(--mid);text-decoration:underline;cursor:pointer;font:inherit;font-size:13px}
 @media(max-width:600px){.pchat{right:14px;bottom:14px}.pc-btn{width:54px;height:54px}.pchat:not(.open) .pc-btn::after{width:54px;height:54px}.pc-panel{bottom:68px}}
 @media (prefers-reduced-motion: reduce){.pchat .pc-btn::after{animation:none;display:none}}
+
+/* journey: show all place tags, keep text within the screen */
+.j-text{overflow-y:auto;scrollbar-width:none}.j-text::-webkit-scrollbar{display:none}
+.journey .tags span{font-size:12.5px;padding:5px 11px}
+.journey .step h3{font-size:clamp(28px,2.6vw,42px)}
+.journey .step p{font-size:clamp(15px,1.15vw,18px);line-height:1.55}
