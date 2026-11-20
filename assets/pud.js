@@ -237,7 +237,10 @@ if(liteBtn){liteSw.checked=LITE;liteBtn.addEventListener('click',()=>{const o=li
 const disc=$('#disc');
 if(disc){const DL=[['Urban & Regional Planning','Urban & Regional Planning'],['Master Planning','Master Planning'],['Architecture','Architecture'],['Landscape','Landscape'],['Coastal & Tourism','Coastal & Tourism'],['Strategic Advisory','Strategic Advisory']];
   const slug=t=>'type-'+t.toLowerCase().replace(/&/g,'and').replace(/[^a-z]+/g,'-');
-  disc.innerHTML=DL.map(([label,t])=>{const ps=P.filter(p=>p.t===t);const im=(ps.find(p=>p.f&&p.i)||ps.find(p=>p.i)||{}).s;return `<a href="projects.html#${slug(t)}" data-img="${im?'img/'+im+'-t.jpg':''}"><span class="nm">${label}<sup>${ps.length}</sup></span><span class="ar">→</span></a>`}).join('');
+  disc.innerHTML=DL.map(([label,t])=>{const ps=P.filter(p=>p.t===t);const im=(ps.find(p=>p.f&&p.i)||ps.find(p=>p.i)||{}).s;return `<a href="projects.html#${slug(t)}" data-img="${im?'img/'+im+'-t.jpg':''}"><span class="nm">${label}<sup>${ps.length}</sup></span>${im?`<span class="dth"><img src="img/${im}-t.jpg" alt="" loading="lazy"></span>`:''}<span class="ar">→</span></a>`}).join('');
+  /* highlight the discipline nearest the middle of the screen while scrolling */
+  const rows=$$('a',disc);let act=-1;const hl=()=>{const r=disc.getBoundingClientRect(),vh=innerHeight;if(r.bottom<0||r.top>vh)return;const mid=vh*.5;let bi=0,bd=1e9;rows.forEach((a,i)=>{const b=a.getBoundingClientRect();const d=Math.abs(b.top+b.height/2-mid);if(d<bd){bd=d;bi=i}});if(bi!==act){act=bi;rows.forEach((a,i)=>a.classList.toggle('act',i===bi));disc.classList.add('scrolly')}};
+  addEventListener('scroll',()=>requestAnimationFrame(hl),{passive:true});addEventListener('resize',hl);hl();
   const fl=$('#discFloat'),fi=$('img',fl);let tx=0,ty=0,cx=0,cy=0,on=false;
   disc.addEventListener('mouseover',e=>{const a=e.target.closest('a');if(!a||!a.dataset.img)return;fi.src=a.dataset.img;fl.classList.add('on');on=true});
   disc.addEventListener('mouseleave',()=>{fl.classList.remove('on');on=false});
