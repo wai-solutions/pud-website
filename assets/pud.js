@@ -553,12 +553,11 @@ function frame(){
     if(!mob){m.style.width=(56+44*e)+'vw';m.style.height=(66+34*e)+'%';m.style.borderRadius='';
       L.style.transform=`translate(${-e*32}vw,-50%)`;R.style.transform=`translate(${e*32}vw,-50%)`;$$('.s-side',strip).forEach(x=>x.style.opacity=1-e*1.2);if(mi)mi.style.transform=''}
     else{/* mobile: card grows to full screen; side images fly out; photo zooms out with depth */
-      m.style.width=`calc(${78+22*e}vw)`;m.style.height=(50+50*e)+'%';m.style.borderRadius=((1-e)*14)+'px';
-      L.style.transform=`translate(${-e*70}vw,${-e*40}vh) rotate(${-6+e*-8}deg)`;R.style.transform=`translate(${e*70}vw,${e*40}vh) rotate(${6+e*8}deg)`;
-      $$('.s-side',strip).forEach(x=>x.style.opacity=Math.max(0,1-e*1.6));
-      if(mi)mi.style.transform=`scale(${1.35-.35*e}) translateY(${(p-.5)*-6}%)`;}
-    strip.classList.toggle('full',e>.82);strip.style.setProperty('--e',e.toFixed(3));
-    const it=$('.intro');if(it&&mob){it.style.transform=`translateY(${-Math.min(1,e*2)*40}px)`;it.style.opacity=String(1-Math.min(1,e*2.2))}}}
+      m.style.width=(66+34*e)+'vw';m.style.height=(58+42*e)+'%';m.style.borderRadius='';
+      L.style.transform=`translate(${-e*30}vw,-50%)`;R.style.transform=`translate(${e*30}vw,-50%)`;
+      $$('.s-side',strip).forEach(x=>x.style.opacity=Math.max(0,1-e*1.4));
+      if(mi)mi.style.transform=`scale(${1.12-.12*e})`;}
+    strip.classList.toggle('full',e>.82);strip.style.setProperty('--e',e.toFixed(3));}}
   if(journey){const r=journey.getBoundingClientRect();if(r.top<vh&&r.bottom>0){const jp=clamp(-r.top/(journey.offsetHeight-vh),0,.999);setStep(Math.floor(jp*3));
     jProg.forEach((b,i)=>b.style.transform=`scaleX(${clamp(jp*3-i,0,1).toFixed(3)})`);
     if(jCard&&innerWidth<=900)journey.style.setProperty('--jcard',jCard.offsetHeight+'px')}}
