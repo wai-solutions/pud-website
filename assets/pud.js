@@ -363,6 +363,7 @@ if(cmB.length){const cio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isInte
 (()=>{const f=location.pathname.split('/').pop(),h=location.hash.slice(1);if(!h)return;
   if(f==='project.html'&&P.some(p=>p.s===h))location.replace('project-'+h+'.html');
   if(f==='article.html'&&NEWS.some(n=>n.s===h))location.replace('article-'+h+'.html')})();
+$$('[data-count-reg]').forEach(e=>{const n=P.filter(p=>p.r===e.dataset.countReg).length;if(n)e.textContent='('+n+')'});
 const ad=$('#aDetail');
 function renderArticle(){
   if(!ad)return;const s=ad.dataset.slug||location.hash.slice(1);const i=Math.max(0,NEWS.findIndex(n=>n.s===s));const n=NEWS[i];
@@ -417,11 +418,11 @@ if(mapEl){
   const fit=(sel,d)=>{try{let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;$$(sel,mapEl).forEach(g=>{const b=g.getBBox();if(!b.width)return;x0=Math.min(x0,b.x);y0=Math.min(y0,b.y);x1=Math.max(x1,b.x+b.width);y1=Math.max(y1,b.y+b.height)});if(x1<x0)return d;const px=(x1-x0)*.08+14,py=(y1-y0)*.08+14;return[x0-px,y0-py,x1-x0+2*px,y1-y0+2*py]}catch(e){return d}};
   const views=[fit('.pin[data-reg="egypt"]',[0,140,364,280]),fit('.pin[data-reg="ksa"]',[270,130,520,500]),fit('.pin',[180,0,744,616])];
   /* size the steps box to the tallest step so its tags are never clipped */
-  const stepsBox=$('.steps');const sizeSteps=()=>{if(!stepsBox)return;let m=0;$$('.step',stepsBox).forEach(x=>m=Math.max(m,x.scrollHeight));if(m)stepsBox.style.minHeight=m+'px'};sizeSteps();addEventListener('resize',sizeSteps);curView=views[0].slice();targetView=views[0].slice();let cs=-1;
+  curView=views[0].slice();targetView=views[0].slice();let cs=-1;
   setStep=n=>{if(n===cs)return;cs=n;$$('.step').forEach(x=>x.classList.toggle('on',+x.dataset.step===n));$$('.j-tabs .chip').forEach(b=>b.classList.toggle('on',+b.dataset.go===n));
     const reg=['egypt','ksa','intl'][n];$$('.pin').forEach(p=>{const on=p.dataset.reg===reg;p.classList.toggle('on',on);p.classList.toggle('dim',!on&&n!==2)});$('#far')&&$('#far').classList.toggle('on',n===2);targetView=views[n].slice()};
   setStep(0);
-  $$('.j-tabs .chip').forEach(b=>b.addEventListener('click',()=>{const n=+b.dataset.go,j=$('#journey');if(innerWidth>900)scrollTo({top:j.offsetTop+(j.offsetHeight-innerHeight)*(n/3+.12),behavior:RM?'auto':'smooth'});setStep(n)}));
+  $$('.j-tabs .chip').forEach(b=>b.addEventListener('click',()=>{const n=+b.dataset.go,j=$('#journey');scrollTo({top:j.offsetTop+(j.offsetHeight-innerHeight)*(n/3+.12),behavior:RM?'auto':'smooth'});setStep(n)}));
 }
 
 /* cover layers */
@@ -541,7 +542,7 @@ function frame(){
     const m=$('.s-main',strip);m.style.width=(56+44*e)+'vw';m.style.height=(66+34*e)+'%';
     $('.s-l',strip).style.transform=`translate(${-e*32}vw,-50%)`;$('.s-r',strip).style.transform=`translate(${e*32}vw,-50%)`;
     $$('.s-side',strip).forEach(s=>s.style.opacity=1-e*1.2);strip.classList.toggle('full',e>.82)}
-  if(journey&&innerWidth>900){const r=journey.getBoundingClientRect();if(r.top<vh&&r.bottom>0)setStep(Math.floor(clamp(-r.top/(journey.offsetHeight-vh),0,.999)*3))}
+  if(journey){const r=journey.getBoundingClientRect();if(r.top<vh&&r.bottom>0)setStep(Math.floor(clamp(-r.top/(journey.offsetHeight-vh),0,.999)*3))}
   if(mapEl&&curView){for(let i=0;i<4;i++)curView[i]+=(targetView[i]-curView[i])*(RM?1:.07);mapEl.setAttribute('viewBox',curView.map(v=>v.toFixed(2)).join(' '))}
   if(tl&&tlTrack){const r=tl.getBoundingClientRect();if(r.top<vh&&r.bottom>0){const p=clamp(-r.top/(tl.offsetHeight-vh),0,1);tlTrack.style.transform=`translate3d(${-p*(tlTrack.scrollWidth-innerWidth)}px,0,0)`;$('#tlBar').style.width=p*100+'%'}}
   if(z60){const r=z60.getBoundingClientRect();const p=clamp(-r.top/(z60.offsetHeight-vh),0,1);const e=p*p*p;z60m.style.transform=RM?'':`scale(${1+e*60})`;z60m.style.visibility=p>.985?'hidden':'visible';z60e.style.opacity=String(clamp((p-.8)/.15,0,1));z60e.style.transform=`translate3d(0,${(1-clamp((p-.8)/.15,0,1))*30}px,0)`;z60c.style.opacity=String(1-clamp(p/.2,0,1))}

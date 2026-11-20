@@ -248,8 +248,8 @@ button{font:inherit;color:inherit}
 .j-stage{position:sticky;top:0;height:100vh;display:grid;grid-template-columns:minmax(300px,4fr) minmax(0,8fr);border-top:1px solid var(--rule)}
 .j-text{padding:calc(var(--hh) + 40px) var(--gut) 40px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--rule);background:#fff;position:relative;z-index:2}
 .j-tabs{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 22px}
-.steps{position:relative;min-height:400px}
-.step{position:absolute;inset:0;opacity:0;transform:translateY(20px);transition:.6s;pointer-events:none}
+.steps{position:relative;display:grid}
+.step{grid-area:1/1;position:relative;opacity:0;transform:translateY(20px);transition:.6s;pointer-events:none}
 .step.on{opacity:1;transform:none;pointer-events:auto}
 .step h3{font-size:clamp(30px,3vw,48px);margin:8px 0 16px}
 .step p{color:var(--ink2)}
@@ -271,7 +271,7 @@ button{font:inherit;color:inherit}
 .far-i b{color:var(--o);font-size:18px;width:18px;text-align:center}
 a.far-i:hover{color:var(--o)}
 .far.on{opacity:1}
-@media(max-width:900px){.journey{height:auto}.j-stage{position:relative;height:auto;grid-template-columns:1fr}.j-text{border-right:0}.j-map{height:70vh;margin-top:0}.steps{min-height:430px}}
+@media(max-width:900px){.journey{height:320vh}.j-stage{height:100vh;height:100svh;grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}.j-text{border-right:0;border-bottom:1px solid var(--rule);padding:calc(var(--hh) + 14px) var(--gut) 14px;justify-content:flex-start;overflow:visible}.j-tabs{margin:10px 0 12px}.j-tabs .chip{padding:8px 14px;font-size:14px}.j-map{margin-top:0;height:auto}.journey .step h3{font-size:26px;margin:4px 0 8px}.journey .step p{font-size:14px;line-height:1.5}.j-cta{margin-top:12px;font-size:14px}.far{left:8px;right:8px;top:8px;bottom:auto;flex-direction:row;flex-wrap:wrap;gap:4px 12px;padding:8px 10px}.far-l{display:none}.far-i{font-size:12.5px;gap:5px}.far-i b{font-size:14px;width:auto}}
 
 /* timeline */
 .tl{height:400vh;background:var(--tint)}
@@ -837,3 +837,8 @@ body.lite-on .lg-track{animation:none}body.lite-on .lg-row{overflow-x:auto}
 .journey .tags span{font-size:12.5px;padding:5px 11px}
 .journey .step h3{font-size:clamp(28px,2.6vw,42px)}
 .journey .step p{font-size:clamp(15px,1.15vw,18px);line-height:1.55}
+
+.j-cta{display:inline-flex;align-items:center;gap:8px;margin-top:22px;font-size:15px;font-weight:500;color:var(--ink);border-bottom:1px solid var(--ink);padding-bottom:3px}
+.j-cta .j-n{color:var(--mid);font-weight:400}
+.j-cta svg{width:16px;height:10px;fill:none;stroke:currentColor;stroke-width:1.4;transition:transform .3s}
+.j-cta:hover{color:var(--o);border-color:var(--o)}.j-cta:hover svg{transform:translateX(4px)}
