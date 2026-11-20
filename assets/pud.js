@@ -407,7 +407,7 @@ if(mapEl){
   pins.forEach(p=>{const[x,y]=PJ(p[2],p[3]);const left=(p[2]<32&&p[0]==='egypt')||p[5]==='L';
     s+=`<g class="pin" data-reg="${p[0]}"><circle class="h" cx="${x}" cy="${y}" r="3"/><circle class="c" cx="${x}" cy="${y}" r="${p[4]?3:2}"/><text x="${left?x-6:x+6}" y="${y+2.5}" text-anchor="${left?'end':'start'}">${p[5]==='N'?'':p[1]}</text></g>`});
   mapEl.innerHTML=s;
-  ['egypt','ksa','intl'].forEach(k=>{const el=$(`[data-tags="${k}"]`);if(el)el.innerHTML=pins.filter(p=>p[0]===k&&p[5]!=='N').map(p=>`<span>${p[1]}</span>`).join('')});
+  ['egypt','ksa','intl'].forEach(k=>{const el=$(`[data-tags="${k}"]`);if(el)el.innerHTML=pins.filter(p=>p[0]===k&&p[5]!=='N').map(p=>`<span>${p[1]}</span>`).join('')+(k==='intl'?'<span>Cameroon · Massoumbou–Diwom</span><span>Gambia</span><span>Germany</span>':'')});
   /* nudge overlapping labels apart (e.g. the Greater Cairo cluster) */
   try{const T=$$('.pin text',mapEl).filter(t=>t.textContent).map(t=>({t,b:t.getBBox(),dy:0})).sort((a,b)=>a.b.y-b.b.y);
     for(let i=0;i<T.length;i++){const a=T[i];for(let j=0;j<i;j++){const c=T[j];const ay=a.b.y+a.dy,cy=c.b.y+c.dy;

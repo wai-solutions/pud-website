@@ -212,7 +212,7 @@ page('index.html', 'PUD Consultants — 60 Years of Shaping Sustainable Cities',
         <div class="step" data-step="2"><div class="lbl o">11 countries</div><h3>Every place has its own rhythm.</h3><p>Kuwait, Syria, Iraq, the UAE, Iran, Palestine, Cameroon, Gambia and Germany: the journey keeps expanding.</p><div class="tags" data-tags="intl"></div></div>
       </div>
     </div>
-    <div class="j-map"><svg id="map" viewBox="0 140 364 280" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Map of PUD project locations"></svg><div class="far" id="far">Also: Cameroon · Gambia · Germany</div></div>
+    <div class="j-map"><svg id="map" viewBox="0 140 364 280" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Map of PUD project locations"></svg><div class="far" id="far"><span class="far-l">Beyond this map</span><span class="far-i"><b>↖</b>Germany</span><span class="far-i"><b>←</b>Gambia</span><a class="far-i" href="project-massoumbou-diwom.html"><b>↙</b>Cameroon · Massoumbou–Diwom</a></div></div>
   </div>
 </section>
 
@@ -387,7 +387,7 @@ page('60-years.html', '60 Years of Shaping Sustainable Cities, 1966–2026 | PUD
         <div class="step" data-step="2"><div class="lbl o">11 countries</div><h3>Every place has its own rhythm.</h3><p>Kuwait, Syria, Iraq, the UAE, Iran, Palestine, Cameroon, Gambia and Germany: the journey keeps expanding.</p><div class="tags" data-tags="intl"></div></div>
       </div>
     </div>
-    <div class="j-map"><svg id="map" viewBox="0 140 364 280" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Map of PUD project locations"></svg><div class="far" id="far">Also: Cameroon · Gambia · Germany</div></div>
+    <div class="j-map"><svg id="map" viewBox="0 140 364 280" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Map of PUD project locations"></svg><div class="far" id="far"><span class="far-l">Beyond this map</span><span class="far-i"><b>↖</b>Germany</span><span class="far-i"><b>←</b>Gambia</span><a class="far-i" href="project-massoumbou-diwom.html"><b>↙</b>Cameroon · Massoumbou–Diwom</a></div></div>
   </div>
 </section>
 
