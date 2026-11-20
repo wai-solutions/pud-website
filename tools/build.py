@@ -139,6 +139,9 @@ def page(fn, title, body, solid=True, desc=None, img=None, ld=None, noindex=Fals
 <link rel="icon" href="img/pud-logo-v.png">
 <title>{title}</title>
 {meta}
+<meta name="pud-build" content="{VER}">
+<script>/* show the newest version after an update, even if the browser cached this page */
+(function(){{try{{var v="{VER}",k="pud-build";if(sessionStorage.getItem(k+location.pathname)==="1")return;fetch(location.pathname+"?_="+Date.now(),{{cache:"no-store"}}).then(function(r){{return r.text()}}).then(function(t){{var m=t.match(/name="pud-build" content="(\d+)"/);if(m&&m[1]!==v){{sessionStorage.setItem(k+location.pathname,"1");location.reload()}}}}).catch(function(){{}})}}catch(e){{}}}})();</script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/pud.css?v={VER}">
