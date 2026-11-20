@@ -108,6 +108,14 @@ Without this step, Google and Bing can take weeks to discover the site.
 - **Projects:** edit `assets/projects.js`; images go in `img/<slug>.jpg` with a thumbnail `img/<slug>-t.jpg`.
 - **Timeline milestones:** the `M` array in `assets/pud.js`.
 
+## Enquiries (floating chat + contact form)
+
+- A floating chat button (bottom-right, every page) and the Contact page form send enquiries by email through **FormSubmit** (https://formsubmit.co), with no server needed.
+- Recipients: `inas.bakeer@wai-s.com` (main) and `m.sawaf@risepersonal.com` (CC). To change them, edit `MAIL_TO` and `MAIL_CC` at the top of the "ENQUIRIES" block in `assets/pud.js`.
+- **One-time activation:** the very first submission triggers a confirmation email from FormSubmit to `MAIL_TO`. Click **Activate** in that email. Messages are delivered only after activation. Repeat this whenever `MAIL_TO` changes or the site moves to a new domain.
+- After sending, visitors see: *"Thank you for contacting us. Our team will respond and get back to you within 48 hours."*
+- Spam protection: a hidden honeypot field. FormSubmit's reCAPTCHA can be enabled by removing the `_captcha=false` line.
+
 ## Local preview
 
 ```

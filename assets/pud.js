@@ -437,9 +437,66 @@ if(nl){const cats=['All',...new Set(NEWS.map(n=>n.c))];const nf=$('#newsF');let 
   nf.addEventListener('click',e=>{const b=e.target.closest('.chip');if(b){cur=b.textContent;draw()}});draw()}
 
 /* form */
-const form=$('#cform');form&&form.addEventListener('submit',e=>{e.preventDefault();const f=e.target;const note=$('#fnote');
-  if(!f.fn.value.trim()||!/\S+@\S+\.\S+/.test(f.em.value)){note.textContent='Please add your name and a valid email.';return}
-  note.textContent='Thank you. This preview isn’t connected to an inbox yet, so your message was not sent.'});
+/* =============== ENQUIRIES (contact form + floating chat) =============== */
+const MAIL_TO='inas.bakeer@wai-s.com',MAIL_CC='m.sawaf@risepersonal.com';
+const THANKS='Thank you for contacting us. Our team will respond and get back to you within 48 hours.';
+const sendEnquiry=async(d,source)=>{
+  const fd=new FormData();
+  Object.entries(d).forEach(([k,v])=>fd.append(k,v||'—'));
+  fd.append('Source',source+' · '+location.href);
+  fd.append('_subject','PUD website enquiry: '+(d.Enquiry||'General')+' — '+(d.Name||''));
+  fd.append('_cc',MAIL_CC);fd.append('_template','table');fd.append('_captcha','false');
+  if(d.Email)fd.append('_replyto',d.Email);
+  const r=await fetch('https://formsubmit.co/ajax/'+MAIL_TO,{method:'POST',headers:{Accept:'application/json'},body:fd});
+  const j=await r.json().catch(()=>({}));if(!r.ok||String(j.success)==='false')throw new Error(j.message||'Send failed');return j};
+const okEmail=v=>/^\S+@\S+\.\S+$/.test(v.trim());
+
+const form=$('#cform');form&&form.addEventListener('submit',async e=>{e.preventDefault();const f=e.target;const note=$('#fnote');
+  if(f._honey&&f._honey.value)return;
+  if(!f.fn.value.trim()||!okEmail(f.em.value)||!f.msg.value.trim()){note.textContent='Please add your name, a valid email and a message.';return}
+  const b=f.querySelector('button[type=submit]');b.disabled=true;note.textContent='Sending…';
+  try{await sendEnquiry({Name:(f.fn.value+' '+f.ln.value).trim(),Email:f.em.value,Enquiry:f.ty.value,Message:f.msg.value},'Contact page');f.reset();note.textContent=THANKS}
+  catch(err){note.textContent='Sorry, your message could not be sent. Please try again or call +20 2 2414 7537.'}
+  finally{b.disabled=false}});
+
+/* floating chat */
+(()=>{
+  const w=document.createElement('div');w.className='pchat';w.innerHTML=`
+  <button class="pc-btn" type="button" aria-label="Chat with PUD" aria-expanded="false" aria-controls="pcPanel">
+    <svg class="pc-i1" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>
+    <svg class="pc-i2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+  <section class="pc-panel" id="pcPanel" role="dialog" aria-label="Send PUD a message" hidden>
+    <header class="pc-h"><img src="img/pud-logo-v.png" alt=""><div><b>PUD Consultants</b><span>We usually reply within 48 hours</span></div></header>
+    <div class="pc-body">
+      <div class="pc-msg">Hello 👋 How can we help? Leave your details and our team will get back to you.</div>
+      <form class="pc-form" novalidate>
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="pc-hp" aria-hidden="true">
+        <label>Name<input name="name" autocomplete="name" required></label>
+        <label>Email<input name="email" type="email" autocomplete="email" required></label>
+        <label>Phone <em>(optional)</em><input name="phone" type="tel" autocomplete="tel"></label>
+        <label>Topic<select name="topic"><option>New project</option><option>Strategic advisory</option><option>Partnership</option><option>Careers</option><option>Media</option><option>Other</option></select></label>
+        <label>Message<textarea name="message" rows="3" required></textarea></label>
+        <button class="pc-send" type="submit">Send message <svg viewBox="0 0 16 10" width="16" aria-hidden="true"><path d="M0 5h14M10 1l4 4-4 4"/></svg></button>
+        <p class="pc-note" aria-live="polite"></p>
+      </form>
+      <div class="pc-done" hidden><div class="pc-tick">✓</div><p></p><button type="button" class="pc-again">Send another message</button></div>
+    </div>
+  </section>`;
+  document.body.appendChild(w);
+  const btn=$('.pc-btn',w),panel=$('.pc-panel',w),f=$('.pc-form',w),note=$('.pc-note',w),done=$('.pc-done',w);
+  const setOpen=o=>{w.classList.toggle('open',o);panel.hidden=!o;btn.setAttribute('aria-expanded',String(o));if(o&&done.hidden)setTimeout(()=>f.elements.name.focus(),60)};
+  btn.addEventListener('click',()=>setOpen(panel.hidden));
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!panel.hidden)setOpen(false)});
+  $('.pc-again',w).addEventListener('click',()=>{done.hidden=true;f.hidden=false;f.elements.name.focus()});
+  f.addEventListener('submit',async e=>{e.preventDefault();if(f._honey.value)return;
+    const v=n=>f.elements[n].value.trim();
+    if(!v('name')||!okEmail(v('email'))||!v('message')){note.textContent='Please add your name, a valid email and a message.';return}
+    const sb=$('.pc-send',w);sb.disabled=true;note.textContent='Sending…';
+    try{await sendEnquiry({Name:v('name'),Email:v('email'),Phone:v('phone'),Enquiry:v('topic'),Message:v('message')},'Website chat');
+      f.reset();note.textContent='';f.hidden=true;$('p',done).textContent=THANKS;done.hidden=false}
+    catch(err){note.textContent='Sorry, your message could not be sent. Please try again or call +20 2 2414 7537.'}
+    finally{sb.disabled=false}});
+})();
 
 watch();
 

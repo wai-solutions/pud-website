@@ -793,3 +793,36 @@ body.lite-on .lg-track{animation:none}body.lite-on .lg-row{overflow-x:auto}
 .pidx a{font-size:16px}.pidx a:hover{color:var(--o)}
 .pidx span{font-size:12.5px;color:var(--mid);margin-top:2px}
 @media(max-width:700px){.pidx{columns:1}}
+/* floating chat */
+.pchat{position:fixed;right:20px;bottom:20px;z-index:80;font-family:var(--f)}
+.pc-btn{position:relative;width:60px;height:60px;border-radius:50%;border:0;background:var(--o);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(238,66,35,.35);transition:transform .25s,box-shadow .25s;margin-left:auto}
+.pc-btn:hover{transform:translateY(-2px) scale(1.04)}
+.pc-btn svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linejoin:round;stroke-linecap:round}
+.pc-btn .pc-i1{fill:#fff;stroke:none}
+.pc-i2{display:none}.pchat.open .pc-i1{display:none}.pchat.open .pc-i2{display:block}
+.pchat:not(.open) .pc-btn::after{content:"";position:absolute;width:60px;height:60px;border-radius:50%;border:2px solid var(--o);animation:pcpulse 2.6s ease-out infinite}
+@keyframes pcpulse{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.5);opacity:0}}
+.pc-panel{position:absolute;right:0;bottom:76px;width:min(370px,calc(100vw - 32px));max-height:min(640px,calc(100vh - 110px));display:flex;flex-direction:column;background:#fff;box-shadow:0 24px 60px rgba(0,0,0,.18);border:1px solid var(--rule);animation:pcin .3s cubic-bezier(.2,.7,.2,1)}
+.pc-panel[hidden]{display:none}
+@keyframes pcin{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.pc-h{display:flex;align-items:center;gap:12px;padding:16px 18px;background:var(--ink);color:#fff}
+.pc-h img{height:38px;width:auto}
+.pc-h b{display:block;font-size:15px;font-weight:500}.pc-h span{display:block;font-size:12px;opacity:.7;margin-top:2px}
+.pc-body{padding:16px 18px 18px;overflow:auto}
+.pc-msg{background:var(--tint);padding:12px 14px;font-size:14px;line-height:1.5;color:var(--ink2);margin-bottom:14px;border-left:3px solid var(--o)}
+.pc-form label{display:block;font-size:12px;color:var(--mid);margin-bottom:10px}
+.pc-form label em{font-style:normal;opacity:.7}
+.pc-form input,.pc-form select,.pc-form textarea{display:block;width:100%;margin-top:4px;border:0;border-bottom:1px solid var(--rule2);padding:8px 0;font:inherit;font-size:15px;color:var(--ink);background:transparent;border-radius:0;outline:none;resize:vertical}
+.pc-form input:focus,.pc-form select:focus,.pc-form textarea:focus{border-color:var(--o)}
+.pc-hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0}
+.pc-send{width:100%;margin-top:6px;padding:13px 16px;border:0;background:var(--o);color:#fff;font:500 15px var(--f);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:10px}
+.pc-send svg{fill:none;stroke:#fff;stroke-width:1.4;height:10px}
+.pc-send:disabled{opacity:.6;cursor:wait}
+.pc-note{font-size:13px;color:var(--o);margin-top:10px;min-height:1em}
+.pc-done{text-align:center;padding:26px 6px 10px}
+.pc-done[hidden]{display:none}
+.pc-tick{width:56px;height:56px;border-radius:50%;background:var(--o);color:#fff;font-size:26px;display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.pc-done p{font-size:16px;line-height:1.55;color:var(--ink)}
+.pc-again{margin-top:18px;background:none;border:0;color:var(--mid);text-decoration:underline;cursor:pointer;font:inherit;font-size:13px}
+@media(max-width:600px){.pchat{right:14px;bottom:14px}.pc-btn{width:54px;height:54px}.pchat:not(.open) .pc-btn::after{width:54px;height:54px}.pc-panel{bottom:68px}}
+@media (prefers-reduced-motion: reduce){.pchat .pc-btn::after{animation:none;display:none}}
