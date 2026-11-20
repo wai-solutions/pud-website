@@ -36,6 +36,8 @@ tools/build.py    optional generator for the HTML pages
 
 The site is fully static — upload the folder as-is to any host.
 
+> **Before going live on a new domain, complete the [Deployment checklist](#deployment-checklist-required) below.** Otherwise search engines will index the wrong URLs.
+
 **GitHub Pages (current):** Settings → Pages → Source: *Deploy from a branch* → `main` / `(root)`.
 
 **Netlify / Vercel / Cloudflare Pages:** import this repo, leave the build command empty and set the publish/output directory to `/` (root).
@@ -50,8 +52,54 @@ The site is fully static — upload the folder as-is to any host.
 - **Indexable detail pages:** each project (`project-<slug>.html`, CreativeWork schema) and news story (`article-<slug>.html`, NewsArticle schema) is a real static page with its content in the HTML. Old `project.html#slug` links redirect automatically.
 - **AEO:** the About page has a FAQ (`about.html#faq`) with FAQPage schema, written as direct, quotable answers.
 - **GEO:** `llms.txt` gives AI assistants a concise, factual summary (key facts, FAQ, news, all projects with links). `robots.txt` explicitly allows search and AI crawlers.
-- **Sitemap:** `sitemap.xml` (submit it in Google Search Console and Bing Webmaster Tools).
-- If the site moves to a custom domain, change `BASE` at the top of `tools/build.py` and rebuild so canonical URLs, sitemap and schema use the new domain.
+- **Sitemap:** `sitemap.xml`. See the **Deployment checklist** below for the two required steps: set the domain, then submit the sitemap.
+
+## Deployment checklist (required)
+
+Complete these two steps whenever the site is deployed, and again whenever its address changes.
+
+### Step 1 — Set the final domain and rebuild
+
+Canonical URLs, the sitemap, `robots.txt`, `llms.txt`, social-share previews and all structured data are generated with the site's full address. If the site is served from a different address than the one in `BASE`, search engines will index the wrong URLs.
+
+1. Open `tools/build.py` and change the `BASE` line near the top to the final address, **with a trailing slash**:
+   ```python
+   BASE = 'https://www.pudconsultants.com/'
+   ```
+2. Rebuild (requires Python 3 and Node.js, no packages):
+   ```
+   python3 tools/build.py
+   ```
+3. Check that the new address appears in the generated files:
+   ```
+   grep -m1 "<loc>" sitemap.xml
+   grep "Sitemap:" robots.txt
+   grep 'rel="canonical"' index.html
+   ```
+4. For a custom domain on GitHub Pages, add a `CNAME` file at the root containing only the domain (e.g. `www.pudconsultants.com`). Then, in **Settings → Pages**, enter the domain and tick **Enforce HTTPS**.
+5. At the domain registrar, point DNS to the host:
+   - **GitHub Pages:** for `www`, add a `CNAME` record pointing to `wai-solutions.github.io`. For the bare domain, add `A` records for `185.199.108.153`, `185.199.109.153`, `185.199.110.153` and `185.199.111.153`.
+   - **Other hosts:** follow the host's custom-domain instructions.
+6. Commit and push (or upload). Then open the live site and confirm the address bar, the page source's `<link rel="canonical">` and `/sitemap.xml` all show the final domain.
+
+### Step 2 — Submit the sitemap to search engines
+
+Without this step, Google and Bing can take weeks to discover the site.
+
+**Google Search Console** — https://search.google.com/search-console
+1. Click **Add property**. Choose **Domain** (verified with a DNS TXT record, covers http/https and www) or **URL prefix** (enter the exact `BASE` address).
+2. Verify ownership. For a Domain property, add the TXT record Google provides at the registrar. For a URL prefix property, the simplest option is the **HTML tag**: add the `<meta name="google-site-verification" ...>` tag Google gives you to the `<head>` template in `tools/build.py` (next to `<meta name="author" ...>`), rebuild and redeploy.
+3. Open **Sitemaps** in the left menu, enter `sitemap.xml` and click **Submit**. The status should change to **Success**, with about 78 discovered pages.
+4. Optional: use **URL Inspection** on the home page and click **Request indexing** to speed things up.
+
+**Bing Webmaster Tools** — https://www.bing.com/webmasters (Bing also feeds Copilot, DuckDuckGo and ChatGPT search)
+1. Sign in. The fastest route is **Import from Google Search Console**, which brings over the verified site and sitemap in one step.
+2. Or add the site manually, verify it (XML file, meta tag or DNS), then open **Sitemaps → Submit sitemap** and enter the full sitemap URL, e.g. `https://www.pudconsultants.com/sitemap.xml`.
+
+**After launch (recommended)**
+- Test a few pages in the Rich Results Test (https://search.google.com/test/rich-results): Home (Organization), About (FAQ), a project page and a news article.
+- Test the share preview by pasting the URL into the LinkedIn Post Inspector (https://www.linkedin.com/post-inspector/).
+- Whenever projects or news are added, run `python3 tools/build.py` before deploying. The sitemap and `llms.txt` update automatically, and search engines re-read the submitted sitemap on their own.
 
 ## Editing content
 
