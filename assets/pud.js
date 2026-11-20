@@ -449,6 +449,7 @@ const sendEnquiry=async(d,source)=>{
   if(d.Email)fd.append('_replyto',d.Email);
   const r=await fetch('https://formsubmit.co/ajax/'+MAIL_TO,{method:'POST',headers:{Accept:'application/json'},body:fd});
   const j=await r.json().catch(()=>({}));if(!r.ok||String(j.success)==='false')throw new Error(j.message||'Send failed');return j};
+const failMsg=err=>/activ/i.test(err&&err.message||'')?'Almost ready: this form is waiting for a one-time activation by the site owner. Please try again shortly, or call +20 2 2414 7537.':'Sorry, your message could not be sent. Please try again or call +20 2 2414 7537.';
 const okEmail=v=>/^\S+@\S+\.\S+$/.test(v.trim());
 
 const form=$('#cform');form&&form.addEventListener('submit',async e=>{e.preventDefault();const f=e.target;const note=$('#fnote');
@@ -456,7 +457,7 @@ const form=$('#cform');form&&form.addEventListener('submit',async e=>{e.preventD
   if(!f.fn.value.trim()||!okEmail(f.em.value)||!f.msg.value.trim()){note.textContent='Please add your name, a valid email and a message.';return}
   const b=f.querySelector('button[type=submit]');b.disabled=true;note.textContent='Sending…';
   try{await sendEnquiry({Name:(f.fn.value+' '+f.ln.value).trim(),Email:f.em.value,Enquiry:f.ty.value,Message:f.msg.value},'Contact page');f.reset();note.textContent=THANKS}
-  catch(err){note.textContent='Sorry, your message could not be sent. Please try again or call +20 2 2414 7537.'}
+  catch(err){note.textContent=failMsg(err)}
   finally{b.disabled=false}});
 
 /* floating chat */
@@ -494,7 +495,7 @@ const form=$('#cform');form&&form.addEventListener('submit',async e=>{e.preventD
     const sb=$('.pc-send',w);sb.disabled=true;note.textContent='Sending…';
     try{await sendEnquiry({Name:v('name'),Email:v('email'),Phone:v('phone'),Enquiry:v('topic'),Message:v('message')},'Website chat');
       f.reset();note.textContent='';f.hidden=true;$('p',done).textContent=THANKS;done.hidden=false}
-    catch(err){note.textContent='Sorry, your message could not be sent. Please try again or call +20 2 2414 7537.'}
+    catch(err){note.textContent=failMsg(err)}
     finally{sb.disabled=false}});
 })();
 
