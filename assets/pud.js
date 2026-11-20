@@ -548,10 +548,17 @@ function frame(){
     $$('[data-mx]').forEach(el=>{const r=el.getBoundingClientRect();if(r.bottom<-200||r.top>vh+200)return;el.style.transform=`translate3d(${-el.scrollWidth/4+(r.top-vh/2)*+el.dataset.mx}px,0,0)`});
   }
   const strip=document.getElementById('strip');
-  if(strip&&innerWidth>760){const r=strip.getBoundingClientRect();const p=RM?1:clamp(-r.top/(strip.offsetHeight-vh+64),0,1);const e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
-    const m=$('.s-main',strip);m.style.width=(56+44*e)+'vw';m.style.height=(66+34*e)+'%';
-    $('.s-l',strip).style.transform=`translate(${-e*32}vw,-50%)`;$('.s-r',strip).style.transform=`translate(${e*32}vw,-50%)`;
-    $$('.s-side',strip).forEach(s=>s.style.opacity=1-e*1.2);strip.classList.toggle('full',e>.82)}
+  if(strip){const r=strip.getBoundingClientRect();if(r.top<vh&&r.bottom>0){const mob=innerWidth<=760;const p=RM?1:clamp(-r.top/(strip.offsetHeight-vh+64),0,1);const e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+    const m=$('.s-main',strip),mi=$('.s-main img',m.parentNode),L=$('.s-l',strip),R=$('.s-r',strip);
+    if(!mob){m.style.width=(56+44*e)+'vw';m.style.height=(66+34*e)+'%';m.style.borderRadius='';
+      L.style.transform=`translate(${-e*32}vw,-50%)`;R.style.transform=`translate(${e*32}vw,-50%)`;$$('.s-side',strip).forEach(x=>x.style.opacity=1-e*1.2);if(mi)mi.style.transform=''}
+    else{/* mobile: card grows to full screen; side images fly out; photo zooms out with depth */
+      m.style.width=`calc(${78+22*e}vw)`;m.style.height=(50+50*e)+'%';m.style.borderRadius=((1-e)*14)+'px';
+      L.style.transform=`translate(${-e*70}vw,${-e*40}vh) rotate(${-6+e*-8}deg)`;R.style.transform=`translate(${e*70}vw,${e*40}vh) rotate(${6+e*8}deg)`;
+      $$('.s-side',strip).forEach(x=>x.style.opacity=Math.max(0,1-e*1.6));
+      if(mi)mi.style.transform=`scale(${1.35-.35*e}) translateY(${(p-.5)*-6}%)`;}
+    strip.classList.toggle('full',e>.82);strip.style.setProperty('--e',e.toFixed(3));
+    const it=$('.intro');if(it&&mob){it.style.transform=`translateY(${-Math.min(1,e*2)*40}px)`;it.style.opacity=String(1-Math.min(1,e*2.2))}}}
   if(journey){const r=journey.getBoundingClientRect();if(r.top<vh&&r.bottom>0){const jp=clamp(-r.top/(journey.offsetHeight-vh),0,.999);setStep(Math.floor(jp*3));
     jProg.forEach((b,i)=>b.style.transform=`scaleX(${clamp(jp*3-i,0,1).toFixed(3)})`);
     if(jCard&&innerWidth<=900)journey.style.setProperty('--jcard',jCard.offsetHeight+'px')}}
