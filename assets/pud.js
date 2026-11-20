@@ -331,7 +331,7 @@ let pxEls=[];
 const pd=$('#pDetail');
 function renderProject(){
   if(!pd)return;const s=pd.dataset.slug||location.hash.slice(1);const i=Math.max(0,P.findIndex(p=>p.s===s));const p=P[i];
-  document.title=`${p.n} — PUD Consultants`;
+  if(!pd.dataset.slug)document.title=`${p.n} — PUD Consultants`;
   const facts=[['Location',p.l],['Year',p.y],['Type',p.t],['Region',REG[p.r]],['Client',p.c]].filter(f=>f[1]);
   const prev=P[(i-1+P.length)%P.length],next=P[(i+1)%P.length];
   pd.innerHTML=`<div class="pd-top gut"><div class="crumb"><a href="projects.html">Projects</a> / <a href="projects.html#${p.r}">${REG[p.r]}</a></div><h1 class="rv">${esc(p.n)}</h1><div class="meta rv d1">${esc(p.l)}${p.y?' · '+p.y:''}</div></div>
@@ -366,7 +366,7 @@ if(cmB.length){const cio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isInte
 const ad=$('#aDetail');
 function renderArticle(){
   if(!ad)return;const s=ad.dataset.slug||location.hash.slice(1);const i=Math.max(0,NEWS.findIndex(n=>n.s===s));const n=NEWS[i];
-  document.title=`${n.h} — PUD Consultants`;
+  if(!ad.dataset.slug)document.title=`${n.h} — PUD Consultants`;
   const prev=NEWS[(i-1+NEWS.length)%NEWS.length],next=NEWS[(i+1)%NEWS.length];
   ad.innerHTML=`<div class="pd-top gut"><div class="crumb"><a href="news.html">News</a> / ${esc(n.c)}</div><h1 class="rv art-h">${esc(n.h)}</h1><div class="meta rv d1">${esc(n.d)} · ${esc(n.c)}</div></div>
   <div class="pd-hero" data-px="0.12">${nthumb(n).replace('-t.jpg','.jpg')}</div>
