@@ -476,7 +476,7 @@ const form=$('#cform');form&&form.addEventListener('submit',async e=>{e.preventD
     <svg class="pc-i1" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16v11H9l-5 4z"/></svg>
     <svg class="pc-i2" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
   <section class="pc-panel" id="pcPanel" role="dialog" aria-label="Send PUD a message" hidden>
-    <header class="pc-h"><img src="img/pud-logo-2026.png" alt=""><div><b>PUD Consultants</b><span>We usually reply within 48 hours</span></div></header>
+    <header class="pc-h"><img src="img/pud-logo-2026b.png" alt=""><div><b>PUD Consultants</b><span>We usually reply within 48 hours</span></div></header>
     <div class="pc-body">
       <div class="pc-msg">Hello 👋 How can we help? Leave your details and our team will get back to you.</div>
       <form class="pc-form" novalidate>

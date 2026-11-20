@@ -49,7 +49,7 @@ def head_meta(fn, title, desc, img, extra_ld=None, noindex=False, crumbs=None, o
     url = BASE + ('' if fn == 'index.html' else fn)
     imgurl = BASE + 'img/' + img
     # main pages share the square PUD logo as their link thumbnail; project/article pages keep their own photo
-    shareimg = imgurl if ogtype == 'article' else BASE + 'img/pud-icon-1200.png?v=4'
+    shareimg = imgurl if ogtype == 'article' else BASE + 'img/pud-icon-1200.png?v=5'
     sharesz = '' if ogtype == 'article' else '<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="1200">\n<meta property="og:image:alt" content="PUD Consultants logo">'
     g = [ORG, {"@type": "WebSite", "@id": BASE + "#site", "url": BASE, "name": "PUD Consultants", "publisher": {"@id": BASE + "#org"}, "inLanguage": "en"},
          {"@type": "WebPage", "@id": url + "#page", "url": url, "name": title, "description": desc, "isPartOf": {"@id": BASE + "#site"}, "about": {"@id": BASE + "#org"}, "primaryImageOfPage": imgurl, "inLanguage": "en"}]
@@ -92,7 +92,7 @@ def chrome(cur, solid):
     return f'''<div class="fade" aria-hidden="true"></div>
 <a class="sr" href="#main">Skip to content</a>
 <header class="hdr gut always">
-  <a class="logo" href="index.html" aria-label="PUD Consultants home"><img src="img/pud-logo-2026.png" alt="PUD"><b>PUD<i></i></b><span>Planning &amp; Urban<br>Development Consultants</span></a>
+  <a class="logo" href="index.html" aria-label="PUD Consultants home"><img src="img/pud-logo-2026b.png" alt="PUD"><b>PUD<i></i></b><span>Planning &amp; Urban<br>Development Consultants</span></a>
   <div class="hdr-r">
     <a class="hdr-60" href="60-years.html"><strong>60</strong> Years</a>
     <button class="ibtn burger" id="menuBtn" aria-label="Menu" aria-expanded="false"><span></span><span></span></button>
@@ -117,7 +117,7 @@ def chrome(cur, solid):
 
 FOOT = f'''<footer class="foot gut">
   <div class="foot-g">
-    <div><a class="logo" href="index.html"><img src="img/pud-logo-2026.png" alt="PUD"><b>PUD<i></i></b><span>Planning &amp; Urban<br>Development Consultants</span></a>
+    <div><a class="logo" href="index.html"><img src="img/pud-logo-2026b.png" alt="PUD"><b>PUD<i></i></b><span>Planning &amp; Urban<br>Development Consultants</span></a>
       <p style="margin-top:18px;font-size:14px;color:var(--mid);max-width:340px">Leadership · Harmony · Clarity. Shaping sustainable cities since 1966.</p></div>
     <div><h5>Work</h5><a class="l" href="projects.html">Projects</a><a class="l" href="about.html#expertise">Expertise</a><a class="l" href="about.html#approach">Approach</a></div>
     <div><h5>Company</h5><a class="l" href="about.html">About</a><a class="l" href="people.html">People</a><a class="l" href="60-years.html">60 Years</a><a class="l" href="about.html#awards">Awards</a></div>
