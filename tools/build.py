@@ -1,5 +1,70 @@
 import os
 OUT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # site root, one level up from tools/
+import json, subprocess, html as _h
+BASE = 'https://wai-solutions.github.io/pud-website/'
+ORG = {
+  "@type": ["Organization", "ProfessionalService"], "@id": BASE + "#org",
+  "name": "PUD Consultants", "alternateName": ["Planning & Urban Development Consultants", "Planning Urban Development (PUD)"],
+  "url": BASE, "logo": BASE + "img/pud-logo-v.png", "image": BASE + "img/cairo-media-city.jpg",
+  "foundingDate": "1966", "founder": {"@type": "Person", "name": "Prof. Abdallah Abdel Aziz Attia"},
+  "description": "Multidisciplinary planning and design consultancy founded in Cairo in 1966, shaping sustainable cities, tourism destinations, heritage areas and sacred landscapes across Egypt, Saudi Arabia, the UAE and beyond.",
+  "slogan": "60 Years of Shaping Sustainable Cities",
+  "knowsAbout": ["Urban and regional planning", "Master planning", "Urban design", "Sustainable tourism development", "Cultural heritage planning", "Landscape planning", "Architectural design", "Green economy", "Development consultancy", "Financial planning and feasibility", "Sustainable development goals"],
+  "areaServed": ["Egypt", "Saudi Arabia", "United Arab Emirates", "Middle East and North Africa"],
+  "numberOfEmployees": {"@type": "QuantitativeValue", "minValue": 150},
+  "address": [
+    {"@type": "PostalAddress", "streetAddress": "115 El Thawra Street, 5th Floor, Heliopolis", "postalCode": "11757", "addressLocality": "Cairo", "addressCountry": "EG"},
+    {"@type": "PostalAddress", "streetAddress": "8620 Ibn Mousa Street, Diplomatic Quarter", "addressLocality": "Riyadh", "addressCountry": "SA"},
+    {"@type": "PostalAddress", "streetAddress": "Shoreline 12, Al Anbara, Palm Jumeirah", "addressLocality": "Dubai", "addressCountry": "AE"}],
+  "contactPoint": [{"@type": "ContactPoint", "telephone": "+20-2-2414-7537", "contactType": "customer service", "areaServed": "EG"},
+                   {"@type": "ContactPoint", "telephone": "+966-540-39-8178", "contactType": "customer service", "areaServed": "SA"},
+                   {"@type": "ContactPoint", "telephone": "+971-509-29-8178", "contactType": "customer service", "areaServed": "AE"}],
+  "sameAs": ["https://www.pudconsultants.com/", "https://www.linkedin.com/in/amr-attia-9181898/"]
+}
+SEO = {
+ 'index.html': ("PUD Consultants: planning, urban design and sustainable development since 1966. 150+ projects across 11 countries, from Cairo Media City and the Pyramids Plateau to AlUla and the Holy Sites.", 'cairo-media-city.jpg'),
+ 'projects.html': ("Explore 150+ PUD Consultants projects: master plans, tourism destinations, heritage areas, smart and green cities and infrastructure across Egypt, Saudi Arabia and beyond.", 'al-rabita-competition.jpg'),
+ '60-years.html': ("Sixty years of PUD Consultants, 1966 to 2026: the founder’s vision, the new chapter under Prof. Dr. Amr Attia, global collaborations and the projects that define six decades.", 'pyramids-plateau.jpg'),
+ 'people.html': ("Meet the people of PUD Consultants: founder Prof. Abdallah Abdel Aziz Attia, CEO Prof. Dr. Amr A. Attia, key staff, strategic partners and an international expert network.", 'people-gem.jpg'),
+ 'sustainability.html': ("PUD Consultants’ sustainability commitments: people, society, culture, environment and planet, aligned with UN SDGs 7, 8, 9, 11, 12, 13 and 17.", 'heliopark.jpg'),
+ 'news.html': ("Latest news from PUD Consultants: SHARE Architects forums, the Pyramids Destination master plan, Sumou Boulevard and more.", 'jorhum.jpg'),
+ 'about.html': ("About PUD Consultants: purpose, expertise, approach, awards and frequently asked questions about Egypt’s planning and urban development consultancy founded in 1966.", 'khaybar-heritage.jpg'),
+ 'contact.html': ("Contact PUD Consultants offices in Cairo, Riyadh and Dubai for master planning, urban design, strategic advisory and sustainable development projects.", 'prince-talal-hurghada.jpg'),
+}
+CRUMB_NAMES = {'projects.html':'Projects','60-years.html':'60 Years','people.html':'People','sustainability.html':'Sustainability','news.html':'News','about.html':'About','contact.html':'Contact'}
+SITEMAP = []
+try:
+    subprocess.run(['node', os.path.join(OUT, 'tools', 'export_data.js')], check=True, capture_output=True)
+except Exception as ex:
+    print('note: node export skipped:', ex)
+DATA = json.load(open(os.path.join(OUT, 'tools', 'data.json')))
+PROJ_INDEX = '<section class="sec gut" id="index"><div class="row2"><div class="lbl">Project index A–Z</div><div><ul class="pidx">' + ''.join(f'<li><a href="project-{p["s"]}.html">{_h.escape(p["n"])}</a><span>{_h.escape(p.get("l",""))}</span></li>' for p in sorted(DATA['projects'], key=lambda p: p['n'].lower())) + '</ul></div></div></section>'
+
+def jsonld(obj):
+    return '<script type="application/ld+json">' + json.dumps(obj, ensure_ascii=False).replace('</', '<\\/') + '</script>'
+
+def head_meta(fn, title, desc, img, extra_ld=None, noindex=False, crumbs=None, ogtype='website'):
+    url = BASE + ('' if fn == 'index.html' else fn)
+    imgurl = BASE + 'img/' + img
+    g = [ORG, {"@type": "WebSite", "@id": BASE + "#site", "url": BASE, "name": "PUD Consultants", "publisher": {"@id": BASE + "#org"}, "inLanguage": "en"},
+         {"@type": "WebPage", "@id": url + "#page", "url": url, "name": title, "description": desc, "isPartOf": {"@id": BASE + "#site"}, "about": {"@id": BASE + "#org"}, "primaryImageOfPage": imgurl, "inLanguage": "en"}]
+    if crumbs:
+        g.append({"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "item": BASE + ('' if u == 'index.html' else u)} for i, (n, u) in enumerate(crumbs)]})
+    if extra_ld: g += extra_ld
+    e = _h.escape
+    m = [f'<meta name="description" content="{e(desc)}">',
+         f'<meta name="robots" content="{"noindex,follow" if noindex else "index,follow,max-image-preview:large,max-snippet:-1"}">',
+         f'<link rel="canonical" href="{url}">',
+         '<meta name="theme-color" content="#EE4223">', '<meta name="author" content="PUD Consultants">',
+         f'<meta property="og:type" content="{ogtype}">', '<meta property="og:site_name" content="PUD Consultants">',
+         f'<meta property="og:title" content="{e(title)}">', f'<meta property="og:description" content="{e(desc)}">',
+         f'<meta property="og:url" content="{url}">', f'<meta property="og:image" content="{imgurl}">', '<meta property="og:locale" content="en_US">',
+         '<meta name="twitter:card" content="summary_large_image">', f'<meta name="twitter:title" content="{e(title)}">',
+         f'<meta name="twitter:description" content="{e(desc)}">', f'<meta name="twitter:image" content="{imgurl}">',
+         '<link rel="alternate" type="text/plain" title="LLM summary" href="llms.txt">',
+         jsonld({"@context": "https://schema.org", "@graph": g})]
+    if not noindex: SITEMAP.append(url)
+    return '\n'.join(m)
 AR = '<svg viewBox="0 0 16 10"><path d="M0 5h14M10 1l4 4-4 4"/></svg>'
 CAR = lambda id, extra='': f'''<div class="car" id="{id}"{extra}><div class="car-track"></div><div class="car-ctl"><span class="car-n">01/01</span><div class="arrows"><button aria-label="Previous"><svg viewBox="0 0 16 16"><path d="M14 8H2M7 3L2 8l5 5"/></svg></button><button aria-label="Next"><svg viewBox="0 0 16 16"><path d="M2 8h12M9 3l5 5-5 5"/></svg></button></div></div></div>'''
 
@@ -17,7 +82,7 @@ def chrome(cur, solid):
         mi('People', 'people.html', cur),
         mi('Sustainability', 'sustainability.html', cur, [('Our commitment', 'sustainability.html#commitment'), ('Goals we support', 'sustainability.html#sdgs'), ('Projects', 'sustainability.html#projects')]),
         mi('News', 'news.html', cur),
-        mi('About', 'about.html', cur, [('Purpose', 'about.html'), ('Expertise', 'about.html#expertise'), ('Approach', 'about.html#approach'), ('Sustainability', 'sustainability.html'), ('Awards', 'about.html#awards')]),
+        mi('About', 'about.html', cur, [('Purpose', 'about.html'), ('Expertise', 'about.html#expertise'), ('Approach', 'about.html#approach'), ('Sustainability', 'sustainability.html'), ('Awards', 'about.html#awards'), ('FAQ', 'about.html#faq')]),
     ])
     return f'''<div class="fade" aria-hidden="true"></div>
 <a class="sr" href="#main">Skip to content</a>
@@ -58,7 +123,12 @@ FOOT = f'''<footer class="foot gut">
 </footer>
 '''
 
-def page(fn, title, body, solid=True):
+def page(fn, title, body, solid=True, desc=None, img=None, ld=None, noindex=False, crumbs=None, ogtype='website'):
+    d0, i0 = SEO.get(fn, (None, None))
+    desc = desc or d0 or 'PUD Consultants: 60 years of shaping sustainable cities.'
+    img = img or i0 or 'cairo-media-city.jpg'
+    if crumbs is None and fn in CRUMB_NAMES: crumbs = [('Home', 'index.html'), (CRUMB_NAMES[fn], fn)]
+    meta = head_meta(fn, title, desc, img, ld, noindex, crumbs, ogtype)
     html = f'''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,6 +136,7 @@ def page(fn, title, body, solid=True):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="icon" href="img/pud-logo-v.png">
 <title>{title}</title>
+{meta}
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@300;400;600;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/pud.css">
@@ -103,10 +174,10 @@ page('index.html', 'PUD Consultants — 60 Years of Shaping Sustainable Cities',
 </section>
 <section class="strip" id="strip" aria-label="Featured project">
   <div class="strip-stage">
-    <a class="s-side s-l" href="project.html#pyramids-plateau" tabindex="-1"><img src="img/pyramids-plateau.jpg" alt="Pyramids Plateau Destination"></a>
-    <a class="s-main" href="project.html#cairo-media-city"><img src="img/cairo-media-city.jpg?v=2" alt="Cairo Media City, Giza">
+    <a class="s-side s-l" href="project-pyramids-plateau.html" tabindex="-1"><img src="img/pyramids-plateau.jpg" alt="Pyramids Plateau Destination"></a>
+    <a class="s-main" href="project-cairo-media-city.html"><img src="img/cairo-media-city.jpg?v=2" alt="Cairo Media City, Giza">
       <span class="s-cap"><span class="lbl">60 Years · Cairo Media City, Giza</span><span class="s-h">Sixty years of building sustainable cities — the legacy continues, the future begins.</span></span></a>
-    <a class="s-side s-r" href="project.html#alamein-riviera" tabindex="-1"><img src="img/alamein-riviera.jpg" alt="Alamein Riviera"></a>
+    <a class="s-side s-r" href="project-alamein-riviera.html" tabindex="-1"><img src="img/alamein-riviera.jpg" alt="Alamein Riviera"></a>
   </div>
 </section>
 
@@ -166,10 +237,10 @@ page('index.html', 'PUD Consultants — 60 Years of Shaping Sustainable Cities',
 
 <section class="sec gut ed">
   <div class="ed-txt rv"><div class="lbl">Our approach</div><p>We don’t believe in one-size-fits-all. Every project starts by listening, then curates the best-fit minds — planners, architects, economists and global experts — around a shared mission. <a href="about.html#approach" class="ul">Learn more about our approach</a></p></div>
-  <a class="ed-img rv ed-link" data-px="0.06" href="project.html#kidana-al-khaif"><img src="img/kidana-al-khaif.jpg" alt="Kidana Al Khaif, Mina" loading="lazy"><span class="ed-cap">Kidana Al Khaif · Mina, Makkah</span></a>
+  <a class="ed-img rv ed-link" data-px="0.06" href="project-kidana-al-khaif.html"><img src="img/kidana-al-khaif.jpg" alt="Kidana Al Khaif, Mina" loading="lazy"><span class="ed-cap">Kidana Al Khaif · Mina, Makkah</span></a>
 </section>
 <section class="gut ed ed-2">
-  <a class="ed-img rv ed-link" data-px="0.06" href="project.html#heliopark"><img src="img/heliopark.jpg" alt="Heliopark, New Cairo" loading="lazy"><span class="ed-cap">Heliopark · New Cairo</span></a>
+  <a class="ed-img rv ed-link" data-px="0.06" href="project-heliopark.html"><img src="img/heliopark.jpg" alt="Heliopark, New Cairo" loading="lazy"><span class="ed-cap">Heliopark · New Cairo</span></a>
   <div class="ed-txt rv"><div class="lbl">Sustainability and responsibility</div><p>From mega cities to sacred landscapes, sustainability is a lens of transformation — responsible land use, social inclusion, cultural continuity and green building standards. <a href="sustainability.html" class="ul">Our commitment</a></p></div>
 </section>
 
@@ -193,7 +264,7 @@ page('index.html', 'PUD Consultants — 60 Years of Shaping Sustainable Cities',
 
 """, solid=False)
 
-page('projects.html', 'Projects — PUD Consultants', landing('Projects', 'Breadth, with depth: from regional visions to city-making, from urban places to coastal destinations and the Holy Sites.', hero=('al-rabita-competition.jpg','Al Rabita Pre-Concept Design Competition · Mina, Makkah','al-rabita-competition')) + f'''
+page('projects.html', 'Projects: Master Plans, Destinations & Urban Design | PUD Consultants', landing('Projects', 'Breadth, with depth: from regional visions to city-making, from urban places to coastal destinations and the Holy Sites.', hero=('al-rabita-competition.jpg','Al Rabita Pre-Concept Design Competition · Mina, Makkah','al-rabita-competition')) + f'''
 <section class="sec tight gut">
   <div class="row2"><div class="lbl">Expertise</div><div>
     <h2 class="h-m rv" style="max-width:24ch">Every place has its own rhythm. Every challenge its own context.</h2>
@@ -209,21 +280,22 @@ page('projects.html', 'Projects — PUD Consultants', landing('Projects', 'Bread
 </div></div></div>
 <div class="pgrid" id="pIndex"></div>
 <div class="empty" id="pEmpty" hidden>No results were found matching your selection.</div>
+{PROJ_INDEX}
 ''')
 
 # ---------------- PROJECT DETAIL ----------------
-page('project.html', 'Project — PUD Consultants', f'''<article id="pDetail"></article>
+page('project.html', 'Project | PUD Consultants', noindex=True, body=f'''<article id="pDetail"></article>
 <section class="gut" style="padding:60px 0 22px"><h2 class="h-m">Related projects</h2></section>
 {CAR('relCar')}
 <div style="height:80px"></div>''')
 
-page('article.html', 'News — PUD Consultants', '''<article id="aDetail"></article>
+page('article.html', 'News | PUD Consultants', noindex=True, body='''<article id="aDetail"></article>
 <section class="gut" style="padding:60px 0 22px"><h2 class="h-m">More news</h2></section>
 <div class="gut more-news" id="moreNews"></div>
 <div style="height:80px"></div>''')
 
 # ---------------- 60 YEARS ----------------
-page('60-years.html', '60 Years — PUD Consultants', f'''
+page('60-years.html', '60 Years of Shaping Sustainable Cities, 1966–2026 | PUD Consultants', f'''
 <header class="st-head gut">
   <div class="lbl o rv">Story · 1966 – 2026</div>
   <h1 class="rv d1" style="margin-top:14px">Sixty years of building sustainable cities.</h1>
@@ -246,9 +318,9 @@ page('60-years.html', '60 Years — PUD Consultants', f'''
     <div class="rv d3"><b>~<span data-count="6" style="font:inherit;color:inherit">0</span>M</b><span>Lives touched</span></div>
   </div>
   <div class="tnn">
-    <a class="tnn-c rv" href="project.html#hilton-dahab"><div class="tnn-i" data-px="0.05"><img src="img/hilton-dahab.jpg" alt="Hilton Dahab Village" loading="lazy"></div><div class="tnn-t"><span class="lbl">Then</span><b>1991</b><h3>Hilton Dahab Village</h3><p>Gulf of Aqaba, Egypt</p></div></a>
-    <a class="tnn-c rv d1" href="project.html#pyramids-plateau"><div class="tnn-i" data-px="0.05"><img src="img/pyramids-plateau.jpg" alt="Pyramids Plateau Destination" loading="lazy"></div><div class="tnn-t"><span class="lbl">Now</span><b>2025</b><h3>Pyramids Plateau Destination</h3><p>Giza, Egypt</p></div></a>
-    <a class="tnn-c rv d2" href="project.html#cairo-media-city"><div class="tnn-i" data-px="0.05"><img src="img/cairo-media-city.jpg?v=2" alt="Cairo Media City" loading="lazy"></div><div class="tnn-t"><span class="lbl">Next</span><b>2026</b><h3>Cairo Media City</h3><p>Giza, Egypt</p></div></a>
+    <a class="tnn-c rv" href="project-hilton-dahab.html"><div class="tnn-i" data-px="0.05"><img src="img/hilton-dahab.jpg" alt="Hilton Dahab Village" loading="lazy"></div><div class="tnn-t"><span class="lbl">Then</span><b>1991</b><h3>Hilton Dahab Village</h3><p>Gulf of Aqaba, Egypt</p></div></a>
+    <a class="tnn-c rv d1" href="project-pyramids-plateau.html"><div class="tnn-i" data-px="0.05"><img src="img/pyramids-plateau.jpg" alt="Pyramids Plateau Destination" loading="lazy"></div><div class="tnn-t"><span class="lbl">Now</span><b>2025</b><h3>Pyramids Plateau Destination</h3><p>Giza, Egypt</p></div></a>
+    <a class="tnn-c rv d2" href="project-cairo-media-city.html"><div class="tnn-i" data-px="0.05"><img src="img/cairo-media-city.jpg?v=2" alt="Cairo Media City" loading="lazy"></div><div class="tnn-t"><span class="lbl">Next</span><b>2026</b><h3>Cairo Media City</h3><p>Giza, Egypt</p></div></a>
   </div>
 </section>
 
@@ -261,9 +333,9 @@ page('60-years.html', '60 Years — PUD Consultants', f'''
     <p class="rv">He pioneered an architectural style rooted in local traditions and social responsibility, introducing the “cubed house” model that remains influential today, and reshaped architectural education in the region. His vision took shape in three pioneering projects.</p>
   </div>
   <div class="trio">
-    <a href="project.html#hilton-dahab" class="rv"><div class="th" data-px="0.06"><img src="img/hilton-dahab.jpg" alt="" loading="lazy" style="height:112%"></div><h3>Hilton Dahab Village</h3><p>Gulf of Aqaba · One of Dahab’s early international beach resorts.</p></a>
-    <a href="project.html#marina-el-alamein" class="rv d1"><div class="th" data-px="0.06"><img src="img/marina-el-alamein.jpg" alt="" loading="lazy" style="height:112%"></div><h3>Marina El-Alamein</h3><p>North Coast · The first large-scale tourism project on Egypt’s North West Coast.</p></a>
-    <a href="project.html#tut-amoun-village" class="rv d2"><div class="th" data-px="0.06"><img src="img/tut-amoun-village.jpg" alt="" loading="lazy" style="height:112%"></div><h3>Tut Amoun Village</h3><p>Lake Nasser, Aswan · Egypt’s first tourist village. Best Tourist Project in Egypt, Rome Biennale 1992.</p></a>
+    <a href="project-hilton-dahab.html" class="rv"><div class="th" data-px="0.06"><img src="img/hilton-dahab.jpg" alt="" loading="lazy" style="height:112%"></div><h3>Hilton Dahab Village</h3><p>Gulf of Aqaba · One of Dahab’s early international beach resorts.</p></a>
+    <a href="project-marina-el-alamein.html" class="rv d1"><div class="th" data-px="0.06"><img src="img/marina-el-alamein.jpg" alt="" loading="lazy" style="height:112%"></div><h3>Marina El-Alamein</h3><p>North Coast · The first large-scale tourism project on Egypt’s North West Coast.</p></a>
+    <a href="project-tut-amoun-village.html" class="rv d2"><div class="th" data-px="0.06"><img src="img/tut-amoun-village.jpg" alt="" loading="lazy" style="height:112%"></div><h3>Tut Amoun Village</h3><p>Lake Nasser, Aswan · Egypt’s first tourist village. Best Tourist Project in Egypt, Rome Biennale 1992.</p></a>
   </div>
 </section>
 
@@ -279,12 +351,12 @@ page('60-years.html', '60 Years — PUD Consultants', f'''
     </div>
   </div>
   <div class="lr-head rv"><span class="lbl">A new scale of ambition</span><span class="meta">From city frameworks to the Holy Sites</span></div>
-  <div class="lead-row"><a class="lr-c rv" href="project.html#saudi-railway"><div class="th"><img src="img/saudi-railway.jpg" alt="Saudi Railway Land Optimisation" loading="lazy"></div><div class="meta"><b>2018</b> · Kingdom of Saudi Arabia</div><h3>Saudi Railway Land Optimisation</h3></a><a class="lr-c rv d1" href="project.html#alula-framework"><div class="th"><img src="img/alula-framework.jpg" alt="AlUla County Framework Plan" loading="lazy"></div><div class="meta"><b>2019</b> · AlUla, KSA</div><h3>AlUla County Framework Plan</h3></a><a class="lr-c rv d2" href="project.html#alamein-riviera"><div class="th"><img src="img/alamein-riviera.jpg" alt="Alamein Riviera" loading="lazy"></div><div class="meta"><b>2022</b> · North Coast, Egypt</div><h3>Alamein Riviera</h3></a><a class="lr-c rv d3" href="project.html#al-mashaaer"><div class="th"><img src="img/al-mashaaer.jpg" alt="Al Mashaaer Al Mugaddassah" loading="lazy"></div><div class="meta"><b>2024</b> · Makkah, KSA</div><h3>Al Mashaaer Al Mugaddassah</h3></a></div>
+  <div class="lead-row"><a class="lr-c rv" href="project-saudi-railway.html"><div class="th"><img src="img/saudi-railway.jpg" alt="Saudi Railway Land Optimisation" loading="lazy"></div><div class="meta"><b>2018</b> · Kingdom of Saudi Arabia</div><h3>Saudi Railway Land Optimisation</h3></a><a class="lr-c rv d1" href="project-alula-framework.html"><div class="th"><img src="img/alula-framework.jpg" alt="AlUla County Framework Plan" loading="lazy"></div><div class="meta"><b>2019</b> · AlUla, KSA</div><h3>AlUla County Framework Plan</h3></a><a class="lr-c rv d2" href="project-alamein-riviera.html"><div class="th"><img src="img/alamein-riviera.jpg" alt="Alamein Riviera" loading="lazy"></div><div class="meta"><b>2022</b> · North Coast, Egypt</div><h3>Alamein Riviera</h3></a><a class="lr-c rv d3" href="project-al-mashaaer.html"><div class="th"><img src="img/al-mashaaer.jpg" alt="Al Mashaaer Al Mugaddassah" loading="lazy"></div><div class="meta"><b>2024</b> · Makkah, KSA</div><h3>Al Mashaaer Al Mugaddassah</h3></a></div>
 </section>
 
 <section class="interlude" aria-label="Jabal Thabeer Park, Mina">
   <div class="il-img" data-px="0.18"><img src="img/jabal-thabeer-park.jpg" alt="Jabal Thabeer Park, Mina" loading="lazy"></div>
-  <div class="il-txt gut"><p class="rv">Every place has its own rhythm.<br>Every challenge, its own context.</p><a class="meta rv d1" href="project.html#jabal-thabeer-park">Jabal Thabeer Park · Mina, Makkah →</a></div>
+  <div class="il-txt gut"><p class="rv">Every place has its own rhythm.<br>Every challenge, its own context.</p><a class="meta rv d1" href="project-jabal-thabeer-park.html">Jabal Thabeer Park · Mina, Makkah →</a></div>
 </section>
 
 <section class="chap" id="ch3">
@@ -295,7 +367,7 @@ page('60-years.html', '60 Years — PUD Consultants', f'''
   </div>
   <div class="gut" style="margin:50px 0"><div class="stats" style="grid-template-columns:repeat(3,minmax(0,1fr))">
     <div><b data-count="100" data-suf="+">0</b><span>Clients</span></div><div><b data-count="90" data-suf="+">0</b><span>Collaborations</span></div><div><b data-count="25" data-suf="+">0</b><span>Individual experts</span></div></div></div>
-  <div class="gut cp"><div class="lr-head rv" style="margin-top:0"><span class="lbl">Collaboration in practice</span><span class="meta">Global partners, local knowledge</span></div><div class="cp-grid"><a class="cp-c rv" href="project.html#kidana-al-khaif"><div class="th"><img src="img/kidana-al-khaif.jpg" alt="Kidana Al Khaif" loading="lazy"></div><div class="lbl o">With SOM &amp; BuroHappold</div><h3>Kidana Al Khaif</h3><p class="meta">Mina, Makkah</p></a><a class="cp-c rv d1" href="project.html#pyramids-plateau"><div class="th"><img src="img/li-pyramids.jpg" alt="Pyramids Plateau Destination" loading="lazy"></div><div class="lbl o">With WATG &amp; Shaker Group</div><h3>Pyramids Plateau Destination</h3><p class="meta">Giza, Egypt</p></a><a class="cp-c rv d2" href="project.html#alula-infrastructure"><div class="th"><img src="img/alula-infrastructure.jpg" alt="AlUla Infrastructure Master Plan" loading="lazy"></div><div class="lbl o">With AECOM</div><h3>AlUla Infrastructure Master Plan</h3><p class="meta">AlUla, KSA</p></a></div></div>
+  <div class="gut cp"><div class="lr-head rv" style="margin-top:0"><span class="lbl">Collaboration in practice</span><span class="meta">Global partners, local knowledge</span></div><div class="cp-grid"><a class="cp-c rv" href="project-kidana-al-khaif.html"><div class="th"><img src="img/kidana-al-khaif.jpg" alt="Kidana Al Khaif" loading="lazy"></div><div class="lbl o">With SOM &amp; BuroHappold</div><h3>Kidana Al Khaif</h3><p class="meta">Mina, Makkah</p></a><a class="cp-c rv d1" href="project-pyramids-plateau.html"><div class="th"><img src="img/li-pyramids.jpg" alt="Pyramids Plateau Destination" loading="lazy"></div><div class="lbl o">With WATG &amp; Shaker Group</div><h3>Pyramids Plateau Destination</h3><p class="meta">Giza, Egypt</p></a><a class="cp-c rv d2" href="project-alula-infrastructure.html"><div class="th"><img src="img/alula-infrastructure.jpg" alt="AlUla Infrastructure Master Plan" loading="lazy"></div><div class="lbl o">With AECOM</div><h3>AlUla Infrastructure Master Plan</h3><p class="meta">AlUla, KSA</p></a></div></div>
   <div class="marq"><div class="mtrack" id="mq1" data-mx="-0.5"></div></div>
   <div class="marq"><div class="mtrack" id="mq2" data-mx="0.5"></div></div>
   <div class="marq"><div class="mtrack" id="mq3" data-mx="-0.4"></div></div>
@@ -319,7 +391,7 @@ page('60-years.html', '60 Years — PUD Consultants', f'''
 
 <section class="film" aria-label="Places along the journey">
   <div class="gut lr-head" style="margin-top:0"><span class="lbl">Places along the journey</span><span class="fm-nav"><button class="jt-btn fm-prev" aria-label="Previous">←</button><button class="jt-btn fm-next" aria-label="Next">→</button></span></div>
-  <div class="fm-track"><a class="fm-c" href="project.html#alamein-riviera"><div class="th"><img src="img/alamein-riviera.jpg" alt="Alamein Riviera" loading="lazy"></div><div class="meta">Mediterranean, Egypt</div><h3>Alamein Riviera</h3></a><a class="fm-c" href="project.html#port-ghalib-phase-2"><div class="th"><img src="img/port-ghalib-phase-2.jpg" alt="Port Ghalib" loading="lazy"></div><div class="meta">Red Sea, Egypt</div><h3>Port Ghalib</h3></a><a class="fm-c" href="project.html#prince-talal-hurghada"><div class="th"><img src="img/prince-talal-hurghada.jpg" alt="HRH Prince Talal Development" loading="lazy"></div><div class="meta">Hurghada, Egypt</div><h3>HRH Prince Talal Development</h3></a><a class="fm-c" href="project.html#pyramids-plateau"><div class="th"><img src="img/pyramids-plateau.jpg" alt="Pyramids Plateau" loading="lazy"></div><div class="meta">Giza, Egypt</div><h3>Pyramids Plateau</h3></a><a class="fm-c" href="project.html#sumou-boulevard"><div class="th"><img src="img/sumou-boulevard.jpg" alt="Sumou Boulevard" loading="lazy"></div><div class="meta">New Cairo, Egypt</div><h3>Sumou Boulevard</h3></a><a class="fm-c" href="project.html#al-rabita-competition"><div class="th"><img src="img/al-rabita-competition.jpg" alt="Al Rabita" loading="lazy"></div><div class="meta">Mina, KSA</div><h3>Al Rabita</h3></a><a class="fm-c" href="project.html#khaybar-heritage"><div class="th"><img src="img/khaybar-heritage.jpg" alt="Khaybar Heritage Area" loading="lazy"></div><div class="meta">AlUla, KSA</div><h3>Khaybar Heritage Area</h3></a><a class="fm-c" href="project.html#sharaan"><div class="th"><img src="img/sharaan.jpg" alt="Sharaan Nature Reserve" loading="lazy"></div><div class="meta">AlUla, KSA</div><h3>Sharaan Nature Reserve</h3></a><a class="fm-c" href="project.html#jazan-economic-city"><div class="th"><img src="img/jazan-economic-city.jpg" alt="Jazan Economic City" loading="lazy"></div><div class="meta">Jazan, KSA</div><h3>Jazan Economic City</h3></a><a class="fm-c" href="project.html#fawaz-alhokair-estate"><div class="th"><img src="img/fawaz-alhokair-estate.jpg" alt="Fawaz Alhokair Estate" loading="lazy"></div><div class="meta">Riyadh, KSA</div><h3>Fawaz Alhokair Estate</h3></a><a class="fm-c" href="project.html#bvlgari-mansion"><div class="th"><img src="img/bvlgari-mansion.jpg" alt="Bvlgari Mansion" loading="lazy"></div><div class="meta">Dubai, UAE</div><h3>Bvlgari Mansion</h3></a><a class="fm-c" href="project.html#maria-heights"><div class="th"><img src="img/maria-heights.jpg" alt="Maria Heights" loading="lazy"></div><div class="meta">Homs, Syria</div><h3>Maria Heights</h3></a><a class="fm-c" href="project.html#massoumbou-diwom"><div class="th"><img src="img/massoumbou-diwom.jpg" alt="Massoumbou–Diwom" loading="lazy"></div><div class="meta">Cameroon</div><h3>Massoumbou–Diwom</h3></a><div class="fm-end"></div></div>
+  <div class="fm-track"><a class="fm-c" href="project-alamein-riviera.html"><div class="th"><img src="img/alamein-riviera.jpg" alt="Alamein Riviera" loading="lazy"></div><div class="meta">Mediterranean, Egypt</div><h3>Alamein Riviera</h3></a><a class="fm-c" href="project-port-ghalib-phase-2.html"><div class="th"><img src="img/port-ghalib-phase-2.jpg" alt="Port Ghalib" loading="lazy"></div><div class="meta">Red Sea, Egypt</div><h3>Port Ghalib</h3></a><a class="fm-c" href="project-prince-talal-hurghada.html"><div class="th"><img src="img/prince-talal-hurghada.jpg" alt="HRH Prince Talal Development" loading="lazy"></div><div class="meta">Hurghada, Egypt</div><h3>HRH Prince Talal Development</h3></a><a class="fm-c" href="project-pyramids-plateau.html"><div class="th"><img src="img/pyramids-plateau.jpg" alt="Pyramids Plateau" loading="lazy"></div><div class="meta">Giza, Egypt</div><h3>Pyramids Plateau</h3></a><a class="fm-c" href="project-sumou-boulevard.html"><div class="th"><img src="img/sumou-boulevard.jpg" alt="Sumou Boulevard" loading="lazy"></div><div class="meta">New Cairo, Egypt</div><h3>Sumou Boulevard</h3></a><a class="fm-c" href="project-al-rabita-competition.html"><div class="th"><img src="img/al-rabita-competition.jpg" alt="Al Rabita" loading="lazy"></div><div class="meta">Mina, KSA</div><h3>Al Rabita</h3></a><a class="fm-c" href="project-khaybar-heritage.html"><div class="th"><img src="img/khaybar-heritage.jpg" alt="Khaybar Heritage Area" loading="lazy"></div><div class="meta">AlUla, KSA</div><h3>Khaybar Heritage Area</h3></a><a class="fm-c" href="project-sharaan.html"><div class="th"><img src="img/sharaan.jpg" alt="Sharaan Nature Reserve" loading="lazy"></div><div class="meta">AlUla, KSA</div><h3>Sharaan Nature Reserve</h3></a><a class="fm-c" href="project-jazan-economic-city.html"><div class="th"><img src="img/jazan-economic-city.jpg" alt="Jazan Economic City" loading="lazy"></div><div class="meta">Jazan, KSA</div><h3>Jazan Economic City</h3></a><a class="fm-c" href="project-fawaz-alhokair-estate.html"><div class="th"><img src="img/fawaz-alhokair-estate.jpg" alt="Fawaz Alhokair Estate" loading="lazy"></div><div class="meta">Riyadh, KSA</div><h3>Fawaz Alhokair Estate</h3></a><a class="fm-c" href="project-bvlgari-mansion.html"><div class="th"><img src="img/bvlgari-mansion.jpg" alt="Bvlgari Mansion" loading="lazy"></div><div class="meta">Dubai, UAE</div><h3>Bvlgari Mansion</h3></a><a class="fm-c" href="project-maria-heights.html"><div class="th"><img src="img/maria-heights.jpg" alt="Maria Heights" loading="lazy"></div><div class="meta">Homs, Syria</div><h3>Maria Heights</h3></a><a class="fm-c" href="project-massoumbou-diwom.html"><div class="th"><img src="img/massoumbou-diwom.jpg" alt="Massoumbou–Diwom" loading="lazy"></div><div class="meta">Cameroon</div><h3>Massoumbou–Diwom</h3></a><div class="fm-end"></div></div>
 </section>
 
 <section class="sec gut jt" id="timeline" aria-label="Six decades timeline">
@@ -353,7 +425,7 @@ page('60-years.html', '60 Years — PUD Consultants', f'''
 
 <section class="nextb gut" aria-label="Building next">
   <div class="lr-head rv" style="margin-top:0"><span class="lbl">Already building the next chapter</span><a class="meta" href="projects.html">All projects →</a></div>
-  <div class="nx-grid"><a class="nx-c rv" href="project.html#cairo-media-city"><div class="th" data-px="0.05"><img src="img/cairo-media-city.jpg?v=2" alt="Cairo Media City" loading="lazy"></div><div class="nx-t"><span class="lbl">Giza, Egypt</span><h3>Cairo Media City</h3></div></a><a class="nx-c rv d1" href="project.html#sumou-boulevard"><div class="th" data-px="0.05"><img src="img/sumou-boulevard.jpg" alt="Sumou Boulevard" loading="lazy"></div><div class="nx-t"><span class="lbl">New Cairo, Egypt</span><h3>Sumou Boulevard</h3></div></a><a class="nx-c rv d2" href="project.html#new-administrative-capital"><div class="th" data-px="0.05"><img src="img/new-administrative-capital.jpg" alt="New Administrative Capital" loading="lazy"></div><div class="nx-t"><span class="lbl">Greater Cairo, Egypt</span><h3>New Administrative Capital</h3></div></a><a class="nx-c rv d3" href="project.html#massoumbou-diwom"><div class="th" data-px="0.05"><img src="img/massoumbou-diwom.jpg" alt="Massoumbou–Diwom" loading="lazy"></div><div class="nx-t"><span class="lbl">Cameroon</span><h3>Massoumbou–Diwom</h3></div></a></div>
+  <div class="nx-grid"><a class="nx-c rv" href="project-cairo-media-city.html"><div class="th" data-px="0.05"><img src="img/cairo-media-city.jpg?v=2" alt="Cairo Media City" loading="lazy"></div><div class="nx-t"><span class="lbl">Giza, Egypt</span><h3>Cairo Media City</h3></div></a><a class="nx-c rv d1" href="project-sumou-boulevard.html"><div class="th" data-px="0.05"><img src="img/sumou-boulevard.jpg" alt="Sumou Boulevard" loading="lazy"></div><div class="nx-t"><span class="lbl">New Cairo, Egypt</span><h3>Sumou Boulevard</h3></div></a><a class="nx-c rv d2" href="project-new-administrative-capital.html"><div class="th" data-px="0.05"><img src="img/new-administrative-capital.jpg" alt="New Administrative Capital" loading="lazy"></div><div class="nx-t"><span class="lbl">Greater Cairo, Egypt</span><h3>New Administrative Capital</h3></div></a><a class="nx-c rv d3" href="project-massoumbou-diwom.html"><div class="th" data-px="0.05"><img src="img/massoumbou-diwom.jpg" alt="Massoumbou–Diwom" loading="lazy"></div><div class="nx-t"><span class="lbl">Cameroon</span><h3>Massoumbou–Diwom</h3></div></a></div>
 </section>
 
 <section class="y60" id="next" aria-label="60 years of vision, experience and building for a better future">
@@ -367,8 +439,9 @@ page('60-years.html', '60 Years — PUD Consultants', f'''
 </section>
 ''', solid=False)
 
+PEOPLE_LD=[{'@type':'Person','name':'Prof. Dr. Amr Abdalla Abdelaziz Attia','alternateName':'Amr Attia','jobTitle':'CEO & Principal','worksFor':{'@id':BASE+'#org'},'image':BASE+'img/amr-attia.jpg','alumniOf':['Ain Shams University','University College London'],'award':'Eisenhower Fellowship (2007)','sameAs':['https://www.linkedin.com/in/amr-attia-9181898/'],'description':'Professor of Architecture & Urban Planning at Ain Shams University; Principal and Managing Partner of PUD Consultants; former VP Strategic Development MEA at WATG and Principal Director at AECOM.'},{'@type':'Person','name':'Prof. Abdallah Abdel Aziz Attia','jobTitle':'Founder','foundingDate':'1966','image':BASE+'img/founder.jpg','description':'Founder of PUD Consultants in 1966; pioneer of an urban style rooted in local tradition and affordable housing.'}]
 # ---------------- PEOPLE ----------------
-page('people.html', 'People — PUD Consultants', landing('People', 'Our strength lies in our people: leaders who guide our mission, uphold our values and drive our vision in every region we work.', hero=('people-gem.jpg','The team at the Grand Egyptian Museum · Giza',None,'50% 36%')) + f'''
+page('people.html', 'People & Leadership | PUD Consultants', landing('People', 'Our strength lies in our people: leaders who guide our mission, uphold our values and drive our vision in every region we work.', hero=('people-gem.jpg','The team at the Grand Egyptian Museum · Giza',None,'50% 36%')) + f'''
 <section class="sec gut">
   <div class="row2"><div class="lbl">Global leadership</div><div>
     <p class="purpose rv">We value the relationship between people and their environment, and work in partnership with clients who value quality, safety and technical expertise.</p>
@@ -437,11 +510,11 @@ page('people.html', 'People — PUD Consultants', landing('People', 'Our strengt
     <a class="btn" href="contact.html" style="margin-top:26px">Join our community {AR}</a>
   </div></div>
 </section>
-''')
+''', ld=PEOPLE_LD)
 
 
 # ---------------- SUSTAINABILITY ----------------
-page('sustainability.html', 'Sustainability — PUD Consultants', landing('Sustainable commitments for a vibrant urban future.', 'Our responsibilities and actions across the whole ecosystem — people, society, culture, the environment and the planet — measured by performance, to build a better future for our planet.', crumb='<div class="lbl o rv" style="margin-bottom:18px">Sustainability</div>', wide=True, hero=('heliopark.jpg','Heliopark · New Cairo','heliopark')) + f'''
+page('sustainability.html', 'Sustainability Commitments & SDGs | PUD Consultants', landing('Sustainable commitments for a vibrant urban future.', 'Our responsibilities and actions across the whole ecosystem — people, society, culture, the environment and the planet — measured by performance, to build a better future for our planet.', crumb='<div class="lbl o rv" style="margin-bottom:18px">Sustainability</div>', wide=True, hero=('heliopark.jpg','Heliopark · New Cairo','heliopark')) + f'''
 <section class="sec gut">
   <div class="row2"><div class="lbl">Our commitment</div><div>
     <p class="pull rv" style="margin-top:0">Sustainability is at the core of everything we do.</p>
@@ -463,12 +536,12 @@ page('sustainability.html', 'Sustainability — PUD Consultants', landing('Susta
 
 
 <section class="cm gut" id="commitment" aria-label="Our commitment">
-  <div class="cm-media" aria-hidden="false"><a class="cm-img on" data-i="0" href="project.html#kidana-al-khaif"><img src="img/kidana-al-khaif.jpg" alt="Kidana Al Khaif · Mina, Makkah" loading="lazy"><span class="ed-cap">Kidana Al Khaif · Mina, Makkah</span></a><a class="cm-img" data-i="1" href="project.html#sumou-boulevard"><img src="img/sumou-boulevard.jpg" alt="Sumou Boulevard · New Cairo" loading="lazy"><span class="ed-cap">Sumou Boulevard · New Cairo</span></a><a class="cm-img" data-i="2" href="project.html#khaybar-heritage"><img src="img/khaybar-heritage.jpg" alt="Khaybar Heritage Area · AlUla" loading="lazy"><span class="ed-cap">Khaybar Heritage Area · AlUla</span></a><a class="cm-img" data-i="3" href="project.html#sharaan"><img src="img/sharaan.jpg" alt="Sharaan Nature Reserve · AlUla" loading="lazy"><span class="ed-cap">Sharaan Nature Reserve · AlUla</span></a><a class="cm-img" data-i="4" href="project.html#nw-coast-regional-vision"><img src="img/nw-coast-regional-vision.jpg" alt="North-West Coast Regional Vision · Egypt" loading="lazy"><span class="ed-cap">North-West Coast Regional Vision · Egypt</span></a></div>
+  <div class="cm-media" aria-hidden="false"><a class="cm-img on" data-i="0" href="project-kidana-al-khaif.html"><img src="img/kidana-al-khaif.jpg" alt="Kidana Al Khaif · Mina, Makkah" loading="lazy"><span class="ed-cap">Kidana Al Khaif · Mina, Makkah</span></a><a class="cm-img" data-i="1" href="project-sumou-boulevard.html"><img src="img/sumou-boulevard.jpg" alt="Sumou Boulevard · New Cairo" loading="lazy"><span class="ed-cap">Sumou Boulevard · New Cairo</span></a><a class="cm-img" data-i="2" href="project-khaybar-heritage.html"><img src="img/khaybar-heritage.jpg" alt="Khaybar Heritage Area · AlUla" loading="lazy"><span class="ed-cap">Khaybar Heritage Area · AlUla</span></a><a class="cm-img" data-i="3" href="project-sharaan.html"><img src="img/sharaan.jpg" alt="Sharaan Nature Reserve · AlUla" loading="lazy"><span class="ed-cap">Sharaan Nature Reserve · AlUla</span></a><a class="cm-img" data-i="4" href="project-nw-coast-regional-vision.html"><img src="img/nw-coast-regional-vision.jpg" alt="North-West Coast Regional Vision · Egypt" loading="lazy"><span class="ed-cap">North-West Coast Regional Vision · Egypt</span></a></div>
   <div class="cm-text"><div class="lr-head" style="margin-top:0"><span class="lbl">Our commitment</span><span class="meta">Five responsibilities, one approach</span></div><div class="cm-b" data-i="0" id="people"><span class="chap-n">01</span><div class="lbl">People</div><h3>Places designed around people.</h3><p>Every plan starts with the people who will live, work, pray and visit there — human-scale streets, shade, walkability and public spaces where communities can gather.</p><figure class="cm-mimg"><img src="img/kidana-al-khaif.jpg" alt="Kidana Al Khaif · Mina, Makkah" loading="lazy"></figure></div><div class="cm-b" data-i="1" id="society"><span class="chap-n">02</span><div class="lbl">Society</div><h3>Inclusive, affordable, connected.</h3><p>We plan for social inclusion: affordable housing, access to services and mixed-use neighbourhoods that give every generation a place to belong — and a stake in the city’s future.</p><figure class="cm-mimg"><img src="img/sumou-boulevard.jpg" alt="Sumou Boulevard · New Cairo" loading="lazy"></figure></div><div class="cm-b" data-i="2" id="culture"><span class="chap-n">03</span><div class="lbl">Culture</div><h3>Heritage as a living foundation.</h3><p>We read each place’s history before we draw a line, protecting cultural landscapes and carrying local identity forward, so that new development deepens a place’s character rather than erasing it.</p><figure class="cm-mimg"><img src="img/khaybar-heritage.jpg" alt="Khaybar Heritage Area · AlUla" loading="lazy"></figure></div><div class="cm-b" data-i="3" id="environment"><span class="chap-n">04</span><div class="lbl">Environment</div><h3>Working with nature, not against it.</h3><p>Responsible land use, protected ecosystems, water-wise landscapes and green building standards — from nature reserves in AlUla to green communities in New Cairo.</p><figure class="cm-mimg"><img src="img/sharaan.jpg" alt="Sharaan Nature Reserve · AlUla" loading="lazy"></figure></div><div class="cm-b" data-i="4" id="planet"><span class="chap-n">05</span><div class="lbl">Planet</div><h3>Resilient regions for a changing climate.</h3><p>At regional scale we plan for resilience: compact growth, low-carbon mobility and coastlines and deserts managed for the long term, so that our work leaves the planet better prepared.</p><figure class="cm-mimg"><img src="img/nw-coast-regional-vision.jpg" alt="North-West Coast Regional Vision · Egypt" loading="lazy"></figure></div></div>
 </section>
 <section class="interlude rf2" aria-label="Designing resilient futures">
   <div class="il-img" data-px="0.18"><img src="img/alamein-riviera.jpg" alt="Alamein Riviera, North Coast" loading="lazy"></div>
-  <div class="il-txt gut"><p class="rv">Where sustainability shapes place, purpose and people.</p><a class="meta rv d1" href="project.html#alamein-riviera">Alamein Riviera · North Coast, Egypt →</a></div>
+  <div class="il-txt gut"><p class="rv">Where sustainability shapes place, purpose and people.</p><a class="meta rv d1" href="project-alamein-riviera.html">Alamein Riviera · North Coast, Egypt →</a></div>
 </section>
 <section class="sec gut">
   <div class="row2"><div class="lbl">Designing resilient futures</div><div>
@@ -491,7 +564,7 @@ page('sustainability.html', 'Sustainability — PUD Consultants', landing('Susta
 </section>
 <section class="sec gut" id="projects">
   <div class="lr-head rv" style="margin-top:0"><span class="lbl">Sustainability in practice</span><a class="meta" href="projects.html">All projects →</a></div>
-  <div class="lead-row"><a class="lr-c rv d0" href="project.html#alula-framework"><div class="th"><img src="img/alula-framework.jpg" alt="AlUla County Framework Plan" loading="lazy"></div><div class="meta">AlUla, KSA</div><h3>AlUla County Framework Plan</h3></a><a class="lr-c rv d1" href="project.html#khaybar-heritage"><div class="th"><img src="img/khaybar-heritage.jpg" alt="Khaybar Heritage Area" loading="lazy"></div><div class="meta">AlUla, KSA</div><h3>Khaybar Heritage Area</h3></a><a class="lr-c rv d2" href="project.html#nw-coast-regional-vision"><div class="th"><img src="img/nw-coast-regional-vision.jpg" alt="North-West Coast Regional Plan" loading="lazy"></div><div class="meta">Egypt</div><h3>North-West Coast Regional Plan</h3></a><a class="lr-c rv d3" href="project.html#sharaan"><div class="th"><img src="img/sharaan.jpg" alt="Sharaan Nature Reserve" loading="lazy"></div><div class="meta">AlUla, KSA</div><h3>Sharaan Nature Reserve</h3></a></div>
+  <div class="lead-row"><a class="lr-c rv d0" href="project-alula-framework.html"><div class="th"><img src="img/alula-framework.jpg" alt="AlUla County Framework Plan" loading="lazy"></div><div class="meta">AlUla, KSA</div><h3>AlUla County Framework Plan</h3></a><a class="lr-c rv d1" href="project-khaybar-heritage.html"><div class="th"><img src="img/khaybar-heritage.jpg" alt="Khaybar Heritage Area" loading="lazy"></div><div class="meta">AlUla, KSA</div><h3>Khaybar Heritage Area</h3></a><a class="lr-c rv d2" href="project-nw-coast-regional-vision.html"><div class="th"><img src="img/nw-coast-regional-vision.jpg" alt="North-West Coast Regional Plan" loading="lazy"></div><div class="meta">Egypt</div><h3>North-West Coast Regional Plan</h3></a><a class="lr-c rv d3" href="project-sharaan.html"><div class="th"><img src="img/sharaan.jpg" alt="Sharaan Nature Reserve" loading="lazy"></div><div class="meta">AlUla, KSA</div><h3>Sharaan Nature Reserve</h3></a></div>
 </section>
 <section class="cta2 gut">
   <a class="cta2-c rv" href="contact.html"><span class="lbl o">For clients</span><h3>Need help developing your SDGs strategy?</h3><span class="more">Contact one of our experts →</span></a>
@@ -500,11 +573,13 @@ page('sustainability.html', 'Sustainability — PUD Consultants', landing('Susta
 ''')
 
 # ---------------- NEWS ----------------
-page('news.html', 'News — PUD Consultants', landing('News', 'Events, talks and project milestones — shared by Dr. Amr Attia, who represents PUD at forums and partners worldwide.', hero=('jorhum.jpg','Jorhum Mixed-Use Development · Makkah Region','jorhum')) + '''
+page('news.html', 'News & Events | PUD Consultants', landing('News', 'Events, talks and project milestones — shared by Dr. Amr Attia, who represents PUD at forums and partners worldwide.', hero=('jorhum.jpg','Jorhum Mixed-Use Development · Makkah Region','jorhum')) + '''
 <section class="sec tight gut"><div class="chips" id="newsF" style="margin-bottom:30px"></div><div class="nlist" id="newsList"></div></section>''')
 
+FAQ = [('What is PUD Consultants?', 'PUD (Planning Urban Development) Consultants is a multidisciplinary planning and design consultancy founded in Cairo in 1966 by Prof. Abdallah Abdel Aziz Attia. It shapes sustainable cities, tourism destinations, heritage areas and sacred landscapes across Egypt, Saudi Arabia, the UAE and beyond.'), ('Who leads PUD Consultants today?', 'PUD is led by Prof. Dr. Amr A. Attia, CEO and Principal, Professor of Architecture and Urban Planning at Ain Shams University, an Eisenhower Fellow (2007) and former Vice President of Strategic Development at WATG and Principal Director at AECOM.'), ('What services does PUD offer?', 'Urban and regional planning, master planning and urban design, architectural design, sustainable tourism development, cultural heritage, landscape planning and design, environment and sustainability, green economy, development consultancy, and financial planning and assessment.'), ('Where does PUD work?', 'PUD has delivered 150+ projects in 11 countries and 60+ cities, with offices in Cairo (Egypt), Riyadh (Saudi Arabia) and Dubai (UAE). Work spans Egypt from Alexandria to Aswan, Saudi Arabia from NEOM to Jazan, and countries including Kuwait, Iraq, Syria, Palestine, Iran, Cameroon, Gambia and Germany.'), ('What are some of PUD’s notable projects?', 'Highlights include the Pyramids Plateau Destination and AKHET tourism master plan (with WATG), Al Mashaaer Al Mugaddassah in Makkah, Alamein Riviera, Sumou Boulevard, Cairo Media City, strategic advisory for the New Administrative Capital, the Khaybar Heritage Area and AlUla County framework plans, and Jazan Economic City.'), ('How does PUD approach sustainability?', 'Sustainability is at the core of every PUD project, through environmental responsibility, social inclusion, cultural heritage preservation and green building standards. PUD’s work aligns with UN Sustainable Development Goals 7, 8, 9, 11, 12, 13 and 17.'), ('Does PUD work with international firms?', 'Yes. PUD regularly collaborates with leading global firms including WATG, AECOM, SOM, BuroHappold, HOK, HILL International and Giugiaro, combining international expertise with deep local knowledge, alongside 100+ clients and 90+ collaborations over six decades.'), ('How can I contact PUD Consultants?', 'Call Cairo on +20 2 2414 7537, Riyadh on +966 540 39 8178 or Dubai on +971 509 29 8178, or use the enquiry form on the Contact page.')]
+FAQPAGE = {'@type':'FAQPage','mainEntity':[{'@type':'Question','name':q,'acceptedAnswer':{'@type':'Answer','text':a}} for q,a in FAQ]}
 # ---------------- ABOUT ----------------
-page('about.html', 'About — PUD Consultants', landing('About', 'Planning Urban Development (PUD) is a pioneering consulting and design firm, established in 1966 by Prof. Abdallah Abdel Aziz Attia.', hero=('khaybar-heritage.jpg','Khaybar Heritage Area Master Plan · AlUla','khaybar-heritage')) + f'''
+page('about.html', 'About PUD: Planning & Urban Development Consultants since 1966', landing('About', 'Planning Urban Development (PUD) is a pioneering consulting and design firm, established in 1966 by Prof. Abdallah Abdel Aziz Attia.', hero=('khaybar-heritage.jpg','Khaybar Heritage Area Master Plan · AlUla','khaybar-heritage')) + f'''
 <section class="sec gut">
   <div class="row2"><div class="lbl">Our Purpose</div>
   <p class="purpose rv">We lead urban and tourism transformation, <a href="#expertise">decoding land and cultural narratives</a> and <a href="people.html">curating expert-driven collaborations</a> to preserve legacy, express identity and <a href="#sustainability">foster future-ready environments</a>.</p></div>
@@ -562,10 +637,13 @@ page('about.html', 'About — PUD Consultants', landing('About', 'Planning Urban
   <h2 class="h-l rv">20+ awards, with first- and second-place prizes.</h2>
   <p class="body rv" style="margin:18px 0 40px">Including the International Star for Leadership in Quality, Paris 2010.</p>
   <div class="awl" id="awardList"></div></div></div></section>
-''')
+<section class="sec gut" id="faq"><div class="row2"><div class="lbl">FAQ</div><div>
+  <h2 class="h-l rv" style="margin-bottom:30px">Frequently asked questions</h2>
+  <div class="faq"><details class="rv" open><summary><h3>What is PUD Consultants?</h3></summary><p>PUD (Planning Urban Development) Consultants is a multidisciplinary planning and design consultancy founded in Cairo in 1966 by Prof. Abdallah Abdel Aziz Attia. It shapes sustainable cities, tourism destinations, heritage areas and sacred landscapes across Egypt, Saudi Arabia, the UAE and beyond.</p></details><details class="rv"><summary><h3>Who leads PUD Consultants today?</h3></summary><p>PUD is led by Prof. Dr. Amr A. Attia, CEO and Principal, Professor of Architecture and Urban Planning at Ain Shams University, an Eisenhower Fellow (2007) and former Vice President of Strategic Development at WATG and Principal Director at AECOM.</p></details><details class="rv"><summary><h3>What services does PUD offer?</h3></summary><p>Urban and regional planning, master planning and urban design, architectural design, sustainable tourism development, cultural heritage, landscape planning and design, environment and sustainability, green economy, development consultancy, and financial planning and assessment.</p></details><details class="rv"><summary><h3>Where does PUD work?</h3></summary><p>PUD has delivered 150+ projects in 11 countries and 60+ cities, with offices in Cairo (Egypt), Riyadh (Saudi Arabia) and Dubai (UAE). Work spans Egypt from Alexandria to Aswan, Saudi Arabia from NEOM to Jazan, and countries including Kuwait, Iraq, Syria, Palestine, Iran, Cameroon, Gambia and Germany.</p></details><details class="rv"><summary><h3>What are some of PUD’s notable projects?</h3></summary><p>Highlights include the Pyramids Plateau Destination and AKHET tourism master plan (with WATG), Al Mashaaer Al Mugaddassah in Makkah, Alamein Riviera, Sumou Boulevard, Cairo Media City, strategic advisory for the New Administrative Capital, the Khaybar Heritage Area and AlUla County framework plans, and Jazan Economic City.</p></details><details class="rv"><summary><h3>How does PUD approach sustainability?</h3></summary><p>Sustainability is at the core of every PUD project, through environmental responsibility, social inclusion, cultural heritage preservation and green building standards. PUD’s work aligns with UN Sustainable Development Goals 7, 8, 9, 11, 12, 13 and 17.</p></details><details class="rv"><summary><h3>Does PUD work with international firms?</h3></summary><p>Yes. PUD regularly collaborates with leading global firms including WATG, AECOM, SOM, BuroHappold, HOK, HILL International and Giugiaro, combining international expertise with deep local knowledge, alongside 100+ clients and 90+ collaborations over six decades.</p></details><details class="rv"><summary><h3>How can I contact PUD Consultants?</h3></summary><p>Call Cairo on +20 2 2414 7537, Riyadh on +966 540 39 8178 or Dubai on +971 509 29 8178, or use the enquiry form on the Contact page.</p></details></div></div></div></section>
+''', ld=[FAQPAGE])
 
 # ---------------- CONTACT ----------------
-page('contact.html', 'Contact — PUD Consultants', landing('Contact', 'Five offices across Egypt, Saudi Arabia and the United Arab Emirates.', hero=('prince-talal-hurghada.jpg','HRH Prince Talal Development · Hurghada','prince-talal-hurghada')) + f'''
+page('contact.html', 'Contact PUD Consultants: Cairo, Riyadh, Dubai', landing('Contact', 'Five offices across Egypt, Saudi Arabia and the United Arab Emirates.', hero=('prince-talal-hurghada.jpg','HRH Prince Talal Development · Hurghada','prince-talal-hurghada')) + f'''
 <section class="sec tight gut"><div class="offices">
   <div class="office rv"><h3>Cairo</h3><div class="lbl o">Egypt</div>
     <address><b>Heliopolis</b>115 El Thawra Street, 5th Floor, Heliopolis 11757, Cairo<br>Tel +20 2 2414 7537</address>
@@ -587,4 +665,122 @@ page('contact.html', 'Contact — PUD Consultants', landing('Contact', 'Five off
     <div class="note" id="fnote" aria-live="polite"></div>
   </form></div></div></section>
 ''')
+
+# ---------------- STATIC PROJECT + ARTICLE PAGES (indexable) ----------------
+REG = {'egypt': 'Egypt', 'ksa': 'Saudi Arabia', 'intl': 'International'}
+E = _h.escape
+def pimgname(p):
+    return f"{p['s']}.jpg" if p.get('i') == '1' and os.path.exists(os.path.join(OUT, 'img', p['s'] + '.jpg')) else 'cairo-media-city.jpg'
+for p in DATA['projects']:
+    nm, img = p['n'], pimgname(p)
+    desc = (p.get('d') or f"{nm}, {p.get('l','')}: a PUD Consultants project.").strip()
+    mdesc = (desc[:155].rsplit(' ', 1)[0] + '…') if len(desc) > 160 else desc
+    facts = [('Location', p.get('l')), ('Year', p.get('y')), ('Type', p.get('t')), ('Region', REG.get(p.get('r'))), ('Client', p.get('c')), ('Collaborators', p.get('co')), ('PUD scope', p.get('sc'))]
+    facts = [f for f in facts if f[1]]
+    fallback = f"""<div class="gut" style="padding-top:140px"><div class="crumb"><a href="projects.html">Projects</a> / {E(p.get('t',''))}</div>
+<h1>{E(nm)}</h1><p class="meta">{E(p.get('l',''))}{(' · ' + E(p['y'])) if p.get('y') else ''}</p>
+<img src="img/{img}" alt="{E(nm)}" style="width:100%;margin:30px 0">
+<p class="body">{E(desc)}</p><dl class="facts">{''.join(f'<dt>{E(a)}</dt><dd>{E(b)}</dd>' for a, b in facts)}</dl></div>"""
+    ld = [{"@type": "CreativeWork", "name": nm, "description": desc, "image": BASE + 'img/' + img, "url": BASE + f"project-{p['s']}.html",
+           "creator": {"@id": BASE + "#org"}, "genre": p.get('t'), "dateCreated": p.get('y') or None,
+           "contentLocation": {"@type": "Place", "name": p.get('l')} if p.get('l') else None,
+           "sourceOrganization": {"@type": "Organization", "name": p['c']} if p.get('c') else None}]
+    ld = [{k: v for k, v in ld[0].items() if v}]
+    page(f"project-{p['s']}.html", f"{nm} | {p.get('t') or 'Project'} by PUD Consultants", f"""<article id="pDetail" data-slug="{p['s']}">{fallback}</article>
+<section class="gut" style="padding:60px 0 22px"><h2 class="h-m">Related projects</h2></section>
+{CAR('relCar')}
+<div style="height:80px"></div>""", desc=mdesc, img=img, ld=ld, crumbs=[('Home', 'index.html'), ('Projects', 'projects.html'), (nm, f"project-{p['s']}.html")], ogtype='article')
+
+MONTHS = {'Jan':'01','Feb':'02','Mar':'03','Apr':'04','May':'05','Jun':'06','Jul':'07','Aug':'08','Sep':'09','Oct':'10','Nov':'11','Dec':'12'}
+def iso(d):
+    parts = d.split()
+    return f"{parts[1]}-{MONTHS.get(parts[0],'01')}-01" if len(parts) == 2 else f"{d}-01-01"
+PBY = {p['s']: p for p in DATA['projects']}
+for n in DATA['news']:
+    img = n.get('img') or (pimgname(PBY[n['p']]) if n.get('p') in PBY else 'cairo-media-city.jpg')
+    body = ''.join(f'<p>{E(t)}</p>' for t in n.get('b', []))
+    fallback = f"""<div class="gut" style="padding-top:140px"><div class="crumb"><a href="news.html">News</a> / {E(n['c'])}</div>
+<h1>{E(n['h'])}</h1><p class="meta">{E(n['d'])} · {E(n['c'])}</p><img src="img/{img}" alt="" style="width:100%;margin:30px 0">
+<div class="art-txt">{body}</div></div>"""
+    ld = [{"@type": "NewsArticle", "headline": n['h'][:110], "description": n.get('x', ''), "image": [BASE + 'img/' + img], "datePublished": iso(n['d']),
+           "author": {"@id": BASE + "#org"}, "publisher": {"@id": BASE + "#org"}, "mainEntityOfPage": BASE + f"article-{n['s']}.html",
+           "articleBody": ' '.join(n.get('b', []))}]
+    page(f"article-{n['s']}.html", f"{n['h']} | PUD Consultants News", f"""<article id="aDetail" data-slug="{n['s']}">{fallback}</article>
+<section class="gut" style="padding:60px 0 22px"><h2 class="h-m">More news</h2></section>
+<div class="gut more-news" id="moreNews"></div>
+<div style="height:80px"></div>""", desc=n.get('x') or n['h'], img=img, ld=ld, crumbs=[('Home', 'index.html'), ('News', 'news.html'), (n['h'][:60], f"article-{n['s']}.html")], ogtype='article')
+
+# ---------------- SITEMAP, ROBOTS, LLMS ----------------
+import datetime
+today = datetime.date.today().isoformat()
+def prio(u):
+    return '1.0' if u == BASE else ('0.6' if ('project-' in u or 'article-' in u) else '0.8')
+open(os.path.join(OUT, 'sitemap.xml'), 'w').write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
+    ''.join(f'  <url><loc>{u}</loc><lastmod>{today}</lastmod><priority>{prio(u)}</priority></url>\n' for u in SITEMAP) + '</urlset>\n')
+open(os.path.join(OUT, 'robots.txt'), 'w').write(f"""# PUD Consultants — search engines and AI assistants are welcome.
+User-agent: *
+Allow: /
+
+# AI / answer engines (explicitly allowed)
+User-agent: GPTBot
+Allow: /
+User-agent: OAI-SearchBot
+Allow: /
+User-agent: ChatGPT-User
+Allow: /
+User-agent: ClaudeBot
+Allow: /
+User-agent: Claude-Web
+Allow: /
+User-agent: anthropic-ai
+Allow: /
+User-agent: PerplexityBot
+Allow: /
+User-agent: Google-Extended
+Allow: /
+User-agent: Applebot-Extended
+Allow: /
+User-agent: Bingbot
+Allow: /
+
+Sitemap: {BASE}sitemap.xml
+""")
+proj_lines = '\n'.join(f"- [{p['n']}]({BASE}project-{p['s']}.html): {p.get('l','')}{(', ' + p['y']) if p.get('y') else ''}. {p.get('t','')}." for p in DATA['projects'])
+news_lines = '\n'.join(f"- [{n['h']}]({BASE}article-{n['s']}.html) ({n['d']}): {n.get('x','')}" for n in DATA['news'])
+faq_lines = '\n\n'.join(f"### {q}\n{a}" for q, a in FAQ)
+llms = f"""# PUD Consultants
+
+> PUD (Planning Urban Development) Consultants is a multidisciplinary planning and design consultancy founded in Cairo in 1966 by Prof. Abdallah Abdel Aziz Attia and led today by Prof. Dr. Amr A. Attia. Over 60 years it has delivered 150+ projects in 11 countries and 60+ cities, shaping sustainable cities, tourism destinations, heritage areas and sacred landscapes across Egypt, Saudi Arabia, the UAE and beyond.
+
+## Key facts
+- Founded: 1966, Cairo, Egypt — by Prof. Abdallah Abdel Aziz Attia
+- CEO & Principal: Prof. Dr. Amr Abdalla Abdelaziz Attia (Professor of Architecture & Urban Planning, Ain Shams University; Eisenhower Fellow 2007; former VP Strategic Development MEA, WATG; former Principal Director, AECOM)
+- Scale: 150+ projects, 11 countries, 60+ cities, 100+ clients, 90+ collaborations, 20+ awards
+- Offices: Cairo (Heliopolis, Sheikh Zayed), Riyadh (Diplomatic Quarter, Al Nakheel), Dubai (Palm Jumeirah)
+- Services: urban & regional planning; master planning & urban design; architectural design; sustainable tourism; cultural heritage; landscape planning; environment & sustainability; green economy; development consultancy; financial planning & assessment
+- Sustainability: environmental responsibility, social inclusion, cultural heritage preservation, green building standards; aligned with UN SDGs 7, 8, 9, 11, 12, 13, 17
+- Partners include: WATG, AECOM, SOM, BuroHappold, HOK, HILL International, Giugiaro
+- 60th anniversary: 2026 — "60 Years of Shaping Sustainable Cities"
+
+## Main pages
+- [Home]({BASE})
+- [Projects]({BASE}projects.html)
+- [60 Years story]({BASE}60-years.html)
+- [People & leadership]({BASE}people.html)
+- [Sustainability & SDGs]({BASE}sustainability.html)
+- [News]({BASE}news.html)
+- [About & FAQ]({BASE}about.html)
+- [Contact]({BASE}contact.html)
+
+## FAQ
+{faq_lines}
+
+## News
+{news_lines}
+
+## Projects
+{proj_lines}
+"""
+open(os.path.join(OUT, 'llms.txt'), 'w').write(llms)
+
 print('ok')

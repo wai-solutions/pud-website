@@ -79,45 +79,45 @@ const NEWS=[
      'Dr. Amr Attia, CEO of PUD Consultants, sits on the local organising committee alongside Prof. Iman Gawad, Karim El Hayawan and Dr. Tamer Elgabaly. For PUD, the forum is a chance to bring the international design conversation to Egypt, and to put Egyptian practice at the centre of it.',
      'The programme is built around four themes that reflect where the region is heading: public architecture and the design of facades; housing and mixed-use development; capital, design and nation-building; and sustainability and artificial intelligence in design.',
      'The theme of capital and nation-building speaks directly to PUD’s own work — from strategic advisory on the New Administrative Capital to destination planning at the Pyramids. Sixty years after PUD was founded in Cairo, hosting this conversation at home feels like the right way to mark the anniversary.'],
-  l:[['Pyramids Plateau Destination','project.html#pyramids-plateau'],['New Administrative Capital','project.html#new-administrative-capital']]},
+  l:[['Pyramids Plateau Destination','project-pyramids-plateau.html'],['New Administrative Capital','project-new-administrative-capital.html']]},
  {s:'share-georgia-2026',c:'Talk',h:'“Making a New Capital City Work”: Dr. Amr Attia speaks at SHARE Georgia 2026',x:'Among 30 speakers from 10 countries in Tbilisi.',d:'Sep 2026',img:'new-administrative-capital.jpg',
   f:[['When','22 September 2026'],['Where','Pullman Tbilisi Axis Towers, Georgia'],['Speakers','30 speakers from 10 countries'],['Talk','Making a New Capital City Work']],
   b:['At SHARE Georgia 2026 in Tbilisi, Dr. Amr Attia joined 30 speakers from 10 countries to talk about one of the hardest questions in city-making: how do you make a new capital city actually work?',
      'Drawing on PUD’s strategic advisory for Egypt’s New Administrative Capital, the talk looked beyond the master plan, at what it takes for a new capital to grow into a living, working city.',
      'The forum brought together some of the most influential names in global architecture, with keynotes from Herzog & de Meuron, Foster + Partners and Henning Larsen. Among the reflections shared after the forum, Alexander Novikov singled out Dr. Attia’s presentation as one of its highlights.',
      'For PUD, conversations like this are part of how the firm works: sharing what we learn on the ground, and bringing back ideas from peers around the world to the projects we shape at home.'],
-  l:[['New Administrative Capital','project.html#new-administrative-capital']]},
+  l:[['New Administrative Capital','project-new-administrative-capital.html']]},
  {s:'pyramids-framework',c:'Project',h:'Pyramids Destination: a scenario tool shaped with WATG and PUD’s local expert team',x:'Field work and archival photography reshaped the role of Dahshur.',d:'Sep 2026',p:'pyramids-plateau',
   f:[['Project','Pyramids Destination framework'],['Partners','WATG'],['PUD role','Local expert team, led by Dr. Amr Attia'],['Location','Giza to Dahshur, Egypt']],
   b:['Planning a destination around the world’s most visited ancient site means making choices that will shape it for generations. To make those choices clearer, the team behind the Pyramids Destination framework built a scenario decision tool: a way to test how different strategies for access, visitor flows and development would play out across the wider landscape.',
      'The work was developed with WATG, alongside a local expert team led by Dr. Amr Attia of PUD. Local knowledge proved decisive. A field route through the landscape, together with archival photographs shared by Dr. Fekri Hassan, changed the team’s understanding of Dahshur — and with it, the role Dahshur plays in the framework.',
      'It is a reminder of something PUD has believed since 1966: good plans are not drawn from a distance. They come from walking the land, reading its history and listening to the people who know it best.'],
-  l:[['Pyramids Plateau Destination','project.html#pyramids-plateau']]},
+  l:[['Pyramids Plateau Destination','project-pyramids-plateau.html']]},
  {s:'akhet-master-plan',c:'Project',h:'AKHET: the Tourism Master Plan of Pyramids Destination',x:'Completed with WATG for the Ministry of Housing and the Ministry of Tourism.',d:'Aug 2026',img:'li-pyramids.jpg',
   f:[['Plan','AKHET — Tourism Master Plan'],['Completed','December 2024'],['Clients','Ministry of Housing · Ministry of Tourism'],['Partners','WATG']],
   b:['AKHET is the tourism master plan for Pyramids Destination — a long-term vision for how visitors will experience the Giza plateau and the landscape around it. The name comes from the ancient Egyptian word for the horizon, the place where the sun rises and sets.',
      'Completed in December 2024 for the Ministry of Housing and the Ministry of Tourism, the plan was developed with WATG, with PUD as part of the core team. It sets out how to protect the last surviving wonder of the ancient world while creating a world-class destination around it: new arrival experiences, carefully placed hospitality, and a landscape restored with respect for its history.',
      'For PUD, AKHET brings together six decades of work in heritage, tourism and regional planning — and a commitment to making places that honour the past while serving the people who visit and live there today.'],
-  l:[['Pyramids Plateau Destination','project.html#pyramids-plateau']]},
+  l:[['Pyramids Plateau Destination','project-pyramids-plateau.html']]},
  {s:'sumou-launch',c:'Project',h:'Sumou Boulevard launches: EGP 7 billion booked in 24 hours',x:'6.1× oversubscribed, with 70% of buyers under 40.',d:'Jun 2026',p:'sumou-boulevard',
   f:[['Bookings','EGP 7 billion in 24 hours'],['Demand','6.1× oversubscribed · 3,343 unit requests'],['Buyers','70% under 40'],['PUD role','SMEs for the steering committee']],
   b:['Sumou Boulevard, by Paragon-Adeer, set out to be the region’s first regenerative city. Its launch showed how much appetite there is for that idea: EGP 7 billion in bookings within 24 hours, and demand 6.1 times greater than the units on offer, with 3,343 unit requests.',
      'Perhaps the most telling number is who is buying. Seventy percent of buyers are under 40 — a young generation choosing a place designed around nature, community and long-term value rather than short-term returns.',
      'PUD provides the subject-matter experts for the project’s steering committee, helping to keep the regenerative vision at the heart of every decision as the city moves from plan to reality.'],
-  l:[['Sumou Boulevard','project.html#sumou-boulevard']]},
+  l:[['Sumou Boulevard','project-sumou-boulevard.html']]},
  {s:'pyramids-delivered',c:'Project',h:'A wonderful close to an amazing project: the Pyramids master plan is delivered',x:'A world-class team with WATG and Wimberly Interiors.',d:'Dec 2025',img:'li-pyramids.jpg',
   f:[['Milestone','Master plan delivered'],['Partners','WATG · Wimberly Interiors'],['With','Luxury Partners · Shaker Consultancy Group'],['Location','Giza, Egypt']],
   b:['In December 2025, Dr. Amr Attia marked the close of the Pyramids master plan with a simple message: it had been an honour to work with a world-class team.',
      'The project brought together WATG and Wimberly Interiors with PUD, Luxury Partners and Shaker Consultancy Group, guided by local knowledge keepers and cultural interpreters including Dr. Fekri Hassan, Dr. Michael Jones and Dalila ElKerdany. Team members described the aim as restoring one of the world’s most significant cultural landscapes with reverence and sensitivity, so that it can anchor a new era of tourism.',
      'For PUD, it is the kind of project that defines a practice: global expertise and local understanding working as one, in service of a place that belongs to everyone.'],
-  l:[['Pyramids Plateau Destination','project.html#pyramids-plateau']]},
+  l:[['Pyramids Plateau Destination','project-pyramids-plateau.html']]},
  {s:'60-years',c:'Story',h:'PUD celebrates 60 years of shaping sustainable cities',x:'From a founder’s vision in 1966 to 150+ projects across 11 countries.',d:'2026',img:'cover-60.jpg',
   f:[['Founded','1966, Cairo'],['Projects','150+'],['Countries','11'],['Cities','60+']],
   b:['In 1966, Prof. Abdallah Abdel Aziz Attia founded PUD on a simple belief: that planning should begin with people and with the natural and cultural environments they live in.',
      'Sixty years later, that vision continues through Prof. Dr. Amr A. Attia. PUD has delivered 150+ projects across 11 countries and 60+ cities — from Alex to Aswan, across the Red Sea to Saudi Arabia, and beyond.',
      'The anniversary is a moment to look back, and to ask the question that has always driven the firm: what should we build next?'],
   l:[['Read the 60-year story','60-years.html']]}
-].map(n=>Object.assign(n,{u:'article.html#'+n.s}));
+].map(n=>Object.assign(n,{u:'article-'+n.s+'.html'}));
 const nthumb=n=>n.p&&bySlug(n.p)?pimg(bySlug(n.p)):(n.img?`<img src="img/${n.img}" alt="" loading="lazy">`:art('region',3));
 const CH_IMG=['founder.jpg','amr-attia-2.jpg','massoumbou-diwom.jpg','alamein-riviera.jpg','founder-2.jpg','sumou-boulevard.jpg'];
 const CHAPTERS=[
@@ -142,7 +142,7 @@ const PAGES=[['Home','index.html'],['Projects','projects.html'],['60 Years','60-
 const pimg=(p,big)=>p&&p.i?`<img src="img/${p.s}${big?'':'-t'}.jpg" alt="${esc(p.n)}" loading="lazy" decoding="async">`:art(p?p.k:'grid',p?p.e:1,big?1600:400,big?900:300);
 const bySlug=s=>P.find(p=>p.s===s);
 const arrowR='<svg viewBox="0 0 16 16"><path d="M2 8h12M9 3l5 5-5 5"/></svg>',arrowL='<svg viewBox="0 0 16 16"><path d="M14 8H2M7 3L2 8l5 5"/></svg>';
-const pcard=p=>`<a class="pc" href="project.html#${p.s}" data-r="${p.r}" data-t="${esc(p.t)}"><div class="th">${pimg(p)}</div><h3>${esc(p.n)}</h3><div class="meta">${esc(p.l)}</div></a>`;
+const pcard=p=>`<a class="pc" href="project-${p.s}.html" data-r="${p.r}" data-t="${esc(p.t)}"><div class="th">${pimg(p)}</div><h3>${esc(p.n)}</h3><div class="meta">${esc(p.l)}</div></a>`;
 const ncard=n=>`<a class="card" href="${n.u}"${/^http/.test(n.u)?' target="_blank" rel="noopener"':''}><div class="th">${nthumb(n)}</div><div class="lbl">${n.c}</div><h3>${esc(n.h)}</h3><div class="meta">${n.d}</div></a>`;
 
 /* =============== CHROME =============== */
@@ -181,7 +181,7 @@ menuBtn&&menuBtn.addEventListener('click',()=>{const open=!body.classList.contai
 $$('.mi-x').forEach(b=>b.addEventListener('click',()=>{const mi=b.closest('.mi');mi.classList.toggle('open');b.setAttribute('aria-expanded',mi.classList.contains('open'))}));
 searchBtn&&searchBtn.addEventListener('click',()=>{const open=!body.classList.contains('search-open');closeAll();if(open){body.classList.add('search-open','lock');setTimeout(()=>$('#q')&&$('#q').focus(),200);runSearch('')}});
 addEventListener('keydown',e=>{if(e.key==='Escape')closeAll()});
-const idx=[...P.map(p=>({p:p,h:p.n,m:`Project · ${p.l}${p.y?' · '+p.y:''}`,u:'project.html#'+p.s,k:p.k,e:p.e,t:(p.n+' '+p.l+' '+p.t+' '+(p.d||'')).toLowerCase()})),
+const idx=[...P.map(p=>({p:p,h:p.n,m:`Project · ${p.l}${p.y?' · '+p.y:''}`,u:'project-'+p.s+'.html',k:p.k,e:p.e,t:(p.n+' '+p.l+' '+p.t+' '+(p.d||'')).toLowerCase()})),
  ...NEWS.map(n=>({n:n,h:n.h,m:`${n.c} · ${n.d}`,u:n.u,k:'region',e:3,t:(n.h+' '+n.c).toLowerCase()})),
  ...PAGES.map(([n,u])=>({h:n,m:'Page',u,k:'region',e:n.length,t:n.toLowerCase()})),
  ...STAFF.map(s=>({n:{img:STAFF_IMG[s[0]]+'.jpg'},h:s[0],m:'People · '+s[1],u:'people.html',k:'people',e:3,t:(s[0]+' '+s[1]).toLowerCase()}))];
@@ -211,10 +211,10 @@ const slider=$('#heroSlider');
 if(slider){
   const slides=[
    {l:'60 Years · Cairo Media City, Giza',h:'Sixty years of building sustainable cities — the legacy continues, the future begins.',u:'60-years.html',p:'cairo-media-city'},
-   {l:'Project',h:'Pyramids Plateau Destination: timeless heritage, future destination.',u:'project.html#pyramids-plateau',p:'pyramids-plateau'},
-   {l:'Project',h:'Al Mashaaer Al Mugaddassah: a year-round, resilient destination for the Holy Sites.',u:'project.html#al-mashaaer',p:'al-mashaaer'},
-   {l:'Project',h:'Alamein Riviera: a year-round Mediterranean icon on Egypt’s North Coast.',u:'project.html#alamein-riviera',p:'alamein-riviera'},
-   {l:'Project',h:'Sumou Boulevard: the region’s first regenerative city-making development.',u:'project.html#sumou-boulevard',p:'sumou-boulevard'}];
+   {l:'Project',h:'Pyramids Plateau Destination: timeless heritage, future destination.',u:'project-pyramids-plateau.html',p:'pyramids-plateau'},
+   {l:'Project',h:'Al Mashaaer Al Mugaddassah: a year-round, resilient destination for the Holy Sites.',u:'project-al-mashaaer.html',p:'al-mashaaer'},
+   {l:'Project',h:'Alamein Riviera: a year-round Mediterranean icon on Egypt’s North Coast.',u:'project-alamein-riviera.html',p:'alamein-riviera'},
+   {l:'Project',h:'Sumou Boulevard: the region’s first regenerative city-making development.',u:'project-sumou-boulevard.html',p:'sumou-boulevard'}];
   slider.insertAdjacentHTML('afterbegin',slides.map((s,i)=>`<div class="slide${i?'':' on'}${s.scene?' sc':' ph'}" aria-hidden="${i?'true':'false'}"><div class="bg">${s.scene?'<div class="scene"><div class="sun"></div><div class="layer l-far" style="bottom:22%"></div><div class="layer l-mid" style="bottom:12%"></div><div class="layer l-near" style="bottom:2%"></div><div class="layer l-front" style="bottom:-4%"></div></div>':`<img src="img/${s.p}.jpg" alt="" ${i?'loading="lazy"':''} style="object-position:${s.pos||'50% 50%'}">`}</div><div class="shade"></div><div class="cap"><a href="${s.u}"><div class="lbl o">${s.l}</div><h2>${s.h}</h2></a></div></div>`).join(''));
   const dots=$('.dots',slider);dots.innerHTML=slides.map((s,i)=>`<button aria-label="Show slide ${i+1}" class="${i?'':'on'}"><i></i></button>`).join('');
   let cur=0,playing=!RM,timer;const sl=$$('.slide',slider),db=$$('button',dots);
@@ -226,7 +226,7 @@ if(slider){
 }
 const newsCar=$('#newsCar');if(newsCar){$('.car-track',newsCar).innerHTML=NEWS.slice(0,8).map(ncard).join('');carousel(newsCar)}
 const storyCar=$('#storyCar');if(storyCar){$('.car-track',storyCar).innerHTML=CHAPTERS.map((c,ci)=>`<a class="card" href="60-years.html#${c[3]}"><div class="th"><img src="img/${CH_IMG[ci]}" alt="" loading="lazy"></div><div class="lbl">Story · ${c[0]}</div><h3>${c[1]}</h3><p>${c[2]}</p></a>`).join('');carousel(storyCar)}
-const featCar=$('#featCar');if(featCar){$('.car-track',featCar).innerHTML=(window.PUD_FEATURED||[]).map(bySlug).filter(Boolean).map(p=>`<a class="card" href="project.html#${p.s}"><div class="th">${pimg(p)}</div><div class="lbl">${esc(p.t)}</div><h3>${esc(p.n)}</h3><div class="meta">${esc(p.l)}</div></a>`).join('');carousel(featCar)}
+const featCar=$('#featCar');if(featCar){$('.car-track',featCar).innerHTML=(window.PUD_FEATURED||[]).map(bySlug).filter(Boolean).map(p=>`<a class="card" href="project-${p.s}.html"><div class="th">${pimg(p)}</div><div class="lbl">${esc(p.t)}</div><h3>${esc(p.n)}</h3><div class="meta">${esc(p.l)}</div></a>`).join('');carousel(featCar)}
 
 
 /* ===== Snøhetta-inspired home ===== */
@@ -250,24 +250,24 @@ if(wide){const tr=$('.wide-track',wide);tr.innerHTML=NEWS.slice(0,8).map(n=>`<a 
 const jt=$('.jt');
 if(jt&&$('#jtRail')){
   const M=[[1966,'Founding','Every legacy begins with a vision','Prof. Abdallah Abdel Aziz Attia founds PUD on the synergy between people and their natural and cultural environments.','founder.jpg','60-years.html#ch1'],
-   [1978,'Regional planning','Planning Egypt’s North-West Coast','An early regional vision for tourism development along the Mediterranean coast.','nw-coast-1978.jpg','project.html#nw-coast-1978'],
-   [1981,'Architecture','Egypt’s first tourist village','Tut Amoun Village on Lake Nasser, designed in harmony with Nubian character.','tut-amoun-village.jpg','project.html#tut-amoun-village'],
-   [1986,'Coastal & tourism','The North Coast takes shape','Marina El-Alamein begins: a two-decade landmark of Egyptian tourism.','marina-el-alamein.jpg','project.html#marina-el-alamein'],
-   [1991,'Hospitality','On the Gulf of Aqaba','Hilton Dahab Village, among Dahab’s early international resorts.','hilton-dahab.jpg','project.html#hilton-dahab'],
+   [1978,'Regional planning','Planning Egypt’s North-West Coast','An early regional vision for tourism development along the Mediterranean coast.','nw-coast-1978.jpg','project-nw-coast-1978.html'],
+   [1981,'Architecture','Egypt’s first tourist village','Tut Amoun Village on Lake Nasser, designed in harmony with Nubian character.','tut-amoun-village.jpg','project-tut-amoun-village.html'],
+   [1986,'Coastal & tourism','The North Coast takes shape','Marina El-Alamein begins: a two-decade landmark of Egyptian tourism.','marina-el-alamein.jpg','project-marina-el-alamein.html'],
+   [1991,'Hospitality','On the Gulf of Aqaba','Hilton Dahab Village, among Dahab’s early international resorts.','hilton-dahab.jpg','project-hilton-dahab.html'],
    [2010,'Recognition','International Star for Leadership in Quality','Paris, 2010 — one of 20+ awards and first prizes across six decades.','founder-2.jpg','about.html#awards'],
-   [2012,'City planning','Jeddah Spatial Framework Plan','Delivered in a tight six-month window to guide critical planning decisions for Jeddah, with AECOM for MOMRAH.','jeddah-spatial-framework.jpg','project.html#jeddah-spatial-framework'],
-   [2013,'Industrial cities','Jazan Economic City','Programme management, master plan update and city management for Saudi Aramco, 2013–2016.','jazan-economic-city.jpg','project.html#jazan-economic-city'],
-   [2015,'Infrastructure','Suez Canal Tunnels','Feasibility, design and tender documents for three tunnels under the Suez Canal at Port Said.','suez-canal-tunnels.jpg','project.html#suez-canal-tunnels'],
-   [2017,'Architecture','Al Jawhara Residence, Jeddah','A modern yet culturally anchored residential landmark, with Khatib & Alami for Al Mozaini.','al-jawhara-residence.jpg','project.html#al-jawhara-residence'],
+   [2012,'City planning','Jeddah Spatial Framework Plan','Delivered in a tight six-month window to guide critical planning decisions for Jeddah, with AECOM for MOMRAH.','jeddah-spatial-framework.jpg','project-jeddah-spatial-framework.html'],
+   [2013,'Industrial cities','Jazan Economic City','Programme management, master plan update and city management for Saudi Aramco, 2013–2016.','jazan-economic-city.jpg','project-jazan-economic-city.html'],
+   [2015,'Infrastructure','Suez Canal Tunnels','Feasibility, design and tender documents for three tunnels under the Suez Canal at Port Said.','suez-canal-tunnels.jpg','project-suez-canal-tunnels.html'],
+   [2017,'Architecture','Al Jawhara Residence, Jeddah','A modern yet culturally anchored residential landmark, with Khatib & Alami for Al Mozaini.','al-jawhara-residence.jpg','project-al-jawhara-residence.html'],
    [2018,'A new base','PUD Saudi is founded','Prof. Dr. Amr A. Attia founds PUD Saudi in Riyadh, expanding the firm’s regional impact.','amr-attia-2.jpg','60-years.html#ch2'],
-   [2019,'Heritage regions','AlUla County Framework Plan','Policy and planning advisory to safeguard AlUla’s landscapes and heritage, with AECOM for the Royal Commission for AlUla.','alula-framework.jpg','project.html#alula-framework'],
-   [2020,'Heritage','Khaybar Heritage Area Master Plan','With WATG, part of the Royal Commission for AlUla’s vision for a world-class cultural destination.','khaybar-heritage.jpg','project.html#khaybar-heritage'],
-   [2021,'Smart & green cities','Heliopark, New Cairo','A 7 km² smart and green community of 10,000 homes for Hassan Allam Properties.','heliopark.jpg','project.html#heliopark'],
-   [2022,'Coastal','Alamein Riviera','A year-round Mediterranean icon of almost 10 million m², with WATG for the Ministry of Housing.','alamein-riviera.jpg','project.html#alamein-riviera'],
-   [2023,'Healing landscapes','NEOM Royal Hospital Landscape','Healing through nature: the landscape masterplan for NEOM’s Royal Hospital, with Saudi Diyar.','neom-hospital.jpg','project.html#neom-hospital'],
-   [2024,'Holy Sites','Al Mashaaer Al Mugaddassah','A year-round, resilient vision for Mina, Muzdalifah and Arafat, welcoming 50,000+ pilgrims daily.','al-mashaaer.jpg','project.html#al-mashaaer'],
-   [2025,'Global minds','Pyramids Plateau & the New Capital','A global model for heritage tourism at Giza, and strategic advisory for New Administrative Capital Phases 2–4.','pyramids-plateau.jpg','project.html#pyramids-plateau'],
-   [2026,'60 years','What should we build next?','Sumou Boulevard and Cairo Media City open the next chapter.','sumou-boulevard.jpg','project.html#sumou-boulevard']];
+   [2019,'Heritage regions','AlUla County Framework Plan','Policy and planning advisory to safeguard AlUla’s landscapes and heritage, with AECOM for the Royal Commission for AlUla.','alula-framework.jpg','project-alula-framework.html'],
+   [2020,'Heritage','Khaybar Heritage Area Master Plan','With WATG, part of the Royal Commission for AlUla’s vision for a world-class cultural destination.','khaybar-heritage.jpg','project-khaybar-heritage.html'],
+   [2021,'Smart & green cities','Heliopark, New Cairo','A 7 km² smart and green community of 10,000 homes for Hassan Allam Properties.','heliopark.jpg','project-heliopark.html'],
+   [2022,'Coastal','Alamein Riviera','A year-round Mediterranean icon of almost 10 million m², with WATG for the Ministry of Housing.','alamein-riviera.jpg','project-alamein-riviera.html'],
+   [2023,'Healing landscapes','NEOM Royal Hospital Landscape','Healing through nature: the landscape masterplan for NEOM’s Royal Hospital, with Saudi Diyar.','neom-hospital.jpg','project-neom-hospital.html'],
+   [2024,'Holy Sites','Al Mashaaer Al Mugaddassah','A year-round, resilient vision for Mina, Muzdalifah and Arafat, welcoming 50,000+ pilgrims daily.','al-mashaaer.jpg','project-al-mashaaer.html'],
+   [2025,'Global minds','Pyramids Plateau & the New Capital','A global model for heritage tourism at Giza, and strategic advisory for New Administrative Capital Phases 2–4.','pyramids-plateau.jpg','project-pyramids-plateau.html'],
+   [2026,'60 years','What should we build next?','Sumou Boulevard and Cairo Media City open the next chapter.','sumou-boulevard.jpg','project-sumou-boulevard.html']];
   const Y0=1966,Y1=2026,YE=2010,PE=42,pct=y=>y<=YE?(y-Y0)/(YE-Y0)*PE:PE+(y-YE)/(Y1-YE)*(100-PE),unpct=q=>q<=PE?Y0+q/PE*(YE-Y0):YE+(q-PE)/(100-PE)*(Y1-YE);
   const media=$('#jtMedia'),rail=$('#jtRail'),handle=$('#jtHandle'),fill=$('#jtFill'),yearEl=$('#jtYear');
   media.innerHTML=M.map((m,i)=>`<img src="img/${m[4]}" alt="" class="${i?'':'on'}" loading="${i?'lazy':'eager'}">`).join('');
@@ -330,7 +330,7 @@ if(pIndex){
 let pxEls=[];
 const pd=$('#pDetail');
 function renderProject(){
-  if(!pd)return;const s=location.hash.slice(1);const i=Math.max(0,P.findIndex(p=>p.s===s));const p=P[i];
+  if(!pd)return;const s=pd.dataset.slug||location.hash.slice(1);const i=Math.max(0,P.findIndex(p=>p.s===s));const p=P[i];
   document.title=`${p.n} — PUD Consultants`;
   const facts=[['Location',p.l],['Year',p.y],['Type',p.t],['Region',REG[p.r]],['Client',p.c]].filter(f=>f[1]);
   const prev=P[(i-1+P.length)%P.length],next=P[(i+1)%P.length];
@@ -343,9 +343,9 @@ function renderProject(){
     <div class="rv d2">${p.q?`<p class="pd-quote">“${esc(p.q)}”</p>`:''}</div>
   </div>
   <div class="gut" style="display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--rule);padding-top:20px;padding-bottom:20px;flex-wrap:wrap">
-    <a href="project.html#${prev.s}" class="btn">${arrowL.replace('<svg','<svg width=16')} ${esc(prev.n)}</a><a href="project.html#${next.s}" class="btn">${esc(next.n)} ${arrowR.replace('<svg','<svg width=16')}</a></div>`;
+    <a href="project-${prev.s}.html" class="btn">${arrowL.replace('<svg','<svg width=16')} ${esc(prev.n)}</a><a href="project-${next.s}.html" class="btn">${esc(next.n)} ${arrowR.replace('<svg','<svg width=16')}</a></div>`;
   const rel=P.filter(x=>x!==p&&(x.t===p.t||x.r===p.r)).slice(0,6);
-  const rc=$('#relCar');if(rc){$('.car-track',rc).innerHTML=rel.map(x=>`<a class="card" href="project.html#${x.s}"><div class="th">${pimg(x)}</div><div class="lbl">${esc(x.t)}</div><h3>${esc(x.n)}</h3><div class="meta">${esc(x.l)}</div></a>`).join('');$('.car-track',rc).scrollLeft=0;carousel(rc)}
+  const rc=$('#relCar');if(rc){$('.car-track',rc).innerHTML=rel.map(x=>`<a class="card" href="project-${x.s}.html"><div class="th">${pimg(x)}</div><div class="lbl">${esc(x.t)}</div><h3>${esc(x.n)}</h3><div class="meta">${esc(x.l)}</div></a>`).join('');$('.car-track',rc).scrollLeft=0;carousel(rc)}
   pxEls=$$('[data-px]');watch();scrollTo(0,0);
 }
 /* 60 years film strip */
@@ -359,9 +359,13 @@ $$('.film').forEach(f=>{const t=$('.fm-track',f);const step=()=>{const c=$('.fm-
 /* sustainability commitment: swap image as each block reaches the middle */
 const cmI=$$('.cm-img'),cmB=$$('.cm-b');
 if(cmB.length){const cio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){const i=e.target.dataset.i;cmI.forEach(m=>m.classList.toggle('on',m.dataset.i===i));cmB.forEach(b=>b.classList.toggle('on',b.dataset.i===i))}}),{rootMargin:'-45% 0px -45% 0px'});cmB.forEach(b=>cio.observe(b))}
+/* legacy hash URLs (project.html#slug, article.html#slug) -> static, indexable pages */
+(()=>{const f=location.pathname.split('/').pop(),h=location.hash.slice(1);if(!h)return;
+  if(f==='project.html'&&P.some(p=>p.s===h))location.replace('project-'+h+'.html');
+  if(f==='article.html'&&NEWS.some(n=>n.s===h))location.replace('article-'+h+'.html')})();
 const ad=$('#aDetail');
 function renderArticle(){
-  if(!ad)return;const s=location.hash.slice(1);const i=Math.max(0,NEWS.findIndex(n=>n.s===s));const n=NEWS[i];
+  if(!ad)return;const s=ad.dataset.slug||location.hash.slice(1);const i=Math.max(0,NEWS.findIndex(n=>n.s===s));const n=NEWS[i];
   document.title=`${n.h} — PUD Consultants`;
   const prev=NEWS[(i-1+NEWS.length)%NEWS.length],next=NEWS[(i+1)%NEWS.length];
   ad.innerHTML=`<div class="pd-top gut"><div class="crumb"><a href="news.html">News</a> / ${esc(n.c)}</div><h1 class="rv art-h">${esc(n.h)}</h1><div class="meta rv d1">${esc(n.d)} · ${esc(n.c)}</div></div>
@@ -372,7 +376,7 @@ function renderArticle(){
       ${n.l?`<div class="art-links">${n.l.map(l=>`<a class="btn" href="${l[1]}">${esc(l[0])} ${arrowR.replace('<svg','<svg width=16')}</a>`).join('')}</div>`:''}</div>
   </div>
   <div class="gut" style="display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--rule);padding-top:20px;padding-bottom:20px;flex-wrap:wrap">
-    <a href="article.html#${prev.s}" class="btn">${arrowL.replace('<svg','<svg width=16')} Previous</a><a href="news.html" class="btn ghost" style="margin:0">All news</a><a href="article.html#${next.s}" class="btn">Next ${arrowR.replace('<svg','<svg width=16')}</a></div>`;
+    <a href="article-${prev.s}.html" class="btn">${arrowL.replace('<svg','<svg width=16')} Previous</a><a href="news.html" class="btn ghost" style="margin:0">All news</a><a href="article-${next.s}.html" class="btn">Next ${arrowR.replace('<svg','<svg width=16')}</a></div>`;
   const more=$('#moreNews');if(more)more.innerHTML=NEWS.filter(x=>x!==n).slice(0,3).map(x=>`<a class="w-card" href="${x.u}"><div class="th">${nthumb(x)}</div><div class="meta">${x.d} · ${x.c}</div><h3>${esc(x.h)}</h3></a>`).join('');
   pxEls=$$('[data-px]');watch();
 }

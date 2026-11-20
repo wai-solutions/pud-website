@@ -12,12 +12,12 @@ A fast, static, multi-page website for PUD Consultants (Planning & Urban Develop
 |---|---|
 | Home | `index.html` |
 | Projects (filterable) | `projects.html` |
-| Project detail (hash-routed, e.g. `project.html#cairo-media-city`) | `project.html` |
+| Project detail (one page each) | `project-<slug>.html` |
 | 60 Years story | `60-years.html` |
 | People | `people.html` |
 | Sustainability | `sustainability.html` |
 | News | `news.html` |
-| News article (hash-routed, e.g. `article.html#share-cairo-2026`) | `article.html` |
+| News articles (one page each) | `article-<slug>.html` |
 | About | `about.html` |
 | Contact | `contact.html` |
 
@@ -44,9 +44,18 @@ The site is fully static — upload the folder as-is to any host.
 
 **Custom domain (e.g. pudconsultants.com):** add a `CNAME` file containing the domain, then point the domain's DNS to the host.
 
+## SEO, GEO & AEO
+
+- **Every page** has a unique title, meta description, canonical URL, Open Graph and Twitter card tags, and Schema.org JSON-LD (Organization/ProfessionalService, WebSite, WebPage, BreadcrumbList).
+- **Indexable detail pages:** each project (`project-<slug>.html`, CreativeWork schema) and news story (`article-<slug>.html`, NewsArticle schema) is a real static page with its content in the HTML. Old `project.html#slug` links redirect automatically.
+- **AEO:** the About page has a FAQ (`about.html#faq`) with FAQPage schema, written as direct, quotable answers.
+- **GEO:** `llms.txt` gives AI assistants a concise, factual summary (key facts, FAQ, news, all projects with links). `robots.txt` explicitly allows search and AI crawlers.
+- **Sitemap:** `sitemap.xml` (submit it in Google Search Console and Bing Webmaster Tools).
+- If the site moves to a custom domain, change `BASE` at the top of `tools/build.py` and rebuild so canonical URLs, sitemap and schema use the new domain.
+
 ## Editing content
 
-- **Text in pages:** edit `tools/build.py`, then run `python3 tools/build.py` to regenerate the HTML files (Python 3, no dependencies). You can also edit the HTML files directly, but they will be overwritten the next time the generator runs.
+- **Text in pages:** edit `tools/build.py`, then run `python3 tools/build.py` to regenerate all HTML files, the sitemap, robots.txt and llms.txt (Python 3 + Node.js, no packages). You can also edit the HTML files directly, but they will be overwritten the next time the generator runs.
 - **News:** edit the `NEWS` array in `assets/pud.js`.
 - **Projects:** edit `assets/projects.js`; images go in `img/<slug>.jpg` with a thumbnail `img/<slug>-t.jpg`.
 - **Timeline milestones:** the `M` array in `assets/pud.js`.

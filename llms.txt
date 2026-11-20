@@ -1,0 +1,122 @@
+# PUD Consultants
+
+> PUD (Planning Urban Development) Consultants is a multidisciplinary planning and design consultancy founded in Cairo in 1966 by Prof. Abdallah Abdel Aziz Attia and led today by Prof. Dr. Amr A. Attia. Over 60 years it has delivered 150+ projects in 11 countries and 60+ cities, shaping sustainable cities, tourism destinations, heritage areas and sacred landscapes across Egypt, Saudi Arabia, the UAE and beyond.
+
+## Key facts
+- Founded: 1966, Cairo, Egypt — by Prof. Abdallah Abdel Aziz Attia
+- CEO & Principal: Prof. Dr. Amr Abdalla Abdelaziz Attia (Professor of Architecture & Urban Planning, Ain Shams University; Eisenhower Fellow 2007; former VP Strategic Development MEA, WATG; former Principal Director, AECOM)
+- Scale: 150+ projects, 11 countries, 60+ cities, 100+ clients, 90+ collaborations, 20+ awards
+- Offices: Cairo (Heliopolis, Sheikh Zayed), Riyadh (Diplomatic Quarter, Al Nakheel), Dubai (Palm Jumeirah)
+- Services: urban & regional planning; master planning & urban design; architectural design; sustainable tourism; cultural heritage; landscape planning; environment & sustainability; green economy; development consultancy; financial planning & assessment
+- Sustainability: environmental responsibility, social inclusion, cultural heritage preservation, green building standards; aligned with UN SDGs 7, 8, 9, 11, 12, 13, 17
+- Partners include: WATG, AECOM, SOM, BuroHappold, HOK, HILL International, Giugiaro
+- 60th anniversary: 2026 — "60 Years of Shaping Sustainable Cities"
+
+## Main pages
+- [Home](https://wai-solutions.github.io/pud-website/)
+- [Projects](https://wai-solutions.github.io/pud-website/projects.html)
+- [60 Years story](https://wai-solutions.github.io/pud-website/60-years.html)
+- [People & leadership](https://wai-solutions.github.io/pud-website/people.html)
+- [Sustainability & SDGs](https://wai-solutions.github.io/pud-website/sustainability.html)
+- [News](https://wai-solutions.github.io/pud-website/news.html)
+- [About & FAQ](https://wai-solutions.github.io/pud-website/about.html)
+- [Contact](https://wai-solutions.github.io/pud-website/contact.html)
+
+## FAQ
+### What is PUD Consultants?
+PUD (Planning Urban Development) Consultants is a multidisciplinary planning and design consultancy founded in Cairo in 1966 by Prof. Abdallah Abdel Aziz Attia. It shapes sustainable cities, tourism destinations, heritage areas and sacred landscapes across Egypt, Saudi Arabia, the UAE and beyond.
+
+### Who leads PUD Consultants today?
+PUD is led by Prof. Dr. Amr A. Attia, CEO and Principal, Professor of Architecture and Urban Planning at Ain Shams University, an Eisenhower Fellow (2007) and former Vice President of Strategic Development at WATG and Principal Director at AECOM.
+
+### What services does PUD offer?
+Urban and regional planning, master planning and urban design, architectural design, sustainable tourism development, cultural heritage, landscape planning and design, environment and sustainability, green economy, development consultancy, and financial planning and assessment.
+
+### Where does PUD work?
+PUD has delivered 150+ projects in 11 countries and 60+ cities, with offices in Cairo (Egypt), Riyadh (Saudi Arabia) and Dubai (UAE). Work spans Egypt from Alexandria to Aswan, Saudi Arabia from NEOM to Jazan, and countries including Kuwait, Iraq, Syria, Palestine, Iran, Cameroon, Gambia and Germany.
+
+### What are some of PUD’s notable projects?
+Highlights include the Pyramids Plateau Destination and AKHET tourism master plan (with WATG), Al Mashaaer Al Mugaddassah in Makkah, Alamein Riviera, Sumou Boulevard, Cairo Media City, strategic advisory for the New Administrative Capital, the Khaybar Heritage Area and AlUla County framework plans, and Jazan Economic City.
+
+### How does PUD approach sustainability?
+Sustainability is at the core of every PUD project, through environmental responsibility, social inclusion, cultural heritage preservation and green building standards. PUD’s work aligns with UN Sustainable Development Goals 7, 8, 9, 11, 12, 13 and 17.
+
+### Does PUD work with international firms?
+Yes. PUD regularly collaborates with leading global firms including WATG, AECOM, SOM, BuroHappold, HOK, HILL International and Giugiaro, combining international expertise with deep local knowledge, alongside 100+ clients and 90+ collaborations over six decades.
+
+### How can I contact PUD Consultants?
+Call Cairo on +20 2 2414 7537, Riyadh on +966 540 39 8178 or Dubai on +971 509 29 8178, or use the enquiry form on the Contact page.
+
+## News
+- [SHARE Architects brings its first African forum to Cairo, at the Grand Egyptian Museum](https://wai-solutions.github.io/pud-website/article-share-cairo-2026.html) (Dec 2026): Dr. Amr Attia joins the local organising committee for the 13–14 December forum.
+- [“Making a New Capital City Work”: Dr. Amr Attia speaks at SHARE Georgia 2026](https://wai-solutions.github.io/pud-website/article-share-georgia-2026.html) (Sep 2026): Among 30 speakers from 10 countries in Tbilisi.
+- [Pyramids Destination: a scenario tool shaped with WATG and PUD’s local expert team](https://wai-solutions.github.io/pud-website/article-pyramids-framework.html) (Sep 2026): Field work and archival photography reshaped the role of Dahshur.
+- [AKHET: the Tourism Master Plan of Pyramids Destination](https://wai-solutions.github.io/pud-website/article-akhet-master-plan.html) (Aug 2026): Completed with WATG for the Ministry of Housing and the Ministry of Tourism.
+- [Sumou Boulevard launches: EGP 7 billion booked in 24 hours](https://wai-solutions.github.io/pud-website/article-sumou-launch.html) (Jun 2026): 6.1× oversubscribed, with 70% of buyers under 40.
+- [A wonderful close to an amazing project: the Pyramids master plan is delivered](https://wai-solutions.github.io/pud-website/article-pyramids-delivered.html) (Dec 2025): A world-class team with WATG and Wimberly Interiors.
+- [PUD celebrates 60 years of shaping sustainable cities](https://wai-solutions.github.io/pud-website/article-60-years.html) (2026): From a founder’s vision in 1966 to 150+ projects across 11 countries.
+
+## Projects
+- [Sumou Boulevard](https://wai-solutions.github.io/pud-website/project-sumou-boulevard.html): Mostakbal City, New Cairo, Egypt, 2026. Strategic Advisory.
+- [Cairo Media City Vision Concept Master Plan](https://wai-solutions.github.io/pud-website/project-cairo-media-city.html): Giza, Egypt, 2026. Strategic Advisory.
+- [Kidana Al Khaif Design Advisory & Review](https://wai-solutions.github.io/pud-website/project-kidana-al-khaif.html): Mina, Muzdalifah & Arafat, Makkah, KSA, 2026. Strategic Advisory.
+- [Jorhum Mixed-Use Development](https://wai-solutions.github.io/pud-website/project-jorhum.html): Makkah Region, KSA, 2026. Strategic Advisory.
+- [Muzdalifah Park](https://wai-solutions.github.io/pud-website/project-muzdalifah-park.html): Muzdalifah, Makkah, KSA, 2025. Landscape.
+- [Massoumbou–Diwom Vision Master Plan](https://wai-solutions.github.io/pud-website/project-massoumbou-diwom.html): Massoumbou–Diwom, Cameroon, 2025. Master Planning.
+- [Majar Al Kabsh Pre-Concept Design](https://wai-solutions.github.io/pud-website/project-majar-al-kabsh.html): Makkah Region, KSA, 2025. Strategic Advisory.
+- [Pyramids Plateau Destination](https://wai-solutions.github.io/pud-website/project-pyramids-plateau.html): Giza, Egypt, 2025. Strategic Advisory.
+- [Jabal Thabeer Park](https://wai-solutions.github.io/pud-website/project-jabal-thabeer-park.html): Mina, Makkah, KSA, 2025. Landscape.
+- [Port Ghalib Master Plan](https://wai-solutions.github.io/pud-website/project-port-ghalib-phase-2.html): Marsa Alam, Egypt, 2025. Coastal & Tourism.
+- [Sub-Regional Plan for Yanbu, Umluj, Al Wajh & Duba](https://wai-solutions.github.io/pud-website/project-yanbu-subregional.html): Red Sea coast, KSA, 2025. Urban & Regional Planning.
+- [Cairo New Administrative Capital, Phases 2–4](https://wai-solutions.github.io/pud-website/project-new-administrative-capital.html): Greater Cairo Region, Egypt, 2024–2025. Strategic Advisory.
+- [Al Mashaaer Al Mugaddassah Concept Master Plan](https://wai-solutions.github.io/pud-website/project-al-mashaaer.html): Makkah, KSA, 2024–2025. Strategic Advisory.
+- [Al Rabita Pre-Concept Design Competition](https://wai-solutions.github.io/pud-website/project-al-rabita-competition.html): Mina, Makkah, KSA, 2024. Strategic Advisory.
+- [Riyadh Plan Stakeholder Engagement](https://wai-solutions.github.io/pud-website/project-riyadh-plan-engagement.html): Riyadh, KSA, 2024. Strategic Advisory.
+- [Fawaz Al Hokair Farmhouse](https://wai-solutions.github.io/pud-website/project-diriyah-estate.html): Diriyah, Riyadh, KSA, 2024. Master Planning.
+- [Fawaz Al Hokair Estate](https://wai-solutions.github.io/pud-website/project-fawaz-alhokair-estate.html): Al Waseel, Riyadh, KSA, 2024. Architecture.
+- [Fawaz Al Hokair Palace Extension](https://wai-solutions.github.io/pud-website/project-fawaz-palace-extension.html): Al Rabea District, Riyadh, KSA, 2024. Architecture.
+- [Fawaz Al Hokair Bvlgari Mansion](https://wai-solutions.github.io/pud-website/project-bvlgari-mansion.html): Jumeirah Bay Island, Dubai, UAE, 2024. Architecture.
+- [NEOM Royal Hospital Landscape Masterplan](https://wai-solutions.github.io/pud-website/project-neom-hospital.html): Tabuk, KSA, 2022–2023. Landscape.
+- [Najran Region Architectural Design Guidelines](https://wai-solutions.github.io/pud-website/project-najran-guidelines.html): Najran, KSA, 2022–2023. Urban & Regional Planning.
+- [Azha North, Ras El Hekma](https://wai-solutions.github.io/pud-website/project-azha-north.html): Ras El Hekma, North Coast, Egypt, 2022. Coastal & Tourism.
+- [Alamein Riviera Master Plan](https://wai-solutions.github.io/pud-website/project-alamein-riviera.html): North Coast, Egypt, 2022. Coastal & Tourism.
+- [Gulf Coast, Al Khafji (Project Line)](https://wai-solutions.github.io/pud-website/project-al-khafji.html): Al Khafji, KSA, 2021. Master Planning.
+- [Gargoub New Port City](https://wai-solutions.github.io/pud-website/project-gargoub.html): Matrouh, Egypt, 2021. Urban & Regional Planning.
+- [Heliopark](https://wai-solutions.github.io/pud-website/project-heliopark.html): New Cairo, Egypt, 2021. Master Planning.
+- [Sharaan Nature Reserve Master Plan](https://wai-solutions.github.io/pud-website/project-sharaan.html): AlUla, KSA, 2020–2021. Master Planning.
+- [Khaybar Heritage Area Master Plan](https://wai-solutions.github.io/pud-website/project-khaybar-heritage.html): AlUla, KSA, 2020. Master Planning.
+- [AlUla County Infrastructure Master Plan](https://wai-solutions.github.io/pud-website/project-alula-infrastructure.html): AlUla, KSA, 2019–2020. Urban & Regional Planning.
+- [AlUla County Framework Plan & Guidelines](https://wai-solutions.github.io/pud-website/project-alula-framework.html): AlUla, KSA, 2019. Urban & Regional Planning.
+- [Saudi Railway Land Optimisation Strategy](https://wai-solutions.github.io/pud-website/project-saudi-railway.html): Kingdom of Saudi Arabia, 2018–2019. Strategic Advisory.
+- [Taj Al Riyadh Golf Residences](https://wai-solutions.github.io/pud-website/project-taj-al-riyadh.html): Riyadh, KSA, 2018. Master Planning.
+- [Al Jawhara Residence](https://wai-solutions.github.io/pud-website/project-al-jawhara-residence.html): Jeddah, KSA, 2017–2018. Architecture.
+- [Jazan City for Primary & Downstream Industries](https://wai-solutions.github.io/pud-website/project-jazan-economic-city.html): Jazan, KSA, 2017–2018. Urban & Regional Planning.
+- [Fanarah Tourist Resort](https://wai-solutions.github.io/pud-website/project-fanarah.html): Jefaira, North Coast, Egypt, 2016. Coastal & Tourism.
+- [Suez Canal Tunnels](https://wai-solutions.github.io/pud-website/project-suez-canal-tunnels.html): Port Said, Egypt, 2015. Strategic Advisory.
+- [Jeddah Spatial Framework & City Plans](https://wai-solutions.github.io/pud-website/project-jeddah-spatial-framework.html): Jeddah, KSA, 2012–2015. Urban & Regional Planning.
+- [HRH Prince Talal Development](https://wai-solutions.github.io/pud-website/project-prince-talal-hurghada.html): Hurghada, Red Sea, Egypt, 2011. Coastal & Tourism.
+- [Castle Zaman Hotel](https://wai-solutions.github.io/pud-website/project-castle-zaman.html): Red Sea, Egypt, 2011. Architecture.
+- [Asmaak Plaza](https://wai-solutions.github.io/pud-website/project-asmaak-plaza.html): Zamalek, Cairo, Egypt, 2011. Architecture.
+- [Regional Vision for Tourism, North-West Coast](https://wai-solutions.github.io/pud-website/project-nw-coast-regional-vision.html): Fuka – Matrouh, North Coast, Egypt, 2010–2012. Urban & Regional Planning.
+- [Green Star Hotels Initiative](https://wai-solutions.github.io/pud-website/project-green-star-hotels.html): Egypt, 2010–2011. Strategic Advisory.
+- [HEPCA Headquarters & Research Center](https://wai-solutions.github.io/pud-website/project-hepca.html): Marsa Alam, Egypt, 2010. Architecture.
+- [Ain El-Sokhna Tourist Resort](https://wai-solutions.github.io/pud-website/project-ain-sokhna.html): Ain El-Sokhna, Egypt, 2010. Coastal & Tourism.
+- [The Tehran Laleh Hotel](https://wai-solutions.github.io/pud-website/project-tehran-laleh-hotel.html): Tehran, Iran, 2009. Architecture.
+- [Maria Heights Tourist Complex](https://wai-solutions.github.io/pud-website/project-maria-heights.html): Homs, Syria, 2008. Master Planning.
+- [Alex Gate Mixed-Use Development](https://wai-solutions.github.io/pud-website/project-alex-gate.html): Alexandria, Egypt, 2008. Master Planning.
+- [Investors Tourism Village](https://wai-solutions.github.io/pud-website/project-investors-tourism-village.html): New Damietta, Egypt, 2008. Coastal & Tourism.
+- [New Najaf City](https://wai-solutions.github.io/pud-website/project-new-najaf-city.html): Najaf, Iraq, 2008. Urban & Regional Planning.
+- [City of Knowledge, University of Islamic Sciences](https://wai-solutions.github.io/pud-website/project-city-of-knowledge.html): Najaf, Iraq, 2008. Master Planning.
+- [Pyramisa Apartment Hotel](https://wai-solutions.github.io/pud-website/project-pyramisa.html): Hurghada, Egypt, 2003. Architecture.
+- [Strategic Plans for Egypt’s Rural Settlements](https://wai-solutions.github.io/pud-website/project-rural-villages.html): Nile Delta, Egypt, 2001–2006. Urban & Regional Planning.
+- [Royal Oasis Residential Compound](https://wai-solutions.github.io/pud-website/project-royal-oasis.html): Sheikh Zayed City, Egypt, 2001. Architecture.
+- [Sukhna Heights Tourist Resort](https://wai-solutions.github.io/pud-website/project-sukhna-heights.html): Ain El-Sokhna, Egypt, 1999. Coastal & Tourism.
+- [Samatour Tourist Center](https://wai-solutions.github.io/pud-website/project-samatour.html): Ain El-Sokhna, Egypt, 1997–2003. Coastal & Tourism.
+- [Al Madinah Al Munawara Hotels](https://wai-solutions.github.io/pud-website/project-madinah-hotels.html): Al Madinah, KSA, 1994–1998. Architecture.
+- [Marina Matrouh Tourist Center](https://wai-solutions.github.io/pud-website/project-marina-matrouh.html): Marsa Matrouh, Egypt, 1994. Coastal & Tourism.
+- [Marina Latakia](https://wai-solutions.github.io/pud-website/project-marina-latakia.html): Latakia, Syria, 1993. Coastal & Tourism.
+- [Hilton Dahab Village Hotel](https://wai-solutions.github.io/pud-website/project-hilton-dahab.html): Dahab, Gulf of Aqaba, Egypt, 1991. Coastal & Tourism.
+- [Marina El-Alamein Tourist Center](https://wai-solutions.github.io/pud-website/project-marina-el-alamein.html): North Coast, Egypt, 1986–2005. Coastal & Tourism.
+- [Marakia Tourist Village](https://wai-solutions.github.io/pud-website/project-marakia.html): North-West Coast, Egypt, 1981–1983. Coastal & Tourism.
+- [Tut Amoun Village Hotel](https://wai-solutions.github.io/pud-website/project-tut-amoun-village.html): Lake Nasser, Aswan, Egypt, 1981. Architecture.
+- [Tourism Development Planning, North-West Coast](https://wai-solutions.github.io/pud-website/project-nw-coast-1978.html): North-West Coast, Egypt, 1978. Urban & Regional Planning.
