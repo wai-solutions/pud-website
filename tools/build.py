@@ -214,7 +214,7 @@ page('index.html', 'PUD Consultants — 60 Years of Shaping Sustainable Cities',
   <div class="j-stage">
     <div class="j-text">
       <span class="lbl">Where we work</span>
-      <div class="j-tabs"><button class="chip on" data-go="0">Egypt</button><button class="chip" data-go="1">Saudi Arabia</button><button class="chip" data-go="2">Beyond borders</button></div>
+      <div class="j-tabs"><button class="chip on" data-go="0">Egypt</button><button class="chip" data-go="1">Saudi Arabia</button><button class="chip" data-go="2">Beyond borders</button></div><div class="j-prog" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i></div>
       <div class="steps">
         <div class="step on" data-step="0"><div class="lbl o">Mediterranean · Red Sea · Nile</div><h3>From Alex to Aswan.</h3><p>From Alexandria to the Libyan border along the Mediterranean, from Marsa Alam to the Gulf of Suez and the Gulf of Aqaba, and from Aswan to the Delta along both banks of the Nile Valley.</p><a class="j-cta" href="projects.html#egypt">Explore Egypt projects <span class="j-n" data-count-reg="egypt"></span>{AR}</a></div>
         <div class="step" data-step="1"><div class="lbl o">Red Sea · Arabian Gulf</div><h3>Then across the Red Sea.</h3><p>From Jazan to NEOM along the Red Sea and to Al Khafji on the Arabian Gulf, including the holy sites development at Al Mashaaer, welcoming 50,000+ pilgrims daily.</p><a class="j-cta" href="projects.html#ksa">Explore Saudi Arabia projects <span class="j-n" data-count-reg="ksa"></span>{AR}</a></div>
@@ -389,7 +389,7 @@ page('60-years.html', '60 Years of Shaping Sustainable Cities, 1966–2026 | PUD
   <div class="j-stage">
     <div class="j-text">
       <span class="chap-n">04</span><span class="lbl">The journey</span>
-      <div class="j-tabs"><button class="chip on" data-go="0">Egypt</button><button class="chip" data-go="1">Saudi Arabia</button><button class="chip" data-go="2">Beyond borders</button></div>
+      <div class="j-tabs"><button class="chip on" data-go="0">Egypt</button><button class="chip" data-go="1">Saudi Arabia</button><button class="chip" data-go="2">Beyond borders</button></div><div class="j-prog" aria-hidden="true"><i><b></b></i><i><b></b></i><i><b></b></i></div>
       <div class="steps">
         <div class="step on" data-step="0"><div class="lbl o">Mediterranean · Red Sea · Nile</div><h3>From Alex to Aswan.</h3><p>From Alexandria to the Libyan border along the Mediterranean, from Marsa Alam to the Gulf of Suez and the Gulf of Aqaba, and from Aswan to the Delta along both banks of the Nile Valley.</p><a class="j-cta" href="projects.html#egypt">Explore Egypt projects <span class="j-n" data-count-reg="egypt"></span>{AR}</a></div>
         <div class="step" data-step="1"><div class="lbl o">Red Sea · Arabian Gulf</div><h3>Then across the Red Sea.</h3><p>From Jazan to NEOM along the Red Sea and to Al Khafji on the Arabian Gulf, including the holy sites development at Al Mashaaer, welcoming 50,000+ pilgrims daily.</p><a class="j-cta" href="projects.html#ksa">Explore Saudi Arabia projects <span class="j-n" data-count-reg="ksa"></span>{AR}</a></div>

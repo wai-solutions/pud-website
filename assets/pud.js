@@ -405,22 +405,32 @@ if(mapEl){
   s+=`<path d="${nile.map((p,i)=>(i?'L':'M')+PJ(p[0],p[1]).join(' ')).join(' ')}" fill="none" stroke="#9fb6c2" stroke-width="1.4"/>`;
   const lab=(t,lon,lat,z=9)=>{const[x,y]=PJ(lon,lat);return `<text x="${x}" y="${y}" font-family="Roboto" font-size="${z}" letter-spacing="2" fill="#a59c90" text-anchor="middle">${t}</text>`};
   s+=lab('EGYPT',28.5,26.5,12)+lab('SAUDI ARABIA',44.5,23.5,13)+lab('MEDITERRANEAN SEA',29.5,34,7)+lab('RED SEA',38.2,20.0,7)+lab('ARABIAN GULF',51.6,27.4,6)+lab('IRAQ',43.5,33.6,10)+lab('SYRIA',38.6,35.2,9)+lab('IRAN',53.5,33.0,10)+lab('UAE',54.2,23.5,8);
-  pins.forEach(p=>{const[x,y]=PJ(p[2],p[3]);const left=(p[2]<32&&p[0]==='egypt')||p[5]==='L';
-    s+=`<g class="pin" data-reg="${p[0]}"><circle class="h" cx="${x}" cy="${y}" r="3"/><circle class="c" cx="${x}" cy="${y}" r="${p[4]?3:2}"/><text x="${left?x-6:x+6}" y="${y+2.5}" text-anchor="${left?'end':'start'}">${p[5]==='N'?'':p[1]}</text></g>`});
+  const _ri={};pins.forEach(p=>{const[x,y]=PJ(p[2],p[3]);const ri=_ri[p[0]]=(_ri[p[0]]||0)+1;const left=(p[2]<32&&p[0]==='egypt')||p[5]==='L';
+    s+=`<g class="pin${p[4]?'':' minor'}" data-reg="${p[0]}" style="--i:${ri}"><circle class="h" cx="${x}" cy="${y}" r="3"/><circle class="c" cx="${x}" cy="${y}" r="${p[4]?3:2}"/><text x="${left?x-6:x+6}" y="${y+2.5}" text-anchor="${left?'end':'start'}">${p[5]==='N'?'':p[1]}</text></g>`});
   mapEl.innerHTML=s;
   ['egypt','ksa','intl'].forEach(k=>{const el=$(`[data-tags="${k}"]`);if(el)el.innerHTML=pins.filter(p=>p[0]===k&&p[5]!=='N').map(p=>`<span>${p[1]}</span>`).join('')+(k==='intl'?'<span>Cameroon · Massoumbou–Diwom</span><span>Gambia</span><span>Germany</span>':'')});
-  /* nudge overlapping labels apart (e.g. the Greater Cairo cluster) */
-  try{const T=$$('.pin text',mapEl).filter(t=>t.textContent).map(t=>({t,b:t.getBBox(),dy:0})).sort((a,b)=>a.b.y-b.b.y);
+  /* label layout: nudge overlapping labels apart, then fit each view around its pins *including labels* */
+  $$('.pin text',mapEl).forEach(t=>t.dataset.y0=t.getAttribute('y'));
+  const nudge=()=>{try{$$('.pin text',mapEl).forEach(t=>t.setAttribute('y',t.dataset.y0));
+    const T=$$('.pin text',mapEl).filter(t=>t.textContent&&getComputedStyle(t).display!=='none').map(t=>({t,b:t.getBBox(),dy:0})).filter(o=>o.b.width).sort((a,b)=>a.b.y-b.b.y);
     for(let i=0;i<T.length;i++){const a=T[i];for(let j=0;j<i;j++){const c=T[j];const ay=a.b.y+a.dy,cy=c.b.y+c.dy;
-      if(a.b.x<c.b.x+c.b.width&&c.b.x<a.b.x+a.b.width&&ay<cy+c.b.height&&cy<ay+a.b.height){a.dy=cy+c.b.height+.6-a.b.y;j=-1}}
-      if(a.dy)a.t.setAttribute('y',(+a.t.getAttribute('y')+a.dy).toFixed(1))}}catch(e){}
-  /* fit each view to its pins *including labels*, so nothing is cut at the edges */
-  const fit=(sel,d)=>{try{let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;$$(sel,mapEl).forEach(g=>{const b=g.getBBox();if(!b.width)return;x0=Math.min(x0,b.x);y0=Math.min(y0,b.y);x1=Math.max(x1,b.x+b.width);y1=Math.max(y1,b.y+b.height)});if(x1<x0)return d;const px=(x1-x0)*.08+14,py=(y1-y0)*.08+14;return[x0-px,y0-py,x1-x0+2*px,y1-y0+2*py]}catch(e){return d}};
-  const views=[fit('.pin[data-reg="egypt"]',[0,140,364,280]),fit('.pin[data-reg="ksa"]',[270,130,520,500]),fit('.pin',[180,0,744,616])];
-  /* size the steps box to the tallest step so its tags are never clipped */
-  curView=views[0].slice();targetView=views[0].slice();let cs=-1;
+      if(a.b.x<c.b.x+c.b.width&&c.b.x<a.b.x+a.b.width&&ay<cy+c.b.height&&cy<ay+a.b.height){a.dy=cy+c.b.height+a.b.height*.08-a.b.y;j=-1}}
+      if(a.dy)a.t.setAttribute('y',(+a.t.dataset.y0+a.dy).toFixed(1))}}catch(e){}};
+  const fit=(sel,d)=>{try{let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9;$$(sel,mapEl).forEach(g=>{const b=g.getBBox();if(!b.width)return;x0=Math.min(x0,b.x);y0=Math.min(y0,b.y);x1=Math.max(x1,b.x+b.width);y1=Math.max(y1,b.y+b.height)});if(x1<x0)return d;const px=(x1-x0)*.06+10,py=(y1-y0)*.06+10;return[x0-px,y0-py,x1-x0+2*px,y1-y0+2*py]}catch(e){return d}};
+  const V0=[[0,140,364,280],[270,130,520,500],[180,0,744,616]],SEL=['.pin[data-reg="egypt"]','.pin[data-reg="ksa"]','.pin'];
+  const isMob=()=>innerWidth<=900;let VL=[];
+  const setScale=o=>{if(o.lf){mapEl.style.setProperty('--lf',o.lf.toFixed(2)+'px');mapEl.style.setProperty('--ps',o.ps.toFixed(2))}else{mapEl.style.removeProperty('--lf');mapEl.style.removeProperty('--ps')}};
+  const layout=()=>{VL=V0.map((d,n)=>{let v=fit(SEL[n],d),o={v,lf:0,ps:1};
+      if(isMob()){const W=mapEl.clientWidth||360,H=mapEl.clientHeight||400;
+        for(let k=0;k<3;k++){const ppu=Math.min(W/v[2],H/v[3]);o={v,lf:10.5/ppu,ps:Math.max(1,1.9/ppu)};setScale(o);nudge();v=fit(SEL[n],v);o.v=v}}
+      else{setScale(o);nudge();o.v=fit(SEL[n],d)}
+      return o});};
+  layout();
+  const applyView=n=>{const o=VL[n];if(!o)return;setScale(o);nudge();targetView=o.v.slice()};
+  curView=VL[0].v.slice();targetView=VL[0].v.slice();let cs=-1;
+  let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(()=>{layout();if(cs>=0)applyView(cs)},250)});
   setStep=n=>{if(n===cs)return;cs=n;$$('.step').forEach(x=>x.classList.toggle('on',+x.dataset.step===n));$$('.j-tabs .chip').forEach(b=>b.classList.toggle('on',+b.dataset.go===n));
-    const reg=['egypt','ksa','intl'][n];$$('.pin').forEach(p=>{const on=p.dataset.reg===reg;p.classList.toggle('on',on);p.classList.toggle('dim',!on&&n!==2)});$('#far')&&$('#far').classList.toggle('on',n===2);targetView=views[n].slice()};
+    const reg=['egypt','ksa','intl'][n];$$('.pin').forEach(p=>{const on=p.dataset.reg===reg;p.classList.toggle('on',on);p.classList.toggle('dim',!on&&n!==2)});$('#far')&&$('#far').classList.toggle('on',n===2);applyView(n)};
   setStep(0);
   $$('.j-tabs .chip').forEach(b=>b.addEventListener('click',()=>{const n=+b.dataset.go,j=$('#journey');scrollTo({top:j.offsetTop+(j.offsetHeight-innerHeight)*(n/3+.12),behavior:RM?'auto':'smooth'});setStep(n)}));
 }
@@ -525,7 +535,7 @@ if(z60){/* find a point inside the solid stroke of the "6" so the zoom lands ful
   const prev=z60m.style.transform;z60m.style.transform='';(document.fonts&&document.fonts.ready||Promise.resolve()).then(()=>{setOrigin();z60m.style.transform=prev});
   addEventListener('resize',()=>{const t=z60m.style.transform;z60m.style.transform='';setOrigin();z60m.style.transform=t});}
 if(z60){const ims=$$('.z60-ph img',z60),names=['Pyramids Plateau Destination · Giza','Alamein Riviera · North Coast','Al Mashaaer Al Mugaddassah · Makkah','Cairo Media City · Giza','Khaybar Heritage Area · AlUla'];let zi=0;const nm=$('#z60Name');setInterval(()=>{if(document.hidden)return;ims[zi].classList.remove('on');zi=(zi+1)%ims.length;ims[zi].classList.add('on');if(nm)nm.textContent=names[zi]},2600)}
-const cover=$('.st-cover'),coverLayers=$$('.st-cover [data-depth]'),journey=$('#journey'),tl=$('#timeline'),qs=$('.y60'),qsl=$$('.y60-w span'),qsd=$$('.y60-dots i'),big=$('.big60');
+const jProg=$$('.j-prog b'),jCard=$('.j-text'),cover=$('.st-cover'),coverLayers=$$('.st-cover [data-depth]'),journey=$('#journey'),tl=$('#timeline'),qs=$('.y60'),qsl=$$('.y60-w span'),qsd=$$('.y60-dots i'),big=$('.big60');
 let mx=0,my=0,smx=0,smy=0;addEventListener('mousemove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5},{passive:true});
 function frame(){
   const sy=scrollY,vh=innerHeight;
@@ -542,8 +552,10 @@ function frame(){
     const m=$('.s-main',strip);m.style.width=(56+44*e)+'vw';m.style.height=(66+34*e)+'%';
     $('.s-l',strip).style.transform=`translate(${-e*32}vw,-50%)`;$('.s-r',strip).style.transform=`translate(${e*32}vw,-50%)`;
     $$('.s-side',strip).forEach(s=>s.style.opacity=1-e*1.2);strip.classList.toggle('full',e>.82)}
-  if(journey){const r=journey.getBoundingClientRect();if(r.top<vh&&r.bottom>0)setStep(Math.floor(clamp(-r.top/(journey.offsetHeight-vh),0,.999)*3))}
-  if(mapEl&&curView){for(let i=0;i<4;i++)curView[i]+=(targetView[i]-curView[i])*(RM?1:.07);mapEl.setAttribute('viewBox',curView.map(v=>v.toFixed(2)).join(' '))}
+  if(journey){const r=journey.getBoundingClientRect();if(r.top<vh&&r.bottom>0){const jp=clamp(-r.top/(journey.offsetHeight-vh),0,.999);setStep(Math.floor(jp*3));
+    jProg.forEach((b,i)=>b.style.transform=`scaleX(${clamp(jp*3-i,0,1).toFixed(3)})`);
+    if(jCard&&innerWidth<=900)journey.style.setProperty('--jcard',jCard.offsetHeight+'px')}}
+  if(mapEl&&curView){for(let i=0;i<4;i++)curView[i]+=(targetView[i]-curView[i])*(RM?1:.07);mapEl.setAttribute('viewBox',curView.map(v=>v.toFixed(2)).join(' '));}
   if(tl&&tlTrack){const r=tl.getBoundingClientRect();if(r.top<vh&&r.bottom>0){const p=clamp(-r.top/(tl.offsetHeight-vh),0,1);tlTrack.style.transform=`translate3d(${-p*(tlTrack.scrollWidth-innerWidth)}px,0,0)`;$('#tlBar').style.width=p*100+'%'}}
   if(z60){const r=z60.getBoundingClientRect();const p=clamp(-r.top/(z60.offsetHeight-vh),0,1);const e=p*p*p;z60m.style.transform=RM?'':`scale(${1+e*60})`;z60m.style.visibility=p>.985?'hidden':'visible';z60e.style.opacity=String(clamp((p-.8)/.15,0,1));z60e.style.transform=`translate3d(0,${(1-clamp((p-.8)/.15,0,1))*30}px,0)`;z60c.style.opacity=String(1-clamp(p/.2,0,1))}
   if(qs){const r=qs.getBoundingClientRect();const p=clamp(-r.top/(qs.offsetHeight-vh),0,1);const k=Math.min(qsl.length-1,Math.floor(p*qsl.length*.999));qsl.forEach((d,i)=>{d.classList.toggle('on',i===k);d.classList.toggle('past',i<k)});qsd.forEach((d,i)=>d.classList.toggle('on',i<=k));const bg=qs.querySelector('.y60-bg');if(bg&&!RM)bg.style.transform=`translate3d(0,${(p-.5)*-80}px,0) scale(${1+p*.08})`}

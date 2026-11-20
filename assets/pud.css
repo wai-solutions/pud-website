@@ -260,7 +260,7 @@ button{font:inherit;color:inherit}
 .pin circle.c{fill:var(--o);transition:opacity .4s}
 .pin circle.h{fill:none;stroke:var(--o);stroke-width:.6;opacity:0;transform-box:fill-box;transform-origin:center}
 .pin.on circle.h{animation:pulse 2.4s infinite}
-.pin text{font:500 7px var(--f);fill:var(--ink);opacity:0;transition:opacity .4s;paint-order:stroke;stroke:#fff;stroke-width:2.5px}
+.pin text{font:500 var(--lf,7px) var(--f);fill:var(--ink);opacity:0;transition:opacity .4s;paint-order:stroke;stroke:#fff;stroke-width:2.5px}
 .pin.on text{opacity:1}
 .pin.dim circle.c{opacity:.25}
 @keyframes pulse{0%{opacity:.9;transform:scale(1)}100%{opacity:0;transform:scale(3.2)}}
@@ -271,7 +271,24 @@ button{font:inherit;color:inherit}
 .far-i b{color:var(--o);font-size:18px;width:18px;text-align:center}
 a.far-i:hover{color:var(--o)}
 .far.on{opacity:1}
-@media(max-width:900px){.journey{height:320vh}.j-stage{height:100vh;height:100svh;grid-template-columns:1fr;grid-template-rows:auto minmax(0,1fr)}.j-text{border-right:0;border-bottom:1px solid var(--rule);padding:calc(var(--hh) + 14px) var(--gut) 14px;justify-content:flex-start;overflow:visible}.j-tabs{margin:10px 0 12px}.j-tabs .chip{padding:8px 14px;font-size:14px}.j-map{margin-top:0;height:auto}.journey .step h3{font-size:26px;margin:4px 0 8px}.journey .step p{font-size:14px;line-height:1.5}.j-cta{margin-top:12px;font-size:14px}.far{left:8px;right:8px;top:8px;bottom:auto;flex-direction:row;flex-wrap:wrap;gap:4px 12px;padding:8px 10px}.far-l{display:none}.far-i{font-size:12.5px;gap:5px}.far-i b{font-size:14px;width:auto}}
+@media(max-width:900px){
+.journey{height:360vh}
+.j-stage{display:block;height:100vh;height:100svh;background:#F7F5F2;overflow:hidden}
+.j-map{position:absolute;left:0;right:0;bottom:0;top:calc(var(--jcard,300px) + var(--hh) - 8px);margin:0;height:auto}
+.j-map::before{content:"";position:absolute;left:0;right:0;top:0;height:60px;background:linear-gradient(#F7F5F2,rgba(247,245,242,0));z-index:1;pointer-events:none}
+.j-text{position:absolute;left:10px;right:10px;top:calc(var(--hh) + 10px);z-index:3;padding:16px 16px 14px;background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--rule);box-shadow:0 14px 40px rgba(0,0,0,.08);border-right:1px solid var(--rule);justify-content:flex-start;overflow:visible}
+.j-text>.lbl{font-size:11px}
+.j-tabs{margin:10px 0 10px;gap:6px;flex-wrap:nowrap}
+.j-tabs .chip{min-height:34px;padding:0 12px;font-size:13px;white-space:nowrap}
+.journey .step h3{font-size:24px;margin:2px 0 6px;line-height:1.1}
+.journey .step p{font-size:13.5px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.journey .step .lbl{font-size:11px}
+.j-cta{margin-top:10px;font-size:13.5px}
+.pin circle.c,.pin circle.h{transform:scale(var(--ps,1))}
+.pin.minor text{display:none}
+.far{left:10px;right:10px;top:54px;bottom:auto;flex-direction:row;flex-wrap:wrap;gap:4px 12px;padding:8px 10px;z-index:2}.far-l{display:none}.far-i{font-size:12.5px;gap:5px}.far-i b{font-size:14px;width:auto}
+.pchat{bottom:14px}
+}
 
 /* timeline */
 .tl{height:400vh;background:var(--tint)}
@@ -842,3 +859,15 @@ body.lite-on .lg-track{animation:none}body.lite-on .lg-row{overflow-x:auto}
 .j-cta .j-n{color:var(--mid);font-weight:400}
 .j-cta svg{width:16px;height:10px;fill:none;stroke:currentColor;stroke-width:1.4;transition:transform .3s}
 .j-cta:hover{color:var(--o);border-color:var(--o)}.j-cta:hover svg{transform:translateX(4px)}
+
+/* journey progress + pin entrance */
+.j-prog{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 0 18px}
+.j-prog i{height:2px;background:var(--rule);overflow:hidden;display:block}
+.j-prog b{display:block;height:100%;background:var(--o);transform:scaleX(0);transform-origin:left}
+@media(max-width:900px){.j-prog{margin:0 0 12px}}
+.pin circle.c{transform-box:fill-box;transform-origin:center}
+.pin.on circle.c{animation:pinpop .7s cubic-bezier(.2,1.6,.4,1) both;animation-delay:calc(var(--i,0) * 45ms)}
+.pin.on text{animation:pinfade .6s ease both;animation-delay:calc(var(--i,0) * 45ms + 120ms)}
+@keyframes pinpop{0%{transform:scale(0)}100%{transform:scale(var(--ps,1))}}
+@keyframes pinfade{from{opacity:0;transform:translateY(3px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.pin.on circle.c,.pin.on text{animation:none}}
